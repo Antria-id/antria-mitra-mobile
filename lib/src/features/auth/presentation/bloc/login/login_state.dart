@@ -1,0 +1,11 @@
+part of 'login_bloc.dart';
+
+@freezed
+class LoginState with _$LoginState {
+  const factory LoginState.initial() = LoginInitialState;
+  const factory LoginState.loading() = LoginLoadingState;
+  const factory LoginState.failed(String message) = LoginFailedState;
+  const factory LoginState.success({
+    required LoginResponse responseModel,
+  }) = LoginSuccessState;
+}
