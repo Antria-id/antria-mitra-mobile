@@ -4,6 +4,8 @@ import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/reset_p
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/splash_page.dart';
 import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_list_page.dart';
 import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_page.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/detail_history_transaksi_page.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,10 @@ class AppRoutes {
         return _materialRoute(const ChatListPage());
       case '/chat':
         return _materialRoute(const ChatPage());
+      case '/riwayat-transaksi':
+        return _materialRoute(const HistoryTransaksiPage());
+      case '/detail-transaksi':
+        return _materialRoute(const DetailHistoryTransaksiPage());
       default:
         return _materialRoute(const LoginPage());
     }
