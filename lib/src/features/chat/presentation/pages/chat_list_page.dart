@@ -3,8 +3,8 @@ import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
-class ChatListScreen extends StatelessWidget {
-  const ChatListScreen({super.key});
+class ChatListPage extends StatelessWidget {
+  const ChatListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
