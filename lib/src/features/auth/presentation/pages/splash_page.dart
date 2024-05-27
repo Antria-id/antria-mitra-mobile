@@ -1,3 +1,7 @@
+import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/login_page.dart';
+import 'package:antria_mitra_mobile/src/features/home/domain/usecases/check_user_login_status_usecase.dart';
+import 'package:antria_mitra_mobile/src/shared/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -15,7 +19,17 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(
       const Duration(seconds: 2),
       () {
-        Navigator.pushReplacementNamed(context, '/login');
+        serviceLocator<CheckUserLoginStatus>().checkIfUserLoggedIn().then(
+          (isUserLoggedIn) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => isUserLoggedIn
+                    ? const BottomNavigation()
+                    : const LoginPage(),
+              ),
+            );
+          },
+        );
       },
     );
   }

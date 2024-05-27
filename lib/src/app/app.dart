@@ -3,6 +3,10 @@ import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karyawan_profile/karyawan_profile_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/logout/logout_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/ulasan/ulasan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/routes/routes.dart';
 import 'package:antria_mitra_mobile/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +33,18 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PesananBerlangsungBloc(),
+        ),
+        BlocProvider(
+          create: (_) => KaryawanProfileBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateProfileBloc(),
+        ),
+        BlocProvider(
+          create: (_) => LogoutBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UlasanBloc(),
         ),
       ],
       child: MaterialApp(

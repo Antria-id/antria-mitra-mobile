@@ -13,6 +13,13 @@ import 'package:antria_mitra_mobile/src/features/home/domain/usecases/check_user
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_daily_income_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_pesanan_berlangsung_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_local_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:antria_mitra_mobile/src/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:antria_mitra_mobile/src/features/profile/domain/repositories/profile_repository.dart';
+import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_karyawan_profile_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_ulasan_mitra_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/logout_user_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_karyawan_profile_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,6 +65,25 @@ Future<void> setUpServiceLocator() async {
   //repository
   serviceLocator.registerFactory<HomeRepository>(() => HomeRepositoryImpl());
   serviceLocator.registerSingleton<UserCacheService>(UserCacheService());
+
+  //profile
+
+  //datasource
+  serviceLocator.registerFactory<ProfileUserDatasource>(
+      () => ProfileUserDatasourceImpl());
+
+  //usecase
+  serviceLocator.registerFactory<LogoutUserUsecase>(() => LogoutUserUsecase());
+  serviceLocator.registerFactory<GetKaryawanProfileUsecase>(
+      () => GetKaryawanProfileUsecase());
+  serviceLocator.registerFactory<UpdateKaryawanProfileUsecase>(
+      () => UpdateKaryawanProfileUsecase());
+  serviceLocator
+      .registerFactory<GetUlasanMitraUsecase>(() => GetUlasanMitraUsecase());
+
+  //repository
+  serviceLocator
+      .registerFactory<ProfileRepository>(() => ProfileRepositoryImpl());
 
   //external
   final sharedPreferences = await SharedPreferences.getInstance();
