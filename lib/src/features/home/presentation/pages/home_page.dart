@@ -1,7 +1,7 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_review_widget.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_income_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/layanan/layanan_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesanan_berlangsung/list_pesanan_berlangsung_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
@@ -110,7 +110,7 @@ class HomePages extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const DailyReviewWidget(),
+                const DailyIncomeWidget(),
                 const SizedBox(
                   height: 20,
                 ),

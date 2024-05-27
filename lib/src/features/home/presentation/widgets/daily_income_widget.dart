@@ -4,14 +4,14 @@ import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DailyReviewWidget extends StatefulWidget {
-  const DailyReviewWidget({super.key});
+class DailyIncomeWidget extends StatefulWidget {
+  const DailyIncomeWidget({super.key});
 
   @override
-  State<DailyReviewWidget> createState() => _DailyReviewWidgetState();
+  State<DailyIncomeWidget> createState() => _DailyIncomeWidgetState();
 }
 
-class _DailyReviewWidgetState extends State<DailyReviewWidget> {
+class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
