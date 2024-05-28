@@ -1,3 +1,6 @@
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian_pesanan/pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/bloc/invoice_pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register/register_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
@@ -23,19 +26,19 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LoginBloc(),
+          create: (_) => LoginBloc(),
         ),
         BlocProvider(
-          create: (context) => RegisterBloc(),
+          create: (_) => RegisterBloc(),
         ),
         BlocProvider(
-          create: (context) => DailyIncomeBloc(),
+          create: (_) => DailyIncomeBloc(),
         ),
         BlocProvider(
-          create: (context) => UserBloc(),
+          create: (_) => UserBloc(),
         ),
         BlocProvider(
-          create: (context) => PesananBerlangsungBloc(),
+          create: (_) => PesananBerlangsungBloc(),
         ),
         BlocProvider(
           create: (_) => KaryawanProfileBloc(),
@@ -57,6 +60,15 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => UpdateJadwalBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateStatusPesananBloc(),
+        ),
+        BlocProvider(
+          create: (_) => InvoicePesananBloc(),
+        ),
+        BlocProvider(
+          create: (_) => PesananBloc(),
         ),
       ],
       child: MaterialApp(
