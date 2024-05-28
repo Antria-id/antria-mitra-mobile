@@ -7,6 +7,8 @@ import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_pa
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/detail_history_transaksi_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/kasir_page.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/pemesanan_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/contact_support_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/profile_page.dart';
@@ -46,6 +48,12 @@ class AppRoutes {
 
       case '/webview-dashboard':
         return _materialRoute(const WebviewPage());
+
+      case '/kasir':
+        return _materialRoute(const KasirPage());
+
+      case '/pemesanan':
+        return _materialRoute(const PemesananPage());
 
       default:
         return _materialRoute(const LoginPage());
