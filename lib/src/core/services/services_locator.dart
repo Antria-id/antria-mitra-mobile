@@ -13,6 +13,10 @@ import 'package:antria_mitra_mobile/src/features/home/domain/usecases/check_user
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_daily_income_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_pesanan_berlangsung_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_local_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/product_remote_datasource.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/repositories/kasir_repository_impl.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/domain/repositories/kasir_repository.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/domain/usecases/get_product_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/repositories/profile_repository.dart';
@@ -80,6 +84,18 @@ Future<void> setUpServiceLocator() async {
       () => UpdateKaryawanProfileUsecase());
   serviceLocator
       .registerFactory<GetUlasanMitraUsecase>(() => GetUlasanMitraUsecase());
+
+  //Kasir
+
+  //usecase
+  serviceLocator.registerFactory<GetProductUsecase>(() => GetProductUsecase());
+
+  //datasource
+  serviceLocator.registerFactory<ProductRemoteDatasource>(
+      () => ProductRemoteDatasourceImpl());
+
+  //Repository
+  serviceLocator.registerFactory<KasirRepository>(() => KasirRepositoryImpl());
 
   //repository
   serviceLocator
