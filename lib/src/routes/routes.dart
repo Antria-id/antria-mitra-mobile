@@ -1,3 +1,7 @@
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/antrian_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_antrian_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_pending_antrian_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_pengambilan_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/login_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/register_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/reset_password_page.dart';
@@ -67,6 +71,37 @@ class AppRoutes {
 
       case '/jadwal':
         return _materialRoute(const JadwalPage());
+
+      case '/antrian':
+        return _materialRoute(const AntrianPage());
+
+      case '/detail-pesanan':
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final invoice = arguments['invoice'] as String;
+        final nomor = int.tryParse(arguments['nomor'] ?? '');
+
+        return _materialRoute(
+          DetailAntrianPage(
+            invoice: invoice,
+            nomor: nomor!,
+          ),
+        );
+
+      case '/detail-pengambilan':
+        final invoice = settings.arguments as String;
+        return _materialRoute(
+          DetailPengambilanPage(
+            invoice: invoice,
+          ),
+        );
+
+      case '/detail-pending':
+        final invoice = settings.arguments as String;
+        return _materialRoute(
+          DetailPendingPage(
+            invoice: invoice,
+          ),
+        );
 
       default:
         return _materialRoute(const LoginPage());

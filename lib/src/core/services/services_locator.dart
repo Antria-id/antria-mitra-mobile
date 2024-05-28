@@ -1,5 +1,11 @@
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/datasources/pesanan_remote_datasource.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/repositories/pesanan_repository_impl.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/domain/repositories/pesanan_repository.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_pesanan_invoice_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_pesanan_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/update_status_pesanan_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_repository.dart';
@@ -116,6 +122,23 @@ Future<void> setUpServiceLocator() async {
   //Repository
   serviceLocator
       .registerFactory<JadwalRepository>(() => JadwalRepositoryImpl());
+
+  //Antrian
+
+  //usecase
+  serviceLocator.registerFactory<GetPesananUsecase>(() => GetPesananUsecase());
+  serviceLocator.registerFactory<GetPesananInvoiceUsecase>(
+      () => GetPesananInvoiceUsecase());
+  serviceLocator.registerFactory<UpdateStatusPesananUsecase>(
+      () => UpdateStatusPesananUsecase());
+
+  //datasource
+  serviceLocator.registerFactory<PesananRemoteDatasource>(
+      () => PesananRemoteDatasourceImpl());
+
+  //Repository
+  serviceLocator
+      .registerFactory<PesananRepository>(() => PesananRepositoryImpl());
 
   //repository
   serviceLocator
