@@ -3,6 +3,8 @@ import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/product/product_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karyawan_profile/karyawan_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/logout/logout_bloc.dart';
@@ -49,6 +51,12 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => ProductBloc(),
+        ),
+        BlocProvider(
+          create: (_) => GetJadwalBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateJadwalBloc(),
         ),
       ],
       child: MaterialApp(
