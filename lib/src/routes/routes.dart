@@ -52,7 +52,6 @@ class AppRoutes {
             invoice: invoice,
           ),
         );
-        return _materialRoute(const DetailHistoryTransaksiPage());
 
       case '/profile':
         return _materialRoute(const ProfilePage());

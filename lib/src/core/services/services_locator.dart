@@ -101,7 +101,6 @@ Future<void> setUpServiceLocator() async {
   //repository
   serviceLocator.registerFactory<RiwayatTransaksiRepository>(
       () => RiwayatTransaksiRepositoryImpl());
-=======
   //profile
 
   //datasource
