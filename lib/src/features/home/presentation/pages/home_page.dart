@@ -4,6 +4,7 @@ import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/use
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_income_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/layanan/layanan_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesanan_berlangsung/list_pesanan_berlangsung_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -138,8 +139,11 @@ class HomePage extends StatelessWidget {
                 BlocBuilder<PesananBerlangsungBloc, PesananBerlangsungState>(
                   builder: (context, state) {
                     if (state is PesananBerlangsungErrorState) {
-                      return Center(
-                        child: Text(state.message),
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 60),
+                        child: Center(
+                          child: FailedFetchDataWidget(),
+                        ),
                       );
                     } else if (state is PesananBerlangsungLoadedState) {
                       return ListPesananBerlangsungWidget(

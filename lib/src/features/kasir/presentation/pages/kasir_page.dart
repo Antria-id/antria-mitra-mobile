@@ -2,6 +2,7 @@ import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/product
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/cart_widget.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/product/product_list_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,8 +43,8 @@ class _KasirPageState extends State<KasirPage> {
             BlocBuilder<ProductBloc, ProductState>(
               builder: (context, state) {
                 if (state is ProductErrorState) {
-                  return Center(
-                    child: Text(state.message),
+                  return const Center(
+                    child: EmptyDataWidget(),
                   );
                 } else if (state is ProductLoadedState) {
                   return ProductListWidget(

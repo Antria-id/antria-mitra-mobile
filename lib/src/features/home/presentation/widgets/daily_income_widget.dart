@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
+import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -17,48 +18,46 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
     return BlocProvider(
       create: (context) =>
           DailyIncomeBloc()..add(const GetDailyFetchDataEvent()),
-      child: BlocBuilder<DailyIncomeBloc, DailyIncomeState>(
-        builder: (context, state) {
-          if (state is DailyIncomeErrorState) {
-            return Center(
-              child: Text(state.message),
-            );
-          } else if (state is DailyIncomeLoadedState) {
-            final order = state.dailyIncome;
-            DateTime today = DateTime.now();
-            DateTime yesterday = today.subtract(
-              const Duration(days: 1),
-            );
-            bool isOneDay =
-                order.any((order) => order.createdAt.isAfter(yesterday));
-            int jumlahOrder = isOneDay
-                ? 0
-                : order
-                    .where(
-                      (order) =>
-                          order.antrian.orderstatus == "CONFIRM" ||
-                          order.antrian.orderstatus == "PROCESS",
-                    )
-                    .length;
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+          border: Border.all(
+            color: AppColor.dividerColor,
+            width: 0.5,
+          ),
+          color: Colors.white,
+        ),
+        child: BlocBuilder<DailyIncomeBloc, DailyIncomeState>(
+          builder: (context, state) {
+            if (state is DailyIncomeErrorState) {
+              return const FailedFetchDataWidget();
+            } else if (state is DailyIncomeLoadedState) {
+              final order = state.dailyIncome;
+              DateTime today = DateTime.now();
+              DateTime yesterday = today.subtract(
+                const Duration(days: 1),
+              );
+              bool isOneDay =
+                  order.any((order) => order.createdAt.isAfter(yesterday));
+              int jumlahOrder = isOneDay
+                  ? 0
+                  : order
+                      .where(
+                        (order) =>
+                            order.antrian.orderstatus == "CONFIRM" ||
+                            order.antrian.orderstatus == "PROCESS",
+                      )
+                      .length;
 
-            int jumlahAntrian = order
-                .where(
-                  (order) => order.antrian.orderstatus == "PROCESS",
-                )
-                .length;
-            return Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                border: Border.all(
-                  color: AppColor.dividerColor,
-                  width: 0.5,
-                ),
-                color: Colors.white,
-              ),
-              child: Row(
+              int jumlahAntrian = order
+                  .where(
+                    (order) => order.antrian.orderstatus == "PROCESS",
+                  )
+                  .length;
+              return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
@@ -151,13 +150,13 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                     ],
                   ),
                 ],
-              ),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }

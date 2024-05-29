@@ -6,6 +6,7 @@ import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karya
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/select_image.dart';
 import 'package:antria_mitra_mobile/src/shared/textfield_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/validator.dart';
@@ -50,8 +51,8 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
       body: BlocBuilder<KaryawanProfileBloc, KaryawanProfileState>(
         builder: (context, state) {
           if (state is KaryawanProfileStateErrorState) {
-            return Center(
-              child: Text(state.message),
+            return const Center(
+              child: EmptyDataWidget(),
             );
           } else if (state is KaryawanProfileStateLoadedState) {
             return SingleChildScrollView(

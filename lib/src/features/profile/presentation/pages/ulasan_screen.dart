@@ -1,6 +1,7 @@
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/ulasan/ulasan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/ulasan/ulasan_list_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +30,8 @@ class UlasanPage extends StatelessWidget {
         body: BlocBuilder<UlasanBloc, UlasanState>(
           builder: (context, state) {
             if (state is UlasanErrorState) {
-              return Center(
-                child: Text(state.message),
+              return const Center(
+                child: EmptyDataWidget(),
               );
             }
             if (state is UlasanLoadedState) {

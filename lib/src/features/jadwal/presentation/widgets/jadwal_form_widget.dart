@@ -3,6 +3,7 @@ import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_ja
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/widgets/waktu_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:day_picker/day_picker.dart';
@@ -49,8 +50,8 @@ class _JadwalFormWidgetState extends State<JadwalFormWidget> {
       body: BlocBuilder<GetJadwalBloc, GetJadwalState>(
         builder: (context, state) {
           if (state is GetJadwalStateErrorState) {
-            return Center(
-              child: Text(state.message),
+            return const Center(
+              child: EmptyDataWidget(),
             );
           } else if (state is GetJadwalStateLoadedState) {
             List<String> openingDays = state.mitraModel.hariBuka!.split(',');
