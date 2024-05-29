@@ -2,6 +2,7 @@ import 'package:antria_mitra_mobile/src/features/auth/data/models/request/login/
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/loading_widget.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/password_textfield_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/bottom_navigation.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/textfield_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/toast.dart';
@@ -107,6 +108,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                               listener: (context, state) {
                                 if (state is LoginSuccessState) {
                                   showToastSuccessMessage('Login Berhasil');
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BottomNavigation(),
+                                    ),
+                                  );
                                 }
                                 if (state is LoginFailedState) {
                                   showToastFailedMessage('Login Gagal');
