@@ -27,7 +27,12 @@ class AppRoutes {
       case '/riwayat-transaksi':
         return _materialRoute(const HistoryTransaksiPage());
       case '/detail-transaksi':
-        return _materialRoute(const DetailHistoryTransaksiPage());
+        final invoice = settings.arguments as String;
+        return _materialRoute(
+          DetailHistoryTransaksiPage(
+            invoice: invoice,
+          ),
+        );
       default:
         return _materialRoute(const LoginPage());
     }
