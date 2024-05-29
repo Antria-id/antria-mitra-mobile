@@ -3,6 +3,8 @@ import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoi
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/detail_transaksi/detail_transaksi_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/riwayat_transaksi/riwayat_transaksi_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
@@ -69,6 +71,12 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => PesananBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RiwayatTransaksiBloc(),
+        ),
+        BlocProvider(
+          create: (context) => DetailTransaksiBloc(),
         ),
       ],
       child: MaterialApp(

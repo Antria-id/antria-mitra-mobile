@@ -46,6 +46,12 @@ class AppRoutes {
         return _materialRoute(const HistoryTransaksiPage());
 
       case '/detail-transaksi':
+        final invoice = settings.arguments as String;
+        return _materialRoute(
+          DetailHistoryTransaksiPage(
+            invoice: invoice,
+          ),
+        );
         return _materialRoute(const DetailHistoryTransaksiPage());
 
       case '/profile':

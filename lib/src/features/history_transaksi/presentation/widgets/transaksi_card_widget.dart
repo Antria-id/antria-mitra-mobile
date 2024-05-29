@@ -1,12 +1,29 @@
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransaksiCardWidget extends StatelessWidget {
-  const TransaksiCardWidget({super.key});
+  final String invoice;
+  final String tanggal;
+  final int income;
+  final VoidCallback onTap;
+
+  const TransaksiCardWidget({
+    super.key,
+    required this.invoice,
+    required this.tanggal,
+    required this.income,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
+    String formattedPrice = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: '+Rp ',
+      decimalDigits: 0,
+    ).format(income);
     return ExpansionTile(
       tilePadding: const EdgeInsets.symmetric(horizontal: 10),
       collapsedShape: const RoundedRectangleBorder(
@@ -25,7 +42,7 @@ class TransaksiCardWidget extends StatelessWidget {
         width: double.infinity,
         color: Colors.white,
         child: Text(
-          'INVCGA1RO2131026032024',
+          invoice,
           style: AppTextStyle.mediumBlack.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -34,21 +51,22 @@ class TransaksiCardWidget extends StatelessWidget {
       trailing: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         color: Colors.white,
-        child: const Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '01-10-2024',
-              style: TextStyle(
+              tanggal,
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w800,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 2,
             ),
             Text(
-              '+Rp 65.000',
-              style: TextStyle(
+              formattedPrice,
+              style: const TextStyle(
                 color: Colors.green,
                 fontWeight: FontWeight.bold,
               ),
@@ -68,13 +86,9 @@ class TransaksiCardWidget extends StatelessWidget {
             color: AppColor.dividerColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/detail-transaksi');
-              },
+              onTap: onTap,
               child: const Center(
                 child: Text(
                   'Lihat Detail',
@@ -86,7 +100,7 @@ class TransaksiCardWidget extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
