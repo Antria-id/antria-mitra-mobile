@@ -316,75 +316,112 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
           );
         },
       ),
-      bottomNavigationBar: BlocConsumer<UpdateProfileBloc, UpdateProfileState>(
-        listener: (context, state) {
-          if (state is UpdateProfileLoadingState) {
-            const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      bottomNavigationBar:
+          BlocBuilder<KaryawanProfileBloc, KaryawanProfileState>(
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: CustomButtonWidget(
-              circularButton: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              backgroundColor: AppColor.primaryColor,
-              size: const Size(double.infinity, 46),
-              child: const Text(
-                'Simpan Perubahan',
-                style: AppTextStyle.largeWhite,
-              ),
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  final currentState =
-                      context.read<KaryawanProfileBloc>().state;
-                  if (currentState is KaryawanProfileStateLoadedState) {
-                    final existingModel = currentState.karyawanModel;
-                    if (existingModel.profilePicture!.isNotEmpty) {
-                      final updateEvent = UpdateProfileEvent.onUpdateTapped(
-                        requestUser: UpdateKaryawanRequestModel(
-                          email: email.isNotEmpty ? email : existingModel.email,
-                          username: username.isNotEmpty
-                              ? username
-                              : existingModel.username,
-                          nama: name.isNotEmpty ? name : existingModel.nama,
-                          handphone: phone.isNotEmpty
-                              ? phone
-                              : existingModel.handphone,
-                          alamat: address.isNotEmpty
-                              ? address
-                              : existingModel.alamat,
-                        ),
-                      );
-                      context.read<UpdateProfileBloc>().add(updateEvent);
-                    } else {
-                      final updateEvent = UpdateProfileEvent.onUpdateTapped(
-                        requestUser: UpdateKaryawanRequestModel(
-                          profilePicture: selectedImage?.path ??
-                              existingModel.profilePicture,
-                          email: email.isNotEmpty ? email : existingModel.email,
-                          username: username.isNotEmpty
-                              ? username
-                              : existingModel.username,
-                          nama: name.isNotEmpty ? name : existingModel.nama,
-                          handphone: phone.isNotEmpty
-                              ? phone
-                              : existingModel.handphone,
-                          alamat: address.isNotEmpty
-                              ? address
-                              : existingModel.alamat,
-                        ),
-                      );
-                      context.read<UpdateProfileBloc>().add(updateEvent);
-                    }
-                  }
+          if (state is KaryawanProfileStateErrorState) {
+            return const SizedBox.shrink();
+          } else {
+            return BlocConsumer<UpdateProfileBloc, UpdateProfileState>(
+              listener: (context, state) {
+                if (state is UpdateProfileLoadingState) {
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
               },
-            ),
-          );
+              builder: (context, state) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: CustomButtonWidget(
+                    circularButton: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: AppColor.primaryColor,
+                    size: const Size(double.infinity, 46),
+                    child: const Text(
+                      'Simpan Perubahan',
+                      style: AppTextStyle.largeWhite,
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        final currentState =
+                            context.read<KaryawanProfileBloc>().state;
+                        if (currentState is KaryawanProfileStateLoadedState) {
+                          final existingModel = currentState.karyawanModel;
+                          bool isImageUpdated = selectedImage != null;
+                          bool isTextFieldsUpdated = email.isNotEmpty ||
+                              username.isNotEmpty ||
+                              name.isNotEmpty ||
+                              phone.isNotEmpty ||
+                              address.isNotEmpty;
+
+                          if (isImageUpdated && !isTextFieldsUpdated) {
+                            final updateEvent =
+                                UpdateProfileEvent.onUpdateTapped(
+                              requestUser: UpdateKaryawanRequestModel(
+                                profilePicture: selectedImage!.path,
+                                email: existingModel.email,
+                                username: existingModel.username,
+                                nama: existingModel.nama,
+                                handphone: existingModel.handphone,
+                                alamat: existingModel.alamat,
+                              ),
+                            );
+                            context.read<UpdateProfileBloc>().add(updateEvent);
+                          } else if (!isImageUpdated && isTextFieldsUpdated) {
+                            final updateEvent =
+                                UpdateProfileEvent.onUpdateTapped(
+                              requestUser: UpdateKaryawanRequestModel(
+                                email: email.isNotEmpty
+                                    ? email
+                                    : existingModel.email,
+                                username: username.isNotEmpty
+                                    ? username
+                                    : existingModel.username,
+                                nama:
+                                    name.isNotEmpty ? name : existingModel.nama,
+                                handphone: phone.isNotEmpty
+                                    ? phone
+                                    : existingModel.handphone,
+                                alamat: address.isNotEmpty
+                                    ? address
+                                    : existingModel.alamat,
+                              ),
+                            );
+                            context.read<UpdateProfileBloc>().add(updateEvent);
+                          } else if (isImageUpdated && isTextFieldsUpdated) {
+                            final updateEvent =
+                                UpdateProfileEvent.onUpdateTapped(
+                              requestUser: UpdateKaryawanRequestModel(
+                                profilePicture: selectedImage!.path,
+                                email: email.isNotEmpty
+                                    ? email
+                                    : existingModel.email,
+                                username: username.isNotEmpty
+                                    ? username
+                                    : existingModel.username,
+                                nama:
+                                    name.isNotEmpty ? name : existingModel.nama,
+                                handphone: phone.isNotEmpty
+                                    ? phone
+                                    : existingModel.handphone,
+                                alamat: address.isNotEmpty
+                                    ? address
+                                    : existingModel.alamat,
+                              ),
+                            );
+                            context.read<UpdateProfileBloc>().add(updateEvent);
+                          }
+                        }
+                      }
+                    },
+                  ),
+                );
+              },
+            );
+          }
         },
       ),
     );
