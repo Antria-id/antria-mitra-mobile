@@ -1,0 +1,58 @@
+import 'package:antria_mitra_mobile/src/features/history_transaksi/data/models/riwayat_transaksi_response_model.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/widgets/transaksi_card_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class ListTransaksiWidget extends StatelessWidget {
+  final List<RiwayatTransaksiResponse> transaksiList;
+  const ListTransaksiWidget({super.key, required this.transaksiList});
+
+  String formatDate(DateTime? date) {
+    if (date == null) return '';
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    return formatter.format(date);
+  }
+
+  int income(List<Oderlist> orders) {
+    int totalPrice = 0;
+    for (var orderItem in orders) {
+      totalPrice += (orderItem.quantity! * orderItem.produk!.harga!);
+    }
+    return totalPrice;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        child: ListView.separated(
+          padding: const EdgeInsets.only(
+            bottom: 70,
+          ),
+          itemCount: transaksiList.length,
+          itemBuilder: (context, index) {
+            final transaksi = transaksiList[index];
+            return TransaksiCardWidget(
+              invoice: transaksi.invoice!,
+              tanggal: formatDate(transaksi.createdAt),
+              income: income(transaksi.oderlist!),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/detail-transaksi',
+                  arguments: transaksi.invoice,
+                );
+              },
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(
+              height: 20,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
