@@ -4,15 +4,19 @@ import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/an
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
-class AntrianListWidget extends StatelessWidget {
+class TakeAwayListWidget extends StatelessWidget {
   final List<PesananResponseModel> antrianList;
 
-  const AntrianListWidget({super.key, required this.antrianList});
+  const TakeAwayListWidget({super.key, required this.antrianList});
 
   @override
   Widget build(BuildContext context) {
     List<PesananResponseModel> filteredList = antrianList
-        .where((antrianList) => antrianList.antrian.orderstatus == 'PROCESS')
+        .where(
+          (antrianList) =>
+              antrianList.antrian.orderstatus == 'PROCESS' &&
+              antrianList.takeaway == true,
+        )
         .toList();
     if (filteredList.isEmpty) {
       return const EmptyAntrianWidget(

@@ -1,6 +1,8 @@
 // To parse this JSON data, do
 //
 //     final pesananResponseModel = pesananResponseModelFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<PesananResponseModel> pesananResponseModelFromJson(String str) =>
@@ -14,6 +16,7 @@ class PesananResponseModel {
   final String invoice;
   final String payment;
   final String pemesanan;
+  final bool takeaway;
   final String status;
   final int pelangganId;
   final int mitraId;
@@ -28,6 +31,7 @@ class PesananResponseModel {
     required this.invoice,
     required this.payment,
     required this.pemesanan,
+    required this.takeaway,
     required this.status,
     required this.pelangganId,
     required this.mitraId,
@@ -44,6 +48,7 @@ class PesananResponseModel {
         invoice: json["invoice"],
         payment: json["payment"],
         pemesanan: json["pemesanan"],
+        takeaway: json["takeaway"],
         status: json["status"],
         pelangganId: json["pelangganId"],
         mitraId: json["mitraId"],
@@ -60,6 +65,7 @@ class PesananResponseModel {
         "invoice": invoice,
         "payment": payment,
         "pemesanan": pemesanan,
+        "takeaway": takeaway,
         "status": status,
         "pelangganId": pelangganId,
         "mitraId": mitraId,
