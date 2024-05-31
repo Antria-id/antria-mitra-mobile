@@ -1,12 +1,15 @@
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian_pesanan/pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/antrian/antrian_list_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/antrian/dine_in_list_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/antrian/take_away_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/pending_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pengambilan/pengambilan_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/tabs_list.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
+import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AntrianPage extends StatelessWidget {
   const AntrianPage({super.key});
@@ -77,8 +80,43 @@ class AntrianPage extends StatelessWidget {
                   if (state is PesananErrorState) {
                     return const EmptyDataWidget();
                   } else if (state is PesananLoadedState) {
-                    return AntrianListWidget(
-                      antrianList: state.pesananList,
+                    return DefaultTabController(
+                      length: 2,
+                      child: Column(
+                        children: [
+                          Material(
+                            color: AppColor.backgroundColor,
+                            child: TabBar(
+                              dividerColor: AppColor.transparent,
+                              labelStyle: AppTextStyle.smallPurple.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                              ),
+                              labelColor: AppColor.primaryColor,
+                              unselectedLabelColor: AppColor.greyColor,
+                              indicatorColor: AppColor.primaryColor,
+                              tabs: const [
+                                Tab(
+                                  text: 'Dine In',
+                                ),
+                                Tab(
+                                  text: 'Take Away',
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                              children: [
+                                DineInListWidget(
+                                    antrianList: state.pesananList),
+                                TakeAwayListWidget(
+                                    antrianList: state.pesananList),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   }
                   return const Center(
