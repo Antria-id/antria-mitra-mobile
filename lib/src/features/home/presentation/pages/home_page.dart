@@ -2,19 +2,22 @@ import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_income_widget.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/layanan/layanan_list_widget.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/jadwal_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesanan_berlangsung/list_pesanan_berlangsung_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ExpandableFabState> fabKey =
+        GlobalKey<ExpandableFabState>();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -115,18 +118,9 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  'Layanan Mitra Antria',
-                  style: AppTextStyle.mediumBlack.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                const JadwalWidget(),
                 const SizedBox(
-                  height: 10,
-                ),
-                LayananListWidget(),
-                const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Text(
                   'Pesanan Berlangsung',
@@ -134,7 +128,7 @@ class HomePage extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 BlocBuilder<PesananBerlangsungBloc, PesananBerlangsungState>(
                   builder: (context, state) {
@@ -161,6 +155,81 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        floatingActionButtonLocation: ExpandableFab.location,
+        floatingActionButton: ExpandableFab(
+          key: fabKey,
+          type: ExpandableFabType.up,
+          pos: ExpandableFabPos.right,
+          distance: 60,
+          openButtonBuilder: RotateFloatingActionButtonBuilder(
+            backgroundColor: AppColor.primaryColor,
+            foregroundColor: AppColor.whiteColor,
+            child: const Icon(
+              Icons.menu_rounded,
+              size: 30,
+            ),
+            fabSize: ExpandableFabSize.regular,
+            shape: const CircleBorder(),
+            angle: 3.14 * 2,
+          ),
+          closeButtonBuilder: FloatingActionButtonBuilder(
+            size: 56,
+            builder: (BuildContext context, void Function()? onPressed,
+                Animation<double> progress) {
+              return IconButton(
+                onPressed: onPressed,
+                icon: const Icon(
+                  Icons.close,
+                  size: 40,
+                ),
+              );
+            },
+          ),
+          children: [
+            FloatingActionButton.small(
+              heroTag: null,
+              backgroundColor: AppColor.whiteColor,
+              shape: const CircleBorder(),
+              child: Image.asset(
+                'assets/icons/menu.png',
+                width: 20,
+                height: 20,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/kasir');
+                fabKey.currentState?.toggle();
+              },
+            ),
+            FloatingActionButton.small(
+              heroTag: null,
+              backgroundColor: AppColor.whiteColor,
+              shape: const CircleBorder(),
+              child: Image.asset(
+                'assets/icons/queue.png',
+                width: 20,
+                height: 20,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/antrian');
+                fabKey.currentState?.toggle();
+              },
+            ),
+            FloatingActionButton.small(
+              heroTag: null,
+              backgroundColor: AppColor.whiteColor,
+              shape: const CircleBorder(),
+              child: Image.asset(
+                'assets/icons/booking.png',
+                width: 20,
+                height: 20,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/jadwal');
+                fabKey.currentState?.toggle();
+              },
+            ),
+          ],
         ),
       ),
     );

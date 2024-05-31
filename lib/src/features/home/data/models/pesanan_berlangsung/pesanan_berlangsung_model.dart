@@ -13,33 +13,57 @@ String pesananBerlangsungModelToJson(List<PesananBerlangsungModel> data) =>
 
 class PesananBerlangsungModel {
   final String? invoice;
-  final String? payment;
-  final String? pemesanan;
-  final String? status;
-  final int? pelangganId;
-  final int? mitraId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final Antrian? antrian;
 
   PesananBerlangsungModel({
     this.invoice,
-    this.payment,
-    this.pemesanan,
-    this.status,
-    this.pelangganId,
-    this.mitraId,
     this.createdAt,
     this.updatedAt,
+    this.antrian,
   });
 
   factory PesananBerlangsungModel.fromJson(Map<String, dynamic> json) =>
       PesananBerlangsungModel(
         invoice: json["invoice"],
-        payment: json["payment"],
-        pemesanan: json["pemesanan"],
-        status: json["status"],
-        pelangganId: json["pelangganId"],
-        mitraId: json["mitraId"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        antrian:
+            json["antrian"] == null ? null : Antrian.fromJson(json["antrian"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "invoice": invoice,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "antrian": antrian?.toJson(),
+      };
+}
+
+class Antrian {
+  final int? id;
+  final String? orderstatus;
+  final String? pesananId;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  Antrian({
+    this.id,
+    this.orderstatus,
+    this.pesananId,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Antrian.fromJson(Map<String, dynamic> json) => Antrian(
+        id: json["id"],
+        orderstatus: json["orderstatus"],
+        pesananId: json["pesananId"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -49,12 +73,9 @@ class PesananBerlangsungModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "invoice": invoice,
-        "payment": payment,
-        "pemesanan": pemesanan,
-        "status": status,
-        "pelangganId": pelangganId,
-        "mitraId": mitraId,
+        "id": id,
+        "orderstatus": orderstatus,
+        "pesananId": pesananId,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
