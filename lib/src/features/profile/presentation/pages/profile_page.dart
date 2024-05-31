@@ -122,6 +122,30 @@ class ProfilePage extends StatelessWidget {
                   const DashboardManagementWidget(),
                 ],
               ),
+              BlocBuilder<UserBloc, UserState>(
+                builder: (context, state) {
+                  if (state is UserLoadedState) {
+                    final owner = state.user.isOwner;
+                    if (owner == false) {
+                      return Container();
+                    } else if (owner == true) {
+                      return Column(
+                        children: [
+                          const SizedBox(
+                            height: 26,
+                          ),
+                          ProfileButtonWidget(
+                            icon: 'assets/icons/restoran.png',
+                            text: 'Informasi Usaha',
+                            onTap: () => Navigator.pushNamed(context, '/'),
+                          ),
+                        ],
+                      );
+                    }
+                  }
+                  return const SizedBox();
+                },
+              ),
               const SizedBox(
                 height: 26,
               ),
@@ -144,7 +168,10 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 26,
               ),
-              const LogoutButtonWidget()
+              const LogoutButtonWidget(),
+              const SizedBox(
+                height: 26,
+              ),
             ],
           ),
         ),
