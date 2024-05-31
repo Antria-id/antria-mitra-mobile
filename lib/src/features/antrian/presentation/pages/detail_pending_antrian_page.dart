@@ -1,5 +1,7 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/models/request/status_pesanan_request.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/bloc/invoice_pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pemesanan/detail_pemesanan_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/order/order_list_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/dialog_widget.dart';
@@ -142,6 +144,21 @@ class DetailPendingPage extends StatelessWidget {
                                       totalPrice: totalPrice,
                                       onAcceptPressed: () {
                                         Navigator.pop(context);
+                                        showToastSuccessMessage(
+                                          'Pesanan diproses',
+                                        );
+                                        final updateEvent =
+                                            UpdateStatusPesananEvent
+                                                .onUpdateTapped(
+                                          requestUser:
+                                              StatusPesananRequestModel(
+                                            orderstatus: 'PROCESS',
+                                          ),
+                                          id: pesananDetail.antrian!.id!,
+                                        );
+                                        context
+                                            .read<UpdateStatusPesananBloc>()
+                                            .add(updateEvent);
                                       },
                                       onCancelPressed: () {
                                         showDialog(

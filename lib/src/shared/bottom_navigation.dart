@@ -31,10 +31,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Positioned.fill(
-            child: screens.elementAt(selectedIndex),
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: screens.elementAt(selectedIndex),
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: AlignmentDirectional.bottomCenter,

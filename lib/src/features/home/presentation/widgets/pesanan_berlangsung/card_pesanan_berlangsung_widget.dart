@@ -5,18 +5,16 @@ import 'package:flutter/material.dart';
 class CardPesananBerlangsungWidget extends StatelessWidget {
   final String? status;
   final String? invoice;
-  final String? total;
-  const CardPesananBerlangsungWidget(
-      {super.key, this.status, this.invoice, this.total});
+  const CardPesananBerlangsungWidget({super.key, this.status, this.invoice});
 
   @override
   Widget build(BuildContext context) {
     Color? statusColor;
-    if (status == "SUCCESS") {
+    if (status == "PROCESS") {
       statusColor = Colors.green;
-    } else if (status == "PENDING") {
+    } else if (status == "WAITING") {
       statusColor = Colors.yellow[700];
-    } else {
+    } else if (status == "CANCELED") {
       statusColor = AppColor.redColor;
     }
     return Column(
@@ -39,28 +37,12 @@ class CardPesananBerlangsungWidget extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        invoice ?? '',
-                        style: AppTextStyle.smallBlack.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        total ?? '',
-                        style: const TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      )
-                    ],
-                  )
+                  Text(
+                    invoice ?? '',
+                    style: AppTextStyle.smallBlack.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               Text(

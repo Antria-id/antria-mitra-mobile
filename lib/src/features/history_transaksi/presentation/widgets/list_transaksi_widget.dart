@@ -1,5 +1,6 @@
 import 'package:antria_mitra_mobile/src/features/history_transaksi/data/models/riwayat_transaksi_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/widgets/transaksi_card_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,11 +19,17 @@ class ListTransaksiWidget extends StatelessWidget {
     for (var orderItem in orders) {
       totalPrice += (orderItem.quantity! * orderItem.produk!.harga!);
     }
+    totalPrice += 1000;
     return totalPrice;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (transaksiList.isEmpty) {
+      return const Center(
+        child: EmptyDataWidget(),
+      );
+    }
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),

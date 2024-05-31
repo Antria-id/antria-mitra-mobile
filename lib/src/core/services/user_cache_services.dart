@@ -40,6 +40,7 @@ class UserCacheService {
         username: payload['username'],
         role: payload['role'],
         mitraId: payload['mitraId'],
+        isOwner: payload['isOwner'],
         picture: payload['picture'],
         email: payload['email'],
       );

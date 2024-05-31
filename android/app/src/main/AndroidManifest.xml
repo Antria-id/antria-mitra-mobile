@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="antria_mitra_mobile"
+        android:label="Antria Mitra"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

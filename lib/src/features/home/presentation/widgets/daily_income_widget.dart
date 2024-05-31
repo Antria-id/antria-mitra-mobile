@@ -36,21 +36,13 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
               return const FailedFetchDataWidget();
             } else if (state is DailyIncomeLoadedState) {
               final order = state.dailyIncome;
-              DateTime today = DateTime.now();
-              DateTime yesterday = today.subtract(
-                const Duration(days: 1),
-              );
-              bool isOneDay =
-                  order.any((order) => order.createdAt.isAfter(yesterday));
-              int jumlahOrder = isOneDay
-                  ? 0
-                  : order
-                      .where(
-                        (order) =>
-                            order.antrian.orderstatus == "CONFIRM" ||
-                            order.antrian.orderstatus == "PROCESS",
-                      )
-                      .length;
+              int jumlahOrder = order
+                  .where(
+                    (order) =>
+                        order.antrian.orderstatus == "CONFIRM" ||
+                        order.antrian.orderstatus == "PROCESS",
+                  )
+                  .length;
 
               int jumlahAntrian = order
                   .where(
@@ -61,7 +53,8 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30, horizontal: 13),
                     child: Row(
                       children: [
                         Column(
@@ -92,7 +85,7 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                           ],
                         ),
                         const SizedBox(
-                          width: 12,
+                          width: 10,
                         ),
                         Image.asset(
                           'assets/icons/receipt.png',
@@ -112,8 +105,7 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 30,
-                        ),
+                            vertical: 30, horizontal: 10),
                         child: Row(
                           children: [
                             Column(
