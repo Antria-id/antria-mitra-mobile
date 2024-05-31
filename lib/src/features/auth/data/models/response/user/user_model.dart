@@ -15,6 +15,7 @@ class UserModel {
   final int? mitraId;
   final String? picture;
   final String? email;
+  final bool? isOwner;
   final int? iat;
   final int? exp;
 
@@ -25,6 +26,7 @@ class UserModel {
     this.mitraId,
     this.picture,
     this.email,
+    this.isOwner,
     this.iat,
     this.exp,
   });
@@ -36,6 +38,7 @@ class UserModel {
         mitraId: json["mitraId"],
         picture: json["picture"],
         email: json["email"],
+        isOwner: json["isOwner"],
         iat: json["iat"],
         exp: json["exp"],
       );
@@ -47,6 +50,7 @@ class UserModel {
         "mitraId": mitraId,
         "picture": picture,
         "email": email,
+        "isOwner": isOwner,
         "iat": iat,
         "exp": exp,
       };

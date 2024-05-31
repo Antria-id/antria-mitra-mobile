@@ -332,6 +332,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                             deskripsiToko:
                                                 deskripsiTokoController.text,
                                             alamat: alamatTokoController.text,
+                                            jamBuka: '',
+                                            jamTutup: '',
+                                            hariBuka: '',
                                           ),
                                           karyawanData: KaryawanData(
                                             email: emailController.text,
@@ -340,6 +343,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                             password: passwordController.text,
                                             handphone: nomorHpController.text,
                                             alamat: alamatController.text,
+                                            profilePicture: '',
                                             isOwner: true,
                                           ),
                                         ),
