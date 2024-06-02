@@ -1,11 +1,10 @@
-import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-class PengambilanCardWidget extends StatelessWidget {
+class WaitingCardWidget extends StatelessWidget {
   final String? image;
   final String? nama;
   final VoidCallback? onTap;
-  const PengambilanCardWidget({
+  const WaitingCardWidget({
     super.key,
     this.image,
     this.nama,
@@ -44,9 +43,7 @@ class PengambilanCardWidget extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 20,
-                    ),
+                        horizontal: 10, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -61,9 +58,11 @@ class PengambilanCardWidget extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          'Menunggu Pengambilan',
-                          style: AppTextStyle.smallPurple.copyWith(
+                          'Menunggu Persetujuan',
+                          style: TextStyle(
+                            color: Colors.yellow[700],
                             fontWeight: FontWeight.bold,
+                            fontSize: 12,
                           ),
                         ),
                       ],

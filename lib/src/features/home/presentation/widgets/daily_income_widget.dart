@@ -39,7 +39,7 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
               int jumlahOrder = order
                   .where(
                     (order) =>
-                        order.antrian.orderstatus == "CONFIRM" ||
+                        order.antrian.orderstatus == "ALLDONE" ||
                         order.antrian.orderstatus == "PROCESS",
                   )
                   .length;
@@ -144,8 +144,11 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                 ],
               );
             }
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           },
         ),

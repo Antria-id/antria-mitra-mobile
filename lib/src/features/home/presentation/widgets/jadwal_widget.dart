@@ -1,5 +1,4 @@
 import 'package:antria_mitra_mobile/src/core/utils/format_hari.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
@@ -22,8 +21,10 @@ class _JadwalWidgetState extends State<JadwalWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          GetJadwalBloc()..add(const GetJadwalFetchDataEvent()),
+      create: (context) => GetJadwalBloc()
+        ..add(
+          const GetJadwalFetchDataEvent(),
+        ),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -38,7 +39,7 @@ class _JadwalWidgetState extends State<JadwalWidget> {
         ),
         child: BlocBuilder<GetJadwalBloc, GetJadwalState>(
           builder: (context, state) {
-            if (state is DailyIncomeErrorState) {
+            if (state is GetJadwalStateErrorState) {
               return const FailedFetchDataWidget();
             } else if (state is GetJadwalStateLoadedState) {
               final jadwal = state.mitraModel;
@@ -190,8 +191,11 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                 ],
               );
             }
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           },
         ),

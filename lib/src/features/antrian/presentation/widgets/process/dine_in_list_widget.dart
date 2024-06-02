@@ -1,6 +1,6 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/antrian/antrian_card_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/antrian_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +43,7 @@ class DineInListWidget extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(
                 context,
-                '/detail-pesanan',
+                '/detail-process',
                 arguments: {'invoice': antrian.invoice, 'nomor': nomor},
               );
             },

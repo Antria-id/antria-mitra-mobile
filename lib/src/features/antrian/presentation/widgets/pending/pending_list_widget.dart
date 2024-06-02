@@ -1,12 +1,12 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/pending_card_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/waiting_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
-class PendingListWidget extends StatelessWidget {
+class WaitingListWidget extends StatelessWidget {
   final List<PesananResponseModel> waitingList;
-  const PendingListWidget({super.key, required this.waitingList});
+  const WaitingListWidget({super.key, required this.waitingList});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,14 @@ class PendingListWidget extends StatelessWidget {
         itemCount: filteredList.length,
         itemBuilder: (context, index) {
           final pending = filteredList[index];
-          return PendingCardWidget(
+          return WaitingCardWidget(
             nama: pending.pelanggan.username,
             image:
                 '${APIUrl.baseUrl}${APIUrl.imagePath}${pending.pelanggan.profilePicture}',
             onTap: () {
               Navigator.pushNamed(
                 context,
-                '/detail-pending',
+                '/detail-waiting',
                 arguments: pending.invoice,
               );
             },

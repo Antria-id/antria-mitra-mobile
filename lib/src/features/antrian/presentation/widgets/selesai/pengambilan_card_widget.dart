@@ -1,10 +1,11 @@
+import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-class PendingCardWidget extends StatelessWidget {
+class SelesaiCardWidget extends StatelessWidget {
   final String? image;
   final String? nama;
   final VoidCallback? onTap;
-  const PendingCardWidget({
+  const SelesaiCardWidget({
     super.key,
     this.image,
     this.nama,
@@ -43,7 +44,9 @@ class PendingCardWidget extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 20),
+                      horizontal: 10,
+                      vertical: 20,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -58,11 +61,9 @@ class PendingCardWidget extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          'Menunggu Persetujuan',
-                          style: TextStyle(
-                            color: Colors.yellow[700],
+                          'Pesanan Selesai',
+                          style: AppTextStyle.smallPurple.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
                           ),
                         ),
                       ],

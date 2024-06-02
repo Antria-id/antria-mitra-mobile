@@ -21,10 +21,9 @@ class OrderListWidget extends StatelessWidget {
           if (produk == null) {
             return const SizedBox.shrink();
           }
-          final totalPrice = produk.harga! * order.quantity!;
           return OrderCardWidget(
             image: produk.gambar,
-            price: totalPrice,
+            price: produk.harga!,
             namaMenu: produk.namaProduk!,
             quantity: order.quantity!,
             note: order.note,

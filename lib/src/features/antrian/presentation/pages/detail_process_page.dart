@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
-class DetailAntrianPage extends StatelessWidget {
+class DetailProcessPage extends StatelessWidget {
   final String invoice;
   final int nomor;
-  const DetailAntrianPage({
+  const DetailProcessPage({
     super.key,
     required this.invoice,
     required this.nomor,
@@ -220,7 +220,6 @@ class DetailAntrianPage extends StatelessWidget {
                                       color: AppColor.dividerColor,
                                     ),
                                     DetailPemesananWidget(
-                                      isAmbil: false,
                                       isPending: false,
                                       isTakeAway: state.response.takeaway!,
                                       totalPrice: totalPrice,
@@ -294,6 +293,7 @@ class DetailAntrianPage extends StatelessWidget {
                                           },
                                         );
                                       },
+                                      isAmbil: false,
                                     )
                                   ],
                                 ),

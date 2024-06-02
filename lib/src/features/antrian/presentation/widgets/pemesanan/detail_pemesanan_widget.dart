@@ -11,7 +11,6 @@ class DetailPemesananWidget extends StatelessWidget {
   final bool isPending;
   final VoidCallback? onCancelPressed;
   final VoidCallback? onAcceptPressed;
-  final VoidCallback? onTakenPressed;
   final VoidCallback? onFinishPressed;
 
   const DetailPemesananWidget({
@@ -22,7 +21,6 @@ class DetailPemesananWidget extends StatelessWidget {
     required this.totalPrice,
     this.onCancelPressed,
     this.onAcceptPressed,
-    this.onTakenPressed,
     this.onFinishPressed,
   }) : super(key: key);
 
@@ -137,22 +135,7 @@ class DetailPemesananWidget extends StatelessWidget {
                         ],
                       )
                     : isAmbil
-                        ? CustomButtonWidget(
-                            circularButton: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            backgroundColor: Colors.green,
-                            size: const Size(360, 50),
-                            onPressed: onTakenPressed!,
-                            child: Text(
-                              'Sudah Diambil',
-                              style: AppTextStyle.mediumWhite.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
+                        ? const SizedBox.shrink()
                         : CustomButtonWidget(
                             circularButton: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(

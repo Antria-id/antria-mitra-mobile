@@ -10,9 +10,9 @@ import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailPendingPage extends StatelessWidget {
+class DetailWaitingPage extends StatelessWidget {
   final String invoice;
-  const DetailPendingPage({super.key, required this.invoice});
+  const DetailWaitingPage({super.key, required this.invoice});
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,6 @@ class DetailPendingPage extends StatelessWidget {
                                       color: AppColor.dividerColor,
                                     ),
                                     DetailPemesananWidget(
-                                      isAmbil: false,
                                       isPending: true,
                                       isTakeAway: state.response.takeaway!,
                                       totalPrice: totalPrice,
@@ -175,15 +174,31 @@ class DetailPendingPage extends StatelessWidget {
                                               textCancel: 'Tidak',
                                               textConfirm: 'Ya',
                                               onPressed: () {
+                                                final updateEvent =
+                                                    UpdateStatusPesananEvent
+                                                        .onUpdateTapped(
+                                                  requestUser:
+                                                      StatusPesananRequestModel(
+                                                    orderstatus: 'CANCELED',
+                                                  ),
+                                                  id: pesananDetail
+                                                      .antrian!.id!,
+                                                );
+                                                context
+                                                    .read<
+                                                        UpdateStatusPesananBloc>()
+                                                    .add(updateEvent);
                                                 showToastSuccessMessage(
                                                   'Pesanan berhasil dibatalkan',
                                                 );
+                                                Navigator.pop(context);
                                                 Navigator.pop(context);
                                               },
                                             );
                                           },
                                         );
                                       },
+                                      isAmbil: false,
                                     )
                                   ],
                                 ),

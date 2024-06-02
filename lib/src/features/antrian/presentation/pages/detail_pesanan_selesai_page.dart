@@ -1,17 +1,14 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/request/status_pesanan_request.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/bloc/invoice_pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pemesanan/detail_pemesanan_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/order/order_list_widget.dart';
-import 'package:antria_mitra_mobile/src/shared/toast.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailPengambilanPage extends StatelessWidget {
+class DetailPesananSelesaiPage extends StatelessWidget {
   final String invoice;
-  const DetailPengambilanPage({super.key, required this.invoice});
+  const DetailPesananSelesaiPage({super.key, required this.invoice});
 
   @override
   Widget build(BuildContext context) {
@@ -137,29 +134,10 @@ class DetailPengambilanPage extends StatelessWidget {
                                         color: AppColor.dividerColor,
                                       ),
                                       DetailPemesananWidget(
-                                        isAmbil: true,
                                         isPending: false,
                                         isTakeAway: state.response.takeaway!,
                                         totalPrice: totalPrice,
-                                        onTakenPressed: () {
-                                          showToastSuccessMessage(
-                                            'Pesanan Telah Selesai',
-                                          );
-                                          final updateEvent =
-                                              UpdateStatusPesananEvent
-                                                  .onUpdateTapped(
-                                            requestUser:
-                                                StatusPesananRequestModel(
-                                              orderstatus: 'ALLDONE',
-                                            ),
-                                            id: pesananDetail.antrian!.id!,
-                                          );
-                                          context
-                                              .read<UpdateStatusPesananBloc>()
-                                              .add(updateEvent);
-
-                                          Navigator.pop(context);
-                                        },
+                                        isAmbil: true,
                                       )
                                     ],
                                   ),

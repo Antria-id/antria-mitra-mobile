@@ -1,17 +1,17 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pengambilan/pengambilan_card_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/selesai/pengambilan_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
-class PengambilanListWidget extends StatelessWidget {
+class SelesaiListWidget extends StatelessWidget {
   final List<PesananResponseModel> pengambilanList;
-  const PengambilanListWidget({super.key, required this.pengambilanList});
+  const SelesaiListWidget({super.key, required this.pengambilanList});
 
   @override
   Widget build(BuildContext context) {
     List<PesananResponseModel> filteredList = pengambilanList
-        .where((antrianList) => antrianList.antrian.orderstatus == 'CONFIRM')
+        .where((antrianList) => antrianList.antrian.orderstatus == 'ALLDONE')
         .toList();
     if (filteredList.isEmpty) {
       return const EmptyAntrianWidget(
@@ -27,12 +27,12 @@ class PengambilanListWidget extends StatelessWidget {
         itemCount: filteredList.length,
         itemBuilder: (context, index) {
           final pengambilan = filteredList[index];
-          return PengambilanCardWidget(
+          return SelesaiCardWidget(
             nama: pengambilan.pelanggan.username,
             image:
                 '${APIUrl.baseUrl}${APIUrl.imagePath}${pengambilan.pelanggan.profilePicture}',
             onTap: () {
-              Navigator.pushNamed(context, '/detail-pengambilan',
+              Navigator.pushNamed(context, '/detail-pesanan-selesai',
                   arguments: pengambilan.invoice);
             },
           );

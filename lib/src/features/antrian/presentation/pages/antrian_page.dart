@@ -1,8 +1,8 @@
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian_pesanan/pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/antrian/dine_in_list_widget.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/antrian/take_away_list_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/dine_in_list_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/take_away_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/pending_list_widget.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pengambilan/pengambilan_list_widget.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/selesai/pengambilan_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/tabs_list.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
@@ -65,7 +65,7 @@ class AntrianPage extends StatelessWidget {
                   if (state is PesananErrorState) {
                     return const EmptyDataWidget();
                   } else if (state is PesananLoadedState) {
-                    return PendingListWidget(
+                    return WaitingListWidget(
                       waitingList: state.pesananList,
                     );
                   }
@@ -131,7 +131,7 @@ class AntrianPage extends StatelessWidget {
                   if (state is PesananErrorState) {
                     return const EmptyDataWidget();
                   } else if (state is PesananLoadedState) {
-                    return PengambilanListWidget(
+                    return SelesaiListWidget(
                       pengambilanList: state.pesananList,
                     );
                   }

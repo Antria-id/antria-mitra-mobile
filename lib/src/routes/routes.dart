@@ -1,7 +1,7 @@
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/antrian_page.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_antrian_page.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_pending_antrian_page.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_pengambilan_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_process_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_waiting_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_pesanan_selesai_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/login_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/register_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/reset_password_page.dart';
@@ -80,30 +80,30 @@ class AppRoutes {
       case '/antrian':
         return _materialRoute(const AntrianPage());
 
-      case '/detail-pesanan':
+      case '/detail-process':
         final arguments = settings.arguments as Map<String, dynamic>;
         final invoice = arguments['invoice'] as String;
         final nomor = int.tryParse(arguments['nomor'] ?? '');
 
         return _materialRoute(
-          DetailAntrianPage(
+          DetailProcessPage(
             invoice: invoice,
             nomor: nomor!,
           ),
         );
 
-      case '/detail-pengambilan':
+      case '/detail-pesanan-selesai':
         final invoice = settings.arguments as String;
         return _materialRoute(
-          DetailPengambilanPage(
+          DetailPesananSelesaiPage(
             invoice: invoice,
           ),
         );
 
-      case '/detail-pending':
+      case '/detail-waiting':
         final invoice = settings.arguments as String;
         return _materialRoute(
-          DetailPendingPage(
+          DetailWaitingPage(
             invoice: invoice,
           ),
         );
