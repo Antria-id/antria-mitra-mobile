@@ -1,12 +1,24 @@
 part of 'update_jadwal_bloc.dart';
 
-@freezed
-class UpdateJadwalState with _$UpdateJadwalState {
-  const factory UpdateJadwalState.initial() = UpdateJadwalInitialState;
-  const factory UpdateJadwalState.loading() = UpdateJadwalLoadingState;
-  const factory UpdateJadwalState.error(String message) =
-      UpdateJadwalErrorState;
-  const factory UpdateJadwalState.loaded({
-    required MitraRequestModel request,
-  }) = UpdateJadwalLoadedState;
+sealed class UpdateJadwalState extends Equatable {
+  const UpdateJadwalState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdateJadwalInitial extends UpdateJadwalState {}
+
+final class UpdateJadwalLoading extends UpdateJadwalState {}
+
+final class UpdateJadwalSuccess extends UpdateJadwalState {
+  final MitraRequestModel request;
+
+  const UpdateJadwalSuccess({required this.request});
+}
+
+final class UpdateJadwalFailed extends UpdateJadwalState {
+  final String? message;
+
+  const UpdateJadwalFailed({required this.message});
 }

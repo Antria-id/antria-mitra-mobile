@@ -1,6 +1,10 @@
 part of 'karyawan_profile_bloc.dart';
 
-@freezed
-class KaryawanProfileEvent with _$KaryawanProfileEvent {
-  const factory KaryawanProfileEvent.onGetProfile() = GetKaryawanFetchDataEvent;
+sealed class KaryawanProfileEvent extends Equatable {
+  const KaryawanProfileEvent();
+
+  @override
+  List<Object> get props => [];
 }
+
+final class KaryawanProfileFetchData extends KaryawanProfileEvent {}

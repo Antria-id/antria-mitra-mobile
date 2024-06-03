@@ -1,8 +1,17 @@
 part of 'update_jadwal_bloc.dart';
 
-@freezed
-class UpdateJadwalEvent with _$UpdateJadwalEvent {
-  const factory UpdateJadwalEvent.onUpdateTapped({
-    required MitraRequestModel requestUser,
-  }) = UpdateJadwalMitraEvent;
+sealed class UpdateJadwalEvent extends Equatable {
+  const UpdateJadwalEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdateJadwalTapped extends UpdateJadwalEvent {
+  final MitraRequestModel requestUser;
+
+  const UpdateJadwalTapped({required this.requestUser});
+
+  @override
+  List<Object> get props => [requestUser];
 }

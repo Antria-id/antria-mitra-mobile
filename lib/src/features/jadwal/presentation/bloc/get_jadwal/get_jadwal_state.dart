@@ -1,11 +1,24 @@
 part of 'get_jadwal_bloc.dart';
 
-@freezed
-class GetJadwalState with _$GetJadwalState {
-  const factory GetJadwalState.initial() = GetJadwalStateInitialState;
-  const factory GetJadwalState.loading() = GetJadwalStateLoadingState;
-  const factory GetJadwalState.error(String message) = GetJadwalStateErrorState;
-  const factory GetJadwalState.loadedState({
-    required MitraModel mitraModel,
-  }) = GetJadwalStateLoadedState;
+sealed class GetJadwalState extends Equatable {
+  const GetJadwalState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class GetJadwalInitial extends GetJadwalState {}
+
+final class GetJadwalLoading extends GetJadwalState {}
+
+final class GetJadwalLoaded extends GetJadwalState {
+  final MitraModel mitraModel;
+
+  const GetJadwalLoaded({required this.mitraModel});
+}
+
+final class GetJadwalError extends GetJadwalState {
+  final String? message;
+
+  const GetJadwalError({required this.message});
 }

@@ -1,11 +1,24 @@
 part of 'daily_income_bloc.dart';
 
-@freezed
-class DailyIncomeState with _$DailyIncomeState {
-  const factory DailyIncomeState.initial() = DailyIncomeInitialState;
-  const factory DailyIncomeState.loading() = DailyIncomeLoadingState;
-  const factory DailyIncomeState.error(String message) = DailyIncomeErrorState;
-  const factory DailyIncomeState.loadedState({
-    required List<DailyIncome> dailyIncome,
-  }) = DailyIncomeLoadedState;
+sealed class DailyIncomeState extends Equatable {
+  const DailyIncomeState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class DailyIncomeInitial extends DailyIncomeState {}
+
+final class DailyIncomeLoading extends DailyIncomeState {}
+
+final class DailyIncomeLoaded extends DailyIncomeState {
+  final List<DailyIncome> dailyIncome;
+
+  const DailyIncomeLoaded({required this.dailyIncome});
+}
+
+final class DailyIncomeError extends DailyIncomeState {
+  final String? message;
+
+  const DailyIncomeError({required this.message});
 }

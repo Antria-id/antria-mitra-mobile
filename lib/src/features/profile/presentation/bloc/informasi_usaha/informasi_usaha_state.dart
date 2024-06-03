@@ -1,12 +1,24 @@
 part of 'informasi_usaha_bloc.dart';
 
-@freezed
-class InformasiUsahaState with _$InformasiUsahaState {
-  const factory InformasiUsahaState.initial() = InformasiUsahatateInitialState;
-  const factory InformasiUsahaState.loading() = InformasiUsahaStateLoadingState;
-  const factory InformasiUsahaState.error(String message) =
-      InformasiUsahaStateErrorState;
-  const factory InformasiUsahaState.loadedState({
-    required UsahaResponseModel responseModel,
-  }) = InformasiUsahaStateLoadedState;
+sealed class InformasiUsahaState extends Equatable {
+  const InformasiUsahaState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class InformasiUsahaInitial extends InformasiUsahaState {}
+
+final class InformasiUsahaLoading extends InformasiUsahaState {}
+
+final class InformasiUsahaLoaded extends InformasiUsahaState {
+  final UsahaResponseModel responseModel;
+
+  const InformasiUsahaLoaded({required this.responseModel});
+}
+
+final class InformasiUsahaError extends InformasiUsahaState {
+  final String? message;
+
+  const InformasiUsahaError({required this.message});
 }

@@ -1,11 +1,24 @@
 part of 'logout_bloc.dart';
 
-@freezed
-class LogoutState with _$LogoutState {
-  const factory LogoutState.initial() = LogoutInitialState;
-  const factory LogoutState.loading() = LogoutLoadingState;
-  const factory LogoutState.error(String message) = LogoutErrorState;
-  const factory LogoutState.loadedState({
-    required UserModel? user,
-  }) = LogoutLoadedState;
+sealed class LogoutState extends Equatable {
+  const LogoutState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class LogoutInitial extends LogoutState {}
+
+final class LogoutLoading extends LogoutState {}
+
+final class LogoutSuccess extends LogoutState {
+  final UserModel? user;
+
+  const LogoutSuccess({required this.user});
+}
+
+final class LogoutFailed extends LogoutState {
+  final String? message;
+
+  const LogoutFailed({required this.message});
 }

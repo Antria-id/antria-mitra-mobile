@@ -1,6 +1,10 @@
 part of 'logout_bloc.dart';
 
-@freezed
-class LogoutEvent with _$LogoutEvent {
-  const factory LogoutEvent.onLogoutTapped() = LogoutUserEvent;
+sealed class LogoutEvent extends Equatable {
+  const LogoutEvent();
+
+  @override
+  List<Object> get props => [];
 }
+
+final class LogoutTapped extends LogoutEvent {}

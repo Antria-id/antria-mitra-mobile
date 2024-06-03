@@ -1,5 +1,5 @@
-import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/form/edit_informasi_usaha_form_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/toast.dart';
 import 'package:flutter/material.dart';
@@ -11,21 +11,20 @@ class InformasiUsahaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          InformasiUsahaBloc()..add(const GetInformasiFetchDataEvent()),
-      child: BlocListener<UpdateUsahaBloc, UpdateUsahaState>(
+      create: (context) => InformasiUsahaBloc()..add(InformasiUsahaFetchData()),
+      child: BlocListener<UpdateInformasiUsahaBloc, UpdateInformasiUsahaState>(
         listener: (context, state) {
-          if (state is UpdateUsahaLoadedState) {
+          if (state is UpdateInformasiUsahaSuccess) {
             showToastSuccessMessage(
               'Update Informasi Usaha Berhasil',
             );
             context.read<InformasiUsahaBloc>().add(
-                  const GetInformasiFetchDataEvent(),
+                  InformasiUsahaFetchData(),
                 );
           }
-          if (state is UpdateProfileErrorState) {
+          if (state is UpdateInformasiUsahaFailed) {
             showToastFailedMessage(
-              'Update Informasi Usaha Berhasil',
+              'Update Informasi Usaha Gagal',
             );
           }
         },

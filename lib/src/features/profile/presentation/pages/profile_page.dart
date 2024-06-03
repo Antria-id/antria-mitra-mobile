@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserBloc()..add(const UserFetchDataEvent()),
+      create: (context) => UserBloc()..add(UserFetchData()),
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
         body: SingleChildScrollView(
@@ -35,11 +35,11 @@ class ProfilePage extends StatelessWidget {
                     child: SafeArea(
                       child: BlocBuilder<UserBloc, UserState>(
                         builder: (context, state) {
-                          if (state is UserErrorState) {
+                          if (state is UserError) {
                             return Center(
                               child: Text('Error: ${state.message}'),
                             );
-                          } else if (state is UserLoadedState) {
+                          } else if (state is UserLoaded) {
                             final profileData = state.user;
                             return Column(
                               children: [
@@ -124,7 +124,7 @@ class ProfilePage extends StatelessWidget {
               ),
               BlocBuilder<UserBloc, UserState>(
                 builder: (context, state) {
-                  if (state is UserLoadedState) {
+                  if (state is UserLoaded) {
                     final owner = state.user.isOwner;
                     if (owner == false) {
                       return Container();

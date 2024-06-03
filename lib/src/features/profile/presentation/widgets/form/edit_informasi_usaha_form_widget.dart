@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_usaha_request.dart';
-import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
@@ -50,11 +50,11 @@ class _EditInformasiUsahaFormWidgetState
       backgroundColor: AppColor.backgroundColor,
       body: BlocBuilder<InformasiUsahaBloc, InformasiUsahaState>(
         builder: (context, state) {
-          if (state is InformasiUsahaStateErrorState) {
+          if (state is InformasiUsahaError) {
             return const Center(
               child: EmptyDataWidget(),
             );
-          } else if (state is InformasiUsahaStateLoadedState) {
+          } else if (state is InformasiUsahaLoaded) {
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -303,12 +303,13 @@ class _EditInformasiUsahaFormWidgetState
       ),
       bottomNavigationBar: BlocBuilder<InformasiUsahaBloc, InformasiUsahaState>(
         builder: (context, state) {
-          if (state is InformasiUsahaStateErrorState) {
+          if (state is InformasiUsahaError) {
             return const SizedBox.shrink();
           } else {
-            return BlocConsumer<UpdateUsahaBloc, UpdateUsahaState>(
+            return BlocConsumer<UpdateInformasiUsahaBloc,
+                UpdateInformasiUsahaState>(
               listener: (context, state) {
-                if (state is UpdateUsahaLoadingState) {
+                if (state is UpdateInformasiUsahaLoading) {
                   const Center(
                     child: CircularProgressIndicator(),
                   );
@@ -332,7 +333,7 @@ class _EditInformasiUsahaFormWidgetState
                       if (formKey.currentState!.validate()) {
                         final currentState =
                             context.read<InformasiUsahaBloc>().state;
-                        if (currentState is InformasiUsahaStateLoadedState) {
+                        if (currentState is InformasiUsahaLoaded) {
                           final existingModel = currentState.responseModel;
                           bool isImageUpdated = selectedImage != null;
                           bool isTextFieldsUpdated = namaToko.isNotEmpty ||
@@ -340,7 +341,7 @@ class _EditInformasiUsahaFormWidgetState
                               alamatToko.isNotEmpty;
 
                           if (isImageUpdated && !isTextFieldsUpdated) {
-                            final updateEvent = UpdateUsahaEvent.onUpdateTapped(
+                            final updateEvent = UpdateInformasiUsahaTapped(
                               requestUser: UpdateUsahaRequestModel(
                                 gambarToko: selectedImage!.path,
                                 namaToko: existingModel.namaToko,
@@ -348,9 +349,11 @@ class _EditInformasiUsahaFormWidgetState
                                 alamat: existingModel.alamat,
                               ),
                             );
-                            context.read<UpdateUsahaBloc>().add(updateEvent);
+                            context
+                                .read<UpdateInformasiUsahaBloc>()
+                                .add(updateEvent);
                           } else if (!isImageUpdated && isTextFieldsUpdated) {
-                            final updateEvent = UpdateUsahaEvent.onUpdateTapped(
+                            final updateEvent = UpdateInformasiUsahaTapped(
                               requestUser: UpdateUsahaRequestModel(
                                 namaToko: namaToko.isNotEmpty
                                     ? namaToko
@@ -363,9 +366,11 @@ class _EditInformasiUsahaFormWidgetState
                                     : existingModel.alamat,
                               ),
                             );
-                            context.read<UpdateUsahaBloc>().add(updateEvent);
+                            context
+                                .read<UpdateInformasiUsahaBloc>()
+                                .add(updateEvent);
                           } else if (isImageUpdated && isTextFieldsUpdated) {
-                            final updateEvent = UpdateUsahaEvent.onUpdateTapped(
+                            final updateEvent = UpdateInformasiUsahaTapped(
                               requestUser: UpdateUsahaRequestModel(
                                 gambarToko: selectedImage!.path,
                                 namaToko: namaToko.isNotEmpty
@@ -379,7 +384,9 @@ class _EditInformasiUsahaFormWidgetState
                                     : existingModel.alamat,
                               ),
                             );
-                            context.read<UpdateUsahaBloc>().add(updateEvent);
+                            context
+                                .read<UpdateInformasiUsahaBloc>()
+                                .add(updateEvent);
                           }
                         }
                       }

@@ -13,7 +13,7 @@ class HistoryTransaksiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          RiwayatTransaksiBloc()..add(const GetRiwayatFetchDataEvent()),
+          RiwayatTransaksiBloc()..add(RiwayatTransaksiFetchData()),
       child: Scaffold(
         appBar: const CustomAppBarWidget(
           title: 'Riwayat Transaksi',
@@ -21,9 +21,9 @@ class HistoryTransaksiPage extends StatelessWidget {
         backgroundColor: AppColor.backgroundColor,
         body: BlocBuilder<RiwayatTransaksiBloc, RiwayatTransaksiState>(
           builder: (context, state) {
-            if (state is RiwayatTransaksiErrorState) {
+            if (state is RiwayatTransaksiError) {
               return const Center(child: EmptyDataWidget());
-            } else if (state is RiwayatTransaksiLoadedState) {
+            } else if (state is RiwayatTransaksiLoaded) {
               return ListTransaksiWidget(transaksiList: state.transaksiList);
             }
             return const Center(

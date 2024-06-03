@@ -1,7 +1,7 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/request/status_pesanan_request.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/bloc/invoice_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/invoice_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pemesanan/detail_pemesanan_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/order/order_list_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/dialog_widget.dart';
@@ -19,7 +19,7 @@ class DetailWaitingPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => InvoicePesananBloc()
         ..add(
-          InvoicePesananUserEvent(invoice: invoice),
+          InvoicePesananFetchData(invoice: invoice),
         ),
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
@@ -58,11 +58,11 @@ class DetailWaitingPage extends StatelessWidget {
                   ),
                   BlocBuilder<InvoicePesananBloc, InvoicePesananState>(
                     builder: (context, state) {
-                      if (state is InvoicePesananErrorState) {
+                      if (state is InvoicePesananError) {
                         return Center(
-                          child: Text(state.message),
+                          child: Text(state.message!),
                         );
-                      } else if (state is InvoicePesananLoadedState) {
+                      } else if (state is InvoicePesananLoaded) {
                         final pesananDetail = state.response;
                         int totalPrice = 0;
                         for (var orderItem in pesananDetail.oderlist!) {
@@ -147,8 +147,7 @@ class DetailWaitingPage extends StatelessWidget {
                                           'Pesanan diproses',
                                         );
                                         final updateEvent =
-                                            UpdateStatusPesananEvent
-                                                .onUpdateTapped(
+                                            UpdateStatusPesananTapped(
                                           requestUser:
                                               StatusPesananRequestModel(
                                             orderstatus: 'PROCESS',
@@ -175,8 +174,7 @@ class DetailWaitingPage extends StatelessWidget {
                                               textConfirm: 'Ya',
                                               onPressed: () {
                                                 final updateEvent =
-                                                    UpdateStatusPesananEvent
-                                                        .onUpdateTapped(
+                                                    UpdateStatusPesananTapped(
                                                   requestUser:
                                                       StatusPesananRequestModel(
                                                     orderstatus: 'CANCELED',

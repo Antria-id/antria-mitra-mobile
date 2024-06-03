@@ -1,5 +1,5 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_income_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/jadwal_widget.dart';
@@ -23,13 +23,13 @@ class HomePage extends StatelessWidget {
         BlocProvider(
           create: (context) => UserBloc()
             ..add(
-              const UserFetchDataEvent(),
+              UserFetchData(),
             ),
         ),
         BlocProvider(
           create: (context) => PesananBerlangsungBloc()
             ..add(
-              const GetPesananBerlangsungFetchDataEvent(),
+              PesananBerlangsungFetchData(),
             ),
         ),
       ],
@@ -49,11 +49,11 @@ class HomePage extends StatelessWidget {
             child: SafeArea(
               child: BlocBuilder<UserBloc, UserState>(
                 builder: (context, state) {
-                  if (state is UserErrorState) {
+                  if (state is UserError) {
                     return Center(
                       child: Text('Error: ${state.message}'),
                     );
-                  } else if (state is UserLoadedState) {
+                  } else if (state is UserLoaded) {
                     final profileData = state.user;
                     return Column(
                       children: [
@@ -132,14 +132,14 @@ class HomePage extends StatelessWidget {
                 ),
                 BlocBuilder<PesananBerlangsungBloc, PesananBerlangsungState>(
                   builder: (context, state) {
-                    if (state is PesananBerlangsungErrorState) {
+                    if (state is PesananBerlangsungError) {
                       return const Padding(
                         padding: EdgeInsets.symmetric(vertical: 60),
                         child: Center(
                           child: FailedFetchDataWidget(),
                         ),
                       );
-                    } else if (state is PesananBerlangsungLoadedState) {
+                    } else if (state is PesananBerlangsungLoaded) {
                       return ListPesananBerlangsungWidget(
                         pesananList: state.pesananList,
                       );

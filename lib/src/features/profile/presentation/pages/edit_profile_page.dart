@@ -12,18 +12,18 @@ class EditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          KaryawanProfileBloc()..add(const GetKaryawanFetchDataEvent()),
+          KaryawanProfileBloc()..add(KaryawanProfileFetchData()),
       child: BlocListener<UpdateProfileBloc, UpdateProfileState>(
         listener: (context, state) {
-          if (state is UpdateProfileLoadedState) {
+          if (state is UpdateProfileSuccess) {
             showToastSuccessMessage(
               'Update Profile Berhasil',
             );
             context.read<KaryawanProfileBloc>().add(
-                  const GetKaryawanFetchDataEvent(),
+                  KaryawanProfileFetchData(),
                 );
           }
-          if (state is UpdateProfileErrorState) {
+          if (state is UpdateProfileFailed) {
             showToastFailedMessage(
               'Update Profile Gagal',
             );

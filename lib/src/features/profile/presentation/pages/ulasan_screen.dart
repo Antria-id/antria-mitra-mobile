@@ -12,7 +12,7 @@ class UlasanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UlasanBloc()..add(const UlasanFetchDataEvent()),
+      create: (context) => UlasanBloc()..add(UlasanFetchData()),
       child: Scaffold(
         appBar: CustomAppBarWidget(
           title: 'Rating & Ulasan',
@@ -29,12 +29,12 @@ class UlasanPage extends StatelessWidget {
         backgroundColor: AppColor.backgroundColor,
         body: BlocBuilder<UlasanBloc, UlasanState>(
           builder: (context, state) {
-            if (state is UlasanErrorState) {
+            if (state is UlasanError) {
               return const Center(
                 child: EmptyDataWidget(),
               );
             }
-            if (state is UlasanLoadedState) {
+            if (state is UlasanLoaded) {
               return Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 20),

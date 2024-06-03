@@ -49,11 +49,11 @@ class _JadwalFormWidgetState extends State<JadwalFormWidget> {
       backgroundColor: AppColor.backgroundColor,
       body: BlocBuilder<GetJadwalBloc, GetJadwalState>(
         builder: (context, state) {
-          if (state is GetJadwalStateErrorState) {
+          if (state is GetJadwalError) {
             return const Center(
               child: EmptyDataWidget(),
             );
-          } else if (state is GetJadwalStateLoadedState) {
+          } else if (state is GetJadwalLoaded) {
             List<String> openingDays = state.mitraModel.hariBuka!.split(',');
             List<DayInWeek> day = [
               DayInWeek("S", dayKey: "senin"),
@@ -176,7 +176,7 @@ class _JadwalFormWidgetState extends State<JadwalFormWidget> {
                                 BlocConsumer<UpdateJadwalBloc,
                                     UpdateJadwalState>(
                                   listener: (context, state) {
-                                    if (state is UpdateJadwalLoadingState) {
+                                    if (state is UpdateJadwalLoading) {
                                       const Center(
                                         child: CircularProgressIndicator(),
                                       );
@@ -194,12 +194,11 @@ class _JadwalFormWidgetState extends State<JadwalFormWidget> {
                                                       .read<GetJadwalBloc>()
                                                       .state;
                                                   if (currentState
-                                                      is GetJadwalStateLoadedState) {
+                                                      is GetJadwalLoaded) {
                                                     final existingModel =
                                                         currentState.mitraModel;
                                                     final updateEvent =
-                                                        UpdateJadwalEvent
-                                                            .onUpdateTapped(
+                                                        UpdateJadwalTapped(
                                                       requestUser:
                                                           MitraRequestModel(
                                                         hariBuka: selectedDays

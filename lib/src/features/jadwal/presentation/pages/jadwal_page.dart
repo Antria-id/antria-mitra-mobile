@@ -14,17 +14,17 @@ class JadwalPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => GetJadwalBloc()
         ..add(
-          const GetJadwalFetchDataEvent(),
+          GetJadwalFetchData(),
         ),
       child: BlocListener<UpdateJadwalBloc, UpdateJadwalState>(
         listener: (context, state) {
-          if (state is UpdateJadwalLoadedState) {
+          if (state is UpdateJadwalSuccess) {
             showToastSuccessMessage(
               'Update Jadwal Berhasil',
             );
-            context.read<GetJadwalBloc>().add(const GetJadwalFetchDataEvent());
+            context.read<GetJadwalBloc>().add(GetJadwalFetchData());
           }
-          if (state is UpdateJadwalErrorState) {
+          if (state is UpdateJadwalFailed) {
             showToastFailedMessage(
               'Update Jadwal Gagal',
             );

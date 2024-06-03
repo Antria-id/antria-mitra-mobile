@@ -23,7 +23,7 @@ class _JadwalWidgetState extends State<JadwalWidget> {
     return BlocProvider(
       create: (context) => GetJadwalBloc()
         ..add(
-          const GetJadwalFetchDataEvent(),
+          GetJadwalFetchData(),
         ),
       child: Container(
         width: double.infinity,
@@ -39,9 +39,9 @@ class _JadwalWidgetState extends State<JadwalWidget> {
         ),
         child: BlocBuilder<GetJadwalBloc, GetJadwalState>(
           builder: (context, state) {
-            if (state is GetJadwalStateErrorState) {
+            if (state is GetJadwalError) {
               return const FailedFetchDataWidget();
-            } else if (state is GetJadwalStateLoadedState) {
+            } else if (state is GetJadwalLoaded) {
               final jadwal = state.mitraModel;
               final formattedHariBuka = formatHariBuka(jadwal.hariBuka);
               String truncateText(String text, int maxLength) {

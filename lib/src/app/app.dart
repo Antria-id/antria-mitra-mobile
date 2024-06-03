@@ -1,21 +1,21 @@
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian_pesanan/pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/bloc/invoice_pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian/antrian_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/invoice_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register/register_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/detail_transaksi/detail_transaksi_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/riwayat_transaksi/riwayat_transaksi_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/product/product_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/produk/produk_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karyawan_profile/karyawan_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/logout/logout_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/ulasan/ulasan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/routes/routes.dart';
 import 'package:antria_mitra_mobile/src/themes/app_theme.dart';
@@ -57,7 +57,7 @@ class App extends StatelessWidget {
           create: (_) => UlasanBloc(),
         ),
         BlocProvider(
-          create: (_) => ProductBloc(),
+          create: (_) => ProdukBloc(),
         ),
         BlocProvider(
           create: (_) => GetJadwalBloc(),
@@ -72,7 +72,7 @@ class App extends StatelessWidget {
           create: (_) => InvoicePesananBloc(),
         ),
         BlocProvider(
-          create: (_) => PesananBloc(),
+          create: (_) => AntrianBloc(),
         ),
         BlocProvider(
           create: (_) => RiwayatTransaksiBloc(),
@@ -84,7 +84,7 @@ class App extends StatelessWidget {
           create: (_) => InformasiUsahaBloc(),
         ),
         BlocProvider(
-          create: (_) => UpdateUsahaBloc(),
+          create: (_) => UpdateInformasiUsahaBloc(),
         ),
       ],
       child: MaterialApp(

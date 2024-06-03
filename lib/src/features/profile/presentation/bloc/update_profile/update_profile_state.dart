@@ -1,12 +1,24 @@
 part of 'update_profile_bloc.dart';
 
-@freezed
-class UpdateProfileState with _$UpdateProfileState {
-  const factory UpdateProfileState.initial() = UpdateProfileInitialState;
-  const factory UpdateProfileState.loading() = UpdateProfileLoadingState;
-  const factory UpdateProfileState.error(String message) =
-      UpdateProfileErrorState;
-  const factory UpdateProfileState.loaded({
-    required UpdateKaryawanRequestModel requestUser,
-  }) = UpdateProfileLoadedState;
+sealed class UpdateProfileState extends Equatable {
+  const UpdateProfileState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdateProfileInitial extends UpdateProfileState {}
+
+final class UpdateProfileLoading extends UpdateProfileState {}
+
+final class UpdateProfileSuccess extends UpdateProfileState {
+  final UpdateKaryawanRequestModel requestUser;
+
+  const UpdateProfileSuccess({required this.requestUser});
+}
+
+final class UpdateProfileFailed extends UpdateProfileState {
+  final String? message;
+
+  const UpdateProfileFailed({required this.message});
 }

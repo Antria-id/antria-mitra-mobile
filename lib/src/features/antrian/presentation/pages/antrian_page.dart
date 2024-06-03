@@ -1,4 +1,4 @@
-import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian_pesanan/pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian/antrian_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/dine_in_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/take_away_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/pending_list_widget.dart';
@@ -17,7 +17,10 @@ class AntrianPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PesananBloc()..add(const GetPesananFetchDataEvent()),
+      create: (context) => AntrianBloc()
+        ..add(
+          AntrianFetchData(),
+        ),
       child: DefaultTabController(
         length: Tabs().tabs.length,
         child: Scaffold(
@@ -60,11 +63,11 @@ class AntrianPage extends StatelessWidget {
           body: TabBarView(
             children: [
               //Pending Tab
-              BlocBuilder<PesananBloc, PesananState>(
+              BlocBuilder<AntrianBloc, AntrianState>(
                 builder: (context, state) {
-                  if (state is PesananErrorState) {
+                  if (state is AntrianError) {
                     return const EmptyDataWidget();
-                  } else if (state is PesananLoadedState) {
+                  } else if (state is AntrianLoaded) {
                     return WaitingListWidget(
                       waitingList: state.pesananList,
                     );
@@ -75,11 +78,11 @@ class AntrianPage extends StatelessWidget {
                 },
               ),
               //Antrian Tab
-              BlocBuilder<PesananBloc, PesananState>(
+              BlocBuilder<AntrianBloc, AntrianState>(
                 builder: (context, state) {
-                  if (state is PesananErrorState) {
+                  if (state is AntrianError) {
                     return const EmptyDataWidget();
-                  } else if (state is PesananLoadedState) {
+                  } else if (state is AntrianLoaded) {
                     return DefaultTabController(
                       length: 2,
                       child: Column(
@@ -126,11 +129,11 @@ class AntrianPage extends StatelessWidget {
               ),
 
               //Pengambilan Tab
-              BlocBuilder<PesananBloc, PesananState>(
+              BlocBuilder<AntrianBloc, AntrianState>(
                 builder: (context, state) {
-                  if (state is PesananErrorState) {
+                  if (state is AntrianError) {
                     return const EmptyDataWidget();
-                  } else if (state is PesananLoadedState) {
+                  } else if (state is AntrianLoaded) {
                     return SelesaiListWidget(
                       pengambilanList: state.pesananList,
                     );

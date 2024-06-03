@@ -1,14 +1,24 @@
 part of 'update_status_pesanan_bloc.dart';
 
-@freezed
-class UpdateStatusPesananState with _$UpdateStatusPesananState {
-  const factory UpdateStatusPesananState.initial() =
-      UpdateStatusPesananInitialState;
-  const factory UpdateStatusPesananState.loading() =
-      UpdateStatusPesananLoadingState;
-  const factory UpdateStatusPesananState.error(String message) =
-      UpdateStatusPesananErrorState;
-  const factory UpdateStatusPesananState.loaded({
-    required StatusPesananRequestModel requestUser,
-  }) = UpdateStatusPesananLoadedState;
+sealed class UpdateStatusPesananState extends Equatable {
+  const UpdateStatusPesananState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdateStatusPesananInitial extends UpdateStatusPesananState {}
+
+final class UpdateStatusPesananLoading extends UpdateStatusPesananState {}
+
+final class UpdateStatusPesananSuccess extends UpdateStatusPesananState {
+  final StatusPesananRequestModel requestUser;
+
+  const UpdateStatusPesananSuccess({required this.requestUser});
+}
+
+final class UpdateStatusPesananError extends UpdateStatusPesananState {
+  final String? message;
+
+  const UpdateStatusPesananError({required this.message});
 }

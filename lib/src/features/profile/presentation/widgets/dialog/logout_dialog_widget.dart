@@ -11,7 +11,7 @@ class LogoutDialogWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LogoutBloc, LogoutState>(
       listener: (context, state) {
-        if (state is LogoutLoadedState) {
+        if (state is LogoutSuccess) {
           showToastSuccessMessage('Logout Berhasil');
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -19,7 +19,7 @@ class LogoutDialogWidget extends StatelessWidget {
             (route) => false,
           );
         }
-        if (state is LogoutErrorState) {
+        if (state is LogoutFailed) {
           showToastFailedMessage('Logout Gagal');
         }
       },
@@ -34,7 +34,7 @@ class LogoutDialogWidget extends StatelessWidget {
           textConfirm: 'Logout',
           onPressed: () {
             context.read<LogoutBloc>().add(
-                  const LogoutEvent.onLogoutTapped(),
+                  LogoutTapped(),
                 );
           },
         );

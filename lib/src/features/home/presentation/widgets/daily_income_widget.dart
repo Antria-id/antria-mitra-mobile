@@ -16,8 +16,7 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          DailyIncomeBloc()..add(const GetDailyFetchDataEvent()),
+      create: (context) => DailyIncomeBloc()..add(DailyIncomeFetchData()),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -32,9 +31,9 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
         ),
         child: BlocBuilder<DailyIncomeBloc, DailyIncomeState>(
           builder: (context, state) {
-            if (state is DailyIncomeErrorState) {
+            if (state is DailyIncomeError) {
               return const FailedFetchDataWidget();
-            } else if (state is DailyIncomeLoadedState) {
+            } else if (state is DailyIncomeLoaded) {
               final order = state.dailyIncome;
               int jumlahOrder = order
                   .where(

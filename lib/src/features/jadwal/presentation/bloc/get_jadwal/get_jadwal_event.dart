@@ -1,6 +1,10 @@
 part of 'get_jadwal_bloc.dart';
 
-@freezed
-class GetJadwalEvent with _$GetJadwalEvent {
-  const factory GetJadwalEvent.onGetJadwal() = GetJadwalFetchDataEvent;
+sealed class GetJadwalEvent extends Equatable {
+  const GetJadwalEvent();
+
+  @override
+  List<Object> get props => [];
 }
+
+final class GetJadwalFetchData extends GetJadwalEvent {}

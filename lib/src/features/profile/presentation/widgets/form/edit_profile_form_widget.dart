@@ -50,11 +50,11 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
       backgroundColor: AppColor.backgroundColor,
       body: BlocBuilder<KaryawanProfileBloc, KaryawanProfileState>(
         builder: (context, state) {
-          if (state is KaryawanProfileStateErrorState) {
+          if (state is KaryawanProfileError) {
             return const Center(
               child: EmptyDataWidget(),
             );
-          } else if (state is KaryawanProfileStateLoadedState) {
+          } else if (state is KaryawanProfileLoaded) {
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -319,12 +319,12 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
       bottomNavigationBar:
           BlocBuilder<KaryawanProfileBloc, KaryawanProfileState>(
         builder: (context, state) {
-          if (state is KaryawanProfileStateErrorState) {
+          if (state is KaryawanProfileError) {
             return const SizedBox.shrink();
           } else {
             return BlocConsumer<UpdateProfileBloc, UpdateProfileState>(
               listener: (context, state) {
-                if (state is UpdateProfileLoadingState) {
+                if (state is UpdateProfileLoading) {
                   const Center(
                     child: CircularProgressIndicator(),
                   );
@@ -348,7 +348,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                       if (formKey.currentState!.validate()) {
                         final currentState =
                             context.read<KaryawanProfileBloc>().state;
-                        if (currentState is KaryawanProfileStateLoadedState) {
+                        if (currentState is KaryawanProfileLoaded) {
                           final existingModel = currentState.karyawanModel;
                           bool isImageUpdated = selectedImage != null;
                           bool isTextFieldsUpdated = email.isNotEmpty ||
@@ -358,8 +358,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                               address.isNotEmpty;
 
                           if (isImageUpdated && !isTextFieldsUpdated) {
-                            final updateEvent =
-                                UpdateProfileEvent.onUpdateTapped(
+                            final updateEvent = UpdateProfileTapped(
                               requestUser: UpdateKaryawanRequestModel(
                                 profilePicture: selectedImage!.path,
                                 email: existingModel.email,
@@ -371,8 +370,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                             );
                             context.read<UpdateProfileBloc>().add(updateEvent);
                           } else if (!isImageUpdated && isTextFieldsUpdated) {
-                            final updateEvent =
-                                UpdateProfileEvent.onUpdateTapped(
+                            final updateEvent = UpdateProfileTapped(
                               requestUser: UpdateKaryawanRequestModel(
                                 email: email.isNotEmpty
                                     ? email
@@ -392,8 +390,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                             );
                             context.read<UpdateProfileBloc>().add(updateEvent);
                           } else if (isImageUpdated && isTextFieldsUpdated) {
-                            final updateEvent =
-                                UpdateProfileEvent.onUpdateTapped(
+                            final updateEvent = UpdateProfileTapped(
                               requestUser: UpdateKaryawanRequestModel(
                                 profilePicture: selectedImage!.path,
                                 email: email.isNotEmpty

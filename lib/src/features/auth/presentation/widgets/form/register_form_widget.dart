@@ -345,7 +345,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                             alamat: alamatController.text,
                                             profilePicture: '',
                                             isOwner: true,
-                                            profilePicture: '',
                                           ),
                                         ),
                                       ),

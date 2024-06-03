@@ -1,4 +1,4 @@
-import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/product/product_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/produk/produk_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/cart_widget.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/product/product_list_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
@@ -19,9 +19,9 @@ class _KasirPageState extends State<KasirPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductBloc()
+      create: (context) => ProdukBloc()
         ..add(
-          const ProductFetchDataEvent(),
+          ProdukFetchData(),
         ),
       child: Scaffold(
         appBar: CustomAppBarWidget(
@@ -40,13 +40,13 @@ class _KasirPageState extends State<KasirPage> {
         backgroundColor: AppColor.backgroundColor,
         body: Stack(
           children: [
-            BlocBuilder<ProductBloc, ProductState>(
+            BlocBuilder<ProdukBloc, ProdukState>(
               builder: (context, state) {
-                if (state is ProductErrorState) {
+                if (state is ProdukError) {
                   return const Center(
                     child: EmptyDataWidget(),
                   );
-                } else if (state is ProductLoadedState) {
+                } else if (state is ProdukLoaded) {
                   return ProductListWidget(
                     productList: state.product,
                     onBuyButtonPressed: () {

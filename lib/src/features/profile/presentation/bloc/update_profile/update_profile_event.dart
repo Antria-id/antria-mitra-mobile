@@ -1,8 +1,17 @@
 part of 'update_profile_bloc.dart';
 
-@freezed
-class UpdateProfileEvent with _$UpdateProfileEvent {
-  const factory UpdateProfileEvent.onUpdateTapped(
-          {required UpdateKaryawanRequestModel requestUser}) =
-      UpdateProfileUserEvent;
+sealed class UpdateProfileEvent extends Equatable {
+  const UpdateProfileEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdateProfileTapped extends UpdateProfileEvent {
+  final UpdateKaryawanRequestModel requestUser;
+
+  const UpdateProfileTapped({required this.requestUser});
+
+  @override
+  List<Object> get props => [requestUser];
 }

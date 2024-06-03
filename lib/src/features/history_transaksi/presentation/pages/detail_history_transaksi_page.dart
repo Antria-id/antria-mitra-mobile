@@ -30,7 +30,7 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => DetailTransaksiBloc()
         ..add(
-          DetailTransaksiFetchDataEvent(invoice: invoice),
+          DetailTransaksiFetchData(invoice: invoice),
         ),
       child: Scaffold(
         appBar: CustomAppBarWidget(
@@ -49,9 +49,9 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
         body: Center(
           child: BlocBuilder<DetailTransaksiBloc, DetailTransaksiState>(
             builder: (context, state) {
-              if (state is DetailTransaksiErrorState) {
+              if (state is DetailTransaksiError) {
                 return const EmptyDataWidget();
-              } else if (state is DetailTransaksiLoadedState) {
+              } else if (state is DetailTransaksiLoaded) {
                 var transaksi = state.response;
                 int totalPrice = 0;
                 for (var orderItem in transaksi.oderlist!) {
