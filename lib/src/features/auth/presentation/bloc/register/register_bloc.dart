@@ -1,31 +1,32 @@
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/models/request/register/register_request_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/response/register/register_reponse_model.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/register_usecase.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
-part 'register_bloc.freezed.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc() : super(const RegisterInitialState()) {
+  RegisterBloc() : super(RegisterInitial()) {
     on<RegisterEvent>((event, emit) async {
-      final user = event.requestUser;
-      emit(const RegisterState.loading());
-      var result = await serviceLocator<RegisterUsecase>().registerUser(user);
-      result.fold(
-        (failure) {
-          emit(RegisterState.failed(failure.message));
-        },
-        (data) {
-          emit(
-            RegisterState.success(
-              registerRequest: user,
-            ),
-          );
-        },
-      );
+      if (event is RegisterButtonTapped) {
+        final response = event.request;
+        emit(RegisterLoading());
+        var result =
+            await serviceLocator<RegisterUsecase>().registerUser(response);
+        result.fold(
+          (failure) {
+            emit(RegisterFailed(message: failure.message));
+          },
+          (data) {
+            emit(
+              RegisterSuccess(response: data),
+            );
+          },
+        );
+      }
     });
   }
 }

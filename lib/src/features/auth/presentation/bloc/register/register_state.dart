@@ -1,11 +1,24 @@
 part of 'register_bloc.dart';
 
-@freezed
-class RegisterState with _$RegisterState {
-  const factory RegisterState.initial() = RegisterInitialState;
-  const factory RegisterState.loading() = RegisterLoadingState;
-  const factory RegisterState.failed(String message) = RegisterFailedState;
-  const factory RegisterState.success({
-    required RegisterRequest registerRequest,
-  }) = RegisterSuccessState;
+sealed class RegisterState extends Equatable {
+  const RegisterState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class RegisterInitial extends RegisterState {}
+
+final class RegisterLoading extends RegisterState {}
+
+final class RegisterSuccess extends RegisterState {
+  final RegisterResponse response;
+
+  const RegisterSuccess({required this.response});
+}
+
+final class RegisterFailed extends RegisterState {
+  final String? message;
+
+  const RegisterFailed({required this.message});
 }

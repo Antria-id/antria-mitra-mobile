@@ -1,11 +1,24 @@
 part of 'login_bloc.dart';
 
-@freezed
-class LoginState with _$LoginState {
-  const factory LoginState.initial() = LoginInitialState;
-  const factory LoginState.loading() = LoginLoadingState;
-  const factory LoginState.failed(String message) = LoginFailedState;
-  const factory LoginState.success({
-    required LoginResponse responseModel,
-  }) = LoginSuccessState;
+sealed class LoginState extends Equatable {
+  const LoginState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class LoginInitial extends LoginState {}
+
+final class LoginLoading extends LoginState {}
+
+final class LoginSuccess extends LoginState {
+  final LoginResponse response;
+
+  const LoginSuccess({required this.response});
+}
+
+final class LoginFailed extends LoginState {
+  final String? message;
+
+  const LoginFailed({required this.message});
 }
