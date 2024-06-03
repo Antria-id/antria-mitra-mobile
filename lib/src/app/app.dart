@@ -1,5 +1,22 @@
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian_pesanan/pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/bloc/invoice_pesanan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/detail_transaksi/detail_transaksi_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/riwayat_transaksi/riwayat_transaksi_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/bloc/pesanan_berlangsung_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/product/product_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karyawan_profile/karyawan_profile_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/logout/logout_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/ulasan/ulasan_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/routes/routes.dart';
 import 'package:antria_mitra_mobile/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +30,61 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LoginBloc(),
+          create: (_) => LoginBloc(),
         ),
         BlocProvider(
-          create: (context) => RegisterBloc(),
+          create: (_) => RegisterBloc(),
+        ),
+        BlocProvider(
+          create: (_) => DailyIncomeBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UserBloc(),
+        ),
+        BlocProvider(
+          create: (_) => PesananBerlangsungBloc(),
+        ),
+        BlocProvider(
+          create: (_) => KaryawanProfileBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateProfileBloc(),
+        ),
+        BlocProvider(
+          create: (_) => LogoutBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UlasanBloc(),
+        ),
+        BlocProvider(
+          create: (_) => ProductBloc(),
+        ),
+        BlocProvider(
+          create: (_) => GetJadwalBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateJadwalBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateStatusPesananBloc(),
+        ),
+        BlocProvider(
+          create: (_) => InvoicePesananBloc(),
+        ),
+        BlocProvider(
+          create: (_) => PesananBloc(),
+        ),
+        BlocProvider(
+          create: (_) => RiwayatTransaksiBloc(),
+        ),
+        BlocProvider(
+          create: (_) => DetailTransaksiBloc(),
+        ),
+        BlocProvider(
+          create: (_) => InformasiUsahaBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UpdateUsahaBloc(),
         ),
       ],
       child: MaterialApp(

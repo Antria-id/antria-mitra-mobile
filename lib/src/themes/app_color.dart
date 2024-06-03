@@ -9,6 +9,7 @@ class AppColor {
   static const whiteColor = Color(0xffffffff);
   static const greyColor = Colors.grey;
   static const transparent = Colors.transparent;
+  static const priceColor = Color(0xff0D1039);
   static Gradient gradientTopColor = const LinearGradient(
     colors: [
       Color(0xff9B59B6),

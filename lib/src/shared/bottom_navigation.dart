@@ -1,3 +1,7 @@
+import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_list_page.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/profile_page.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +15,12 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int selectedIndex = 0;
-  final List<Widget> screens = [];
+  final List<Widget> screens = [
+    const HomePage(),
+    const ChatListPage(),
+    const HistoryTransaksiPage(),
+    const ProfilePage(),
+  ];
 
   void onItemTapped(int index) {
     setState(() {
@@ -22,10 +31,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Positioned.fill(
-            child: screens.elementAt(selectedIndex),
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: screens.elementAt(selectedIndex),
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: AlignmentDirectional.bottomCenter,

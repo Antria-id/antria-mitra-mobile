@@ -215,7 +215,7 @@ class AppTextStyle {
     fontWeight: FontWeight.normal,
   );
 
-  static const xlargePurplekBold = TextStyle(
+  static const xlargePurpleBold = TextStyle(
     fontSize: AppFontSize.xLarge,
     color: AppColor.primaryColor,
     fontWeight: FontWeight.bold,
@@ -236,6 +236,65 @@ class AppTextStyle {
   static const xxxlargePurpleBold = TextStyle(
     fontSize: AppFontSize.xxxLarge,
     color: AppColor.primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  // ------------------- Purple TextStyle ------------------------- //
+
+  static const xxSmallPrice = TextStyle(
+    fontSize: AppFontSize.xxSmall,
+    color: AppColor.priceColor,
+  );
+
+  static const xSmallPrice = TextStyle(
+    fontSize: AppFontSize.xSmall,
+    color: AppColor.priceColor,
+  );
+
+  static const smallPrice = TextStyle(
+    fontSize: AppFontSize.small,
+    color: AppColor.priceColor,
+  );
+
+  static const mediumPrice = TextStyle(
+    fontSize: AppFontSize.medium,
+    color: AppColor.priceColor,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const largePrice = TextStyle(
+    fontSize: AppFontSize.large,
+    color: AppColor.priceColor,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const xlargePrice = TextStyle(
+    fontSize: AppFontSize.xLarge,
+    color: AppColor.priceColor,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const xlargePriceBold = TextStyle(
+    fontSize: AppFontSize.xLarge,
+    color: AppColor.priceColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const xxlargePrice = TextStyle(
+    fontSize: AppFontSize.xxLarge,
+    color: AppColor.priceColor,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const xxxlargePrice = TextStyle(
+    fontSize: AppFontSize.xxxLarge,
+    color: AppColor.priceColor,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const xxxlargePriceBold = TextStyle(
+    fontSize: AppFontSize.xxxLarge,
+    color: AppColor.priceColor,
     fontWeight: FontWeight.bold,
   );
 }
