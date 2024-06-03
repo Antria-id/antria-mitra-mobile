@@ -307,11 +307,11 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                     ),
                     child: BlocConsumer<RegisterBloc, RegisterState>(
                       listener: (context, state) {
-                        if (state is RegisterSuccessState) {
+                        if (state is RegisterSuccess) {
                           showToastSuccessMessage('Register Berhasil');
                           Navigator.pushNamed(context, '/login');
                         }
-                        if (state is RegisterFailedState) {
+                        if (state is RegisterFailed) {
                           showToastFailedMessage('Register Gagal');
                         }
                       },
@@ -325,13 +325,16 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 context.read<RegisterBloc>().add(
-                                      RegisterEvent.onRegisterTapped(
-                                        requestUser: RegisterRequest(
+                                      RegisterButtonTapped(
+                                        request: RegisterRequest(
                                           mitraData: MitraData(
                                             namaToko: namaTokoController.text,
                                             deskripsiToko:
                                                 deskripsiTokoController.text,
                                             alamat: alamatTokoController.text,
+                                            jamBuka: '',
+                                            jamTutup: '',
+                                            hariBuka: '',
                                           ),
                                           karyawanData: KaryawanData(
                                             email: emailController.text,
@@ -341,6 +344,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                             handphone: nomorHpController.text,
                                             alamat: alamatController.text,
                                             isOwner: true,
+                                            profilePicture: '',
                                           ),
                                         ),
                                       ),

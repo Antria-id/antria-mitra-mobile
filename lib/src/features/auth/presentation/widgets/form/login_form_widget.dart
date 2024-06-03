@@ -106,7 +106,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                             ),
                             BlocConsumer<LoginBloc, LoginState>(
                               listener: (context, state) {
-                                if (state is LoginSuccessState) {
+                                if (state is LoginSuccess) {
                                   showToastSuccessMessage('Login Berhasil');
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
@@ -115,7 +115,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                                     ),
                                   );
                                 }
-                                if (state is LoginFailedState) {
+                                if (state is LoginFailed) {
                                   showToastFailedMessage('Login Gagal');
                                   setState(() {
                                     isLoading = false;
@@ -151,8 +151,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                                         isLoading = true;
                                       });
                                       context.read<LoginBloc>().add(
-                                            LoginEvent.onLoginTapped(
-                                              requestModel: LoginRequest(
+                                            LoginButtonTapped(
+                                              request: LoginRequest(
                                                 username:
                                                     usernameController.text,
                                                 password:

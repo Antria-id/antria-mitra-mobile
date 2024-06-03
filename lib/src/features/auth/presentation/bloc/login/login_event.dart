@@ -1,7 +1,16 @@
 part of 'login_bloc.dart';
 
-@freezed
-class LoginEvent with _$LoginEvent {
-  const factory LoginEvent.onLoginTapped({required LoginRequest requestModel}) =
-      LoginUserEvent;
+sealed class LoginEvent extends Equatable {
+  const LoginEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class LoginButtonTapped extends LoginEvent {
+  final LoginRequest request;
+
+  const LoginButtonTapped({required this.request});
+  @override
+  List<Object> get props => [request];
 }
