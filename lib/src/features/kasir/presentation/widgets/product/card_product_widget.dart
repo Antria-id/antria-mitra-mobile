@@ -7,7 +7,6 @@ class CardProductWidget extends StatefulWidget {
   final String image;
   final String productName;
   final int productPrice;
-  final String productDescription;
   final VoidCallback onPressed;
   final int stock;
   const CardProductWidget({
@@ -15,7 +14,6 @@ class CardProductWidget extends StatefulWidget {
     required this.image,
     required this.productName,
     required this.productPrice,
-    required this.productDescription,
     required this.onPressed,
     required this.stock,
   });
@@ -36,7 +34,7 @@ class _CardProductWidgetState extends State<CardProductWidget>
   Widget build(BuildContext context) {
     String formattedPrice = NumberFormat.currency(
       locale: 'id_ID',
-      symbol: 'Rp',
+      symbol: 'Rp ',
       decimalDigits: 0,
     ).format(widget.productPrice);
     super.build(context);
@@ -87,30 +85,29 @@ class _CardProductWidgetState extends State<CardProductWidget>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 4,
+                ),
                 Text(
                   widget.productName,
                   style: const TextStyle(
+                    color: Color(0xff4B4B4B),
                     fontSize: 14,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.bold,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  widget.productDescription,
-                  style: AppTextStyle.smallGrey,
-                  overflow: TextOverflow.ellipsis,
-                ),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 Text(
                   formattedPrice,
-                  style: AppTextStyle.mediumBlack.copyWith(
+                  style: AppTextStyle.mediumPrice.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(
-                  height: 4,
+                  height: 16,
                 ),
                 Center(
                   child: isTambah

@@ -4,7 +4,6 @@ import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoi
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pemesanan/detail_pemesanan_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/order/order_list_widget.dart';
-import 'package:antria_mitra_mobile/src/shared/dialog_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/toast.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
@@ -224,74 +223,22 @@ class DetailProcessPage extends StatelessWidget {
                                       isTakeAway: state.response.takeaway!,
                                       totalPrice: totalPrice,
                                       onFinishPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return BlocConsumer<
-                                                UpdateStatusPesananBloc,
-                                                UpdateStatusPesananState>(
-                                              listener: (context, state) {
-                                                if (state
-                                                    is UpdateStatusPesananErrorState) {
-                                                  showToastFailedMessage(
-                                                    state.message,
-                                                  );
-                                                }
-                                              },
-                                              builder: (context, state) {
-                                                return DialogWidget(
-                                                  title: 'Konfirmasi Pesanan',
-                                                  onCancel: () {
-                                                    final updateEvent =
-                                                        UpdateStatusPesananEvent
-                                                            .onUpdateTapped(
-                                                      requestUser:
-                                                          StatusPesananRequestModel(
-                                                        orderstatus: 'CONFIRM',
-                                                      ),
-                                                      id: pesananDetail
-                                                          .antrian!.id!,
-                                                    );
-                                                    context
-                                                        .read<
-                                                            UpdateStatusPesananBloc>()
-                                                        .add(updateEvent);
-                                                    showToastSuccessMessage(
-                                                      'Silahkan cek menu pengambilan',
-                                                    );
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                  },
-                                                  subtitle:
-                                                      'Apakah pesanan ini sudah diambil?',
-                                                  textCancel: 'Belum',
-                                                  textConfirm: 'Sudah',
-                                                  onPressed: () {
-                                                    final updateEvent =
-                                                        UpdateStatusPesananEvent
-                                                            .onUpdateTapped(
-                                                      requestUser:
-                                                          StatusPesananRequestModel(
-                                                        orderstatus: 'ALLDONE',
-                                                      ),
-                                                      id: pesananDetail
-                                                          .antrian!.id!,
-                                                    );
-                                                    context
-                                                        .read<
-                                                            UpdateStatusPesananBloc>()
-                                                        .add(updateEvent);
-                                                    showToastSuccessMessage(
-                                                      'Pesanan Selesai',
-                                                    );
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                  },
-                                                );
-                                              },
-                                            );
-                                          },
+                                        showToastSuccessMessage(
+                                          'Pesanan Selesai',
                                         );
+                                        final updateEvent =
+                                            UpdateStatusPesananEvent
+                                                .onUpdateTapped(
+                                          requestUser:
+                                              StatusPesananRequestModel(
+                                            orderstatus: 'ALLDONE',
+                                          ),
+                                          id: pesananDetail.antrian!.id!,
+                                        );
+                                        context
+                                            .read<UpdateStatusPesananBloc>()
+                                            .add(updateEvent);
+                                        Navigator.of(context).pop();
                                       },
                                       isAmbil: false,
                                     )

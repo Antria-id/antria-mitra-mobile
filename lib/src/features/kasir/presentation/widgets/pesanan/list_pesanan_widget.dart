@@ -33,7 +33,7 @@ class ListPesananWidget extends StatelessWidget {
             image: cart['image'],
             label: cart['namaProduct'],
             price: cart['harga'],
-            quantity: cart['kuantitas'],
+            kuantitas: cart['kuantitas'],
           );
         },
         separatorBuilder: (BuildContext context, int index) {

@@ -33,7 +33,6 @@ class ProductListWidget extends StatelessWidget {
             image: '${APIUrl.baseUrl}${APIUrl.imagePath}${product.gambar}',
             productName: product.namaProduk ?? '',
             productPrice: product.harga ?? 0,
-            productDescription: product.deskripsiProduk ?? '',
             onPressed: onBuyButtonPressed,
             stock: product.kuantitas ?? 0,
           );

@@ -16,6 +16,7 @@ import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/kasir_
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/pemesanan_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/contact_support_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/informasi_usaha_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/profile_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/ulasan_screen.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/webview_screen.dart';
@@ -64,6 +65,9 @@ class AppRoutes {
 
       case '/edit-profile':
         return _materialRoute(const EditProfilePage());
+
+      case '/edit-informasi-usaha':
+        return _materialRoute(const InformasiUsahaPage());
 
       case '/webview-dashboard':
         return _materialRoute(const WebviewPage());

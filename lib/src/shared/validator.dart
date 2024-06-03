@@ -69,4 +69,11 @@ class ValidatorForm {
     }
     return null;
   }
+
+  String? validateLink(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Masukkan Link Google Maps';
+    }
+    return null;
+  }
 }

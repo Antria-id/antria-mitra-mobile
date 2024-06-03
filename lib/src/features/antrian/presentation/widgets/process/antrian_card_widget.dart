@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AntrianCardWidget extends StatelessWidget {
@@ -39,15 +40,26 @@ class AntrianCardWidget extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    nama ?? 'Anonym',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                  SizedBox(
+                    width: 120,
+                    child: Text(
+                      nama ?? 'Anonym',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+              },
+              icon: const Icon(
+                CupertinoIcons.chat_bubble_text_fill,
               ),
             ),
             Container(

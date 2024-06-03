@@ -137,7 +137,10 @@ class ProfilePage extends StatelessWidget {
                           ProfileButtonWidget(
                             icon: 'assets/icons/restoran.png',
                             text: 'Informasi Usaha',
-                            onTap: () => Navigator.pushNamed(context, '/'),
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              '/edit-informasi-usaha',
+                            ),
                           ),
                         ],
                       );

@@ -14,7 +14,7 @@ class PemesananPage extends StatefulWidget {
 
 class _PemesananPageState extends State<PemesananPage> {
   String paymentMethod = 'Pilih Metode Pembayaran';
-  int biayaLayanan = 2000;
+  int biayaLayanan = 1000;
 
   @override
   Widget build(BuildContext context) {
@@ -189,27 +189,30 @@ class _PemesananPageState extends State<PemesananPage> {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomButtonWidget(
-                  backgroundColor: AppColor.primaryColor,
-                  circularButton: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  size: const Size(254, 46),
-                  child: Text(
-                    'Selesai',
-                    style: AppTextStyle.mediumWhite.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  },
-                )
               ],
             ),
-          )
+          ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: CustomButtonWidget(
+          backgroundColor: AppColor.primaryColor,
+          circularButton: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          size: const Size(double.infinity, 50),
+          child: Text(
+            'Bayar',
+            style: AppTextStyle.mediumWhite.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        ),
       ),
     );
   }
