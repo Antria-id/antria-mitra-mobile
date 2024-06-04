@@ -60,142 +60,153 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                 }
 
                 return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                truncateText(formattedHariBuka, 14),
-                                style: AppTextStyle.smallBlack.copyWith(
-                                  fontWeight: FontWeight.w700,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 17),
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      truncateText(formattedHariBuka, 14),
+                                      style: AppTextStyle.smallBlack.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          jadwal.jamBuka!.isEmpty &&
+                                                  jadwal.jamTutup!.isEmpty
+                                              ? truncateText('Jam Kosong', 11)
+                                              : "${jadwal.jamBuka} - ${jadwal.jamTutup}",
+                                          style:
+                                              AppTextStyle.smallBlack.copyWith(
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 36,
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                                Image.asset(
+                                  'assets/icons/booking.png',
+                                  width: 34,
+                                  height: 34,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 64,
+                          child: VerticalDivider(
+                            color: AppColor.dividerColor,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Column(
+                            children: [
                               Row(
                                 children: [
-                                  Text(
-                                    jadwal.jamBuka!.isEmpty &&
-                                            jadwal.jamTutup!.isEmpty
-                                        ? truncateText('Jam Kosong', 11)
-                                        : "${jadwal.jamBuka} - ${jadwal.jamTutup}",
-                                    style: AppTextStyle.smallBlack.copyWith(
-                                      fontWeight: FontWeight.w900,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Buka',
+                                        style: AppTextStyle.smallBlack.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Transform.scale(
+                                    scale: 0.7,
+                                    child: CupertinoSwitch(
+                                      value: isBuka,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          isBuka = value;
+                                        });
+                                      },
                                     ),
                                   ),
                                   const SizedBox(
-                                    width: 6,
+                                    width: 12,
                                   ),
                                 ],
-                              )
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Full',
+                                        style: AppTextStyle.smallBlack.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  Checkbox(
+                                    checkColor: AppColor.blackColor,
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith<
+                                            Color>((Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.selected)) {
+                                        return Colors.transparent;
+                                      }
+                                      return Colors.transparent;
+                                    }),
+                                    side: MaterialStateBorderSide.resolveWith(
+                                      (Set<MaterialState> states) {
+                                        if (states
+                                            .contains(MaterialState.selected)) {
+                                          return const BorderSide(
+                                              color: Colors.black, width: 2);
+                                        }
+                                        return const BorderSide(
+                                            color: Colors.black, width: 2);
+                                      },
+                                    ),
+                                    value: isFull,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isFull = value!;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Image.asset(
-                            'assets/icons/booking.png',
-                            width: 34,
-                            height: 34,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 64,
-                      child: VerticalDivider(
-                        color: AppColor.dividerColor,
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Buka',
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Transform.scale(
-                              scale: 0.7,
-                              child: CupertinoSwitch(
-                                value: isBuka,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isBuka = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'Full',
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                            Checkbox(
-                              checkColor: AppColor.blackColor,
-                              fillColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                      (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.selected)) {
-                                  return Colors.transparent;
-                                }
-                                return Colors.transparent;
-                              }),
-                              side: MaterialStateBorderSide.resolveWith(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.selected)) {
-                                    return const BorderSide(
-                                        color: Colors.black, width: 2);
-                                  }
-                                  return const BorderSide(
-                                      color: Colors.black, width: 2);
-                                },
-                              ),
-                              value: isFull,
-                              onChanged: (value) {
-                                setState(() {
-                                  isFull = value!;
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                          ],
-                        ),
+                        )
                       ],
-                    )
+                    ),
                   ],
                 );
               }

@@ -33,9 +33,8 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
         child: BlocListener<UpdateStatusPesananBloc, UpdateStatusPesananState>(
           listener: (context, state) {
             if (state is UpdateStatusPesananSuccess) {
-              BlocProvider.of<DailyIncomeBloc>(context).add(
-                DailyIncomeFetchData(),
-              );
+              BlocProvider.of<DailyIncomeBloc>(context)
+                  .add(DailyIncomeFetchData());
             }
           },
           child: BlocBuilder<DailyIncomeBloc, DailyIncomeState>(
@@ -45,7 +44,11 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
               } else if (state is DailyIncomeLoaded) {
                 final order = state.dailyIncome;
                 int jumlahOrder = order
-                    .where((order) => order.antrian.orderstatus == "ALLDONE")
+                    .where(
+                      (order) =>
+                          order.antrian.orderstatus == "ALLDONE" ||
+                          order.antrian.orderstatus == "PROCESS",
+                    )
                     .length;
 
                 int jumlahAntrian = order
@@ -58,14 +61,16 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 13),
+                        vertical: 30,
+                        horizontal: 13,
+                      ),
                       child: Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Penjualan Hari ini',
+                                'Pesanan Hari ini',
                                 style: AppTextStyle.smallBlack.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -76,7 +81,7 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
                               Row(
                                 children: [
                                   Text(
-                                    '$jumlahOrder Order',
+                                    '$jumlahOrder Pesanan',
                                     style: AppTextStyle.smallBlack.copyWith(
                                       fontWeight: FontWeight.w900,
                                     ),
