@@ -12,7 +12,10 @@ class UlasanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UlasanBloc()..add(UlasanFetchData()),
+      create: (context) => UlasanBloc()
+        ..add(
+          UlasanFetchData(),
+        ),
       child: Scaffold(
         appBar: CustomAppBarWidget(
           title: 'Rating & Ulasan',

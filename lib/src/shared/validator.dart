@@ -34,8 +34,6 @@ class ValidatorForm {
   String? validateUsername(String? value) {
     if (value == null || value.isEmpty) {
       return 'Username Tidak Boleh Kosong!';
-    } else if (value.length < 6) {
-      return 'Username harus terdiri dari 6 karakter!';
     }
     return null;
   }
@@ -64,15 +62,15 @@ class ValidatorForm {
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Masukkan Password Anda';
-    } else if (value.length < 6) {
-      return 'Password harus terdiri dari 6 karakter!';
     }
     return null;
   }
 
-  String? validateLink(String? value) {
+  String? validatePasswordRegister(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Masukkan Link Google Maps';
+      return 'Masukkan Password Anda';
+    } else if (value.length < 12) {
+      return 'Password harus terdiri dari 12 karakter!';
     }
     return null;
   }

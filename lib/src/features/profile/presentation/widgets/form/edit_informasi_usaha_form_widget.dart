@@ -29,7 +29,7 @@ class _EditInformasiUsahaFormWidgetState
   String namaToko = '';
   String deskripsiToko = '';
   String alamatToko = '';
-  // String linkMaps = '';
+  String linkMaps = '';
   ValidatorForm validatorForm = ValidatorForm();
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _EditInformasiUsahaFormWidgetState
                     height: 30,
                   ),
                   (selectedImage == null &&
-                          state.responseModel.gambarToko.isNotEmpty)
+                          state.responseModel.gambarToko!.isNotEmpty)
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
@@ -272,22 +272,22 @@ class _EditInformasiUsahaFormWidgetState
                           const SizedBox(
                             height: 20,
                           ),
-                          // Text(
-                          //   'Link Google Maps',
-                          //   style: AppTextStyle.mediumBlack.copyWith(
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   height: 8,
-                          // ),
-                          // TextFieldWidget(
-                          //   onChanged: (value) {
-                          //     linkMaps = value.trim();
-                          //   },
-                          //   hintText: 'Link Google Maps',
-                          //   // validator: validatorForm.validateLink,
-                          // ),
+                          Text(
+                            'Link Google Maps',
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          TextFieldWidget(
+                            initialValue: state.responseModel.linkGmaps,
+                            onChanged: (value) {
+                              linkMaps = value.trim();
+                            },
+                            hintText: 'Link Google Maps',
+                          ),
                         ],
                       ),
                     ),
@@ -347,6 +347,7 @@ class _EditInformasiUsahaFormWidgetState
                                 namaToko: existingModel.namaToko,
                                 deskripsiToko: existingModel.deskripsiToko,
                                 alamat: existingModel.alamat,
+                                linkGmaps: existingModel.linkGmaps,
                               ),
                             );
                             context
@@ -364,6 +365,9 @@ class _EditInformasiUsahaFormWidgetState
                                 alamat: alamatToko.isNotEmpty
                                     ? alamatToko
                                     : existingModel.alamat,
+                                linkGmaps: linkMaps.isNotEmpty
+                                    ? linkMaps
+                                    : existingModel.linkGmaps,
                               ),
                             );
                             context
@@ -382,6 +386,9 @@ class _EditInformasiUsahaFormWidgetState
                                 alamat: alamatToko.isNotEmpty
                                     ? alamatToko
                                     : existingModel.alamat,
+                                linkGmaps: linkMaps.isNotEmpty
+                                    ? linkMaps
+                                    : existingModel.linkGmaps,
                               ),
                             );
                             context

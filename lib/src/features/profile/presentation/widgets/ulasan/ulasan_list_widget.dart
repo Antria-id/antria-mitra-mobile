@@ -1,5 +1,6 @@
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/ulasan_response.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/card/card_ulasan_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:flutter/material.dart';
 
 class ListUlasanWidget extends StatelessWidget {
@@ -11,6 +12,9 @@ class ListUlasanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (ulasanList.isEmpty) {
+      return const Center(child: EmptyDataWidget());
+    }
     return SizedBox(
       height: double.infinity,
       child: ListView.separated(

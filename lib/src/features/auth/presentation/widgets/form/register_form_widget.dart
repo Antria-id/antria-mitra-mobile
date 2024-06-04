@@ -276,7 +276,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                     password = value.trim();
                                   },
                                   hintText: 'Masukkan Password',
-                                  validator: validatorForm.validatePassword,
+                                  validator:
+                                      validatorForm.validatePasswordRegister,
                                   controller: passwordController,
                                 ),
                               ],

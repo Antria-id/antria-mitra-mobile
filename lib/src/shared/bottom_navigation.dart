@@ -81,15 +81,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
                                 : AppColor.greyColor,
                           ),
                           const CircleAvatar(
-                            radius: 6.5,
+                            radius: 5,
                             backgroundColor: Color(0xffFF0000),
-                            child: Text(
-                              '0',
-                              style: TextStyle(
-                                fontSize: 7,
-                                color: Colors.white,
-                              ),
-                            ),
                           ),
                         ],
                       ),

@@ -42,6 +42,11 @@ String formatHariBuka(dynamic hariBuka) {
       return hari[hariIndexes.first][0] +
           hari[hariIndexes.first].substring(1).toLowerCase();
     }
+
+    if (hariIndexes.length == 7) {
+      return 'Setiap hari';
+    }
+
     return '${hari[hariIndexes.first][0] + hari[hariIndexes.first].substring(1).toLowerCase()} - ${hari[hariIndexes.last][0] + hari[hariIndexes.last].substring(1).toLowerCase()}';
   }
 
