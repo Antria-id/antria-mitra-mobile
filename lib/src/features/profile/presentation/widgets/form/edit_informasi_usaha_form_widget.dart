@@ -338,7 +338,8 @@ class _EditInformasiUsahaFormWidgetState
                           bool isImageUpdated = selectedImage != null;
                           bool isTextFieldsUpdated = namaToko.isNotEmpty ||
                               deskripsiToko.isNotEmpty ||
-                              alamatToko.isNotEmpty;
+                              alamatToko.isNotEmpty ||
+                              linkMaps.isNotEmpty;
 
                           if (isImageUpdated && !isTextFieldsUpdated) {
                             final updateEvent = UpdateInformasiUsahaTapped(

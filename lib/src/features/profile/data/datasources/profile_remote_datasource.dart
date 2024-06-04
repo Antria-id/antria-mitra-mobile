@@ -178,6 +178,7 @@ class ProfileUserDatasourceImpl extends ProfileUserDatasource {
         'nama_toko': requestModel.namaToko,
         'deskripsi_toko': requestModel.deskripsiToko,
         'alamat': requestModel.alamat,
+        'linkGmaps': requestModel.linkGmaps,
         if (gambarToko != null) 'gambar_toko': gambarToko,
       });
 
