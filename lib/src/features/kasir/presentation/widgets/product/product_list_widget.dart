@@ -1,6 +1,7 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/models/product_model.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/product/card_product_widget.dart';
+import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProductListWidget extends StatelessWidget {
@@ -11,6 +12,11 @@ class ProductListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (productList.isEmpty) {
+      return const Center(
+        child: EmptyDataWidget(),
+      );
+    }
     return SizedBox(
       child: GridView.builder(
         padding: const EdgeInsets.only(
