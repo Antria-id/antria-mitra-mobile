@@ -1,5 +1,6 @@
 import 'package:antria_mitra_mobile/src/core/utils/format_hari.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
@@ -37,167 +38,175 @@ class _JadwalWidgetState extends State<JadwalWidget> {
           ),
           color: Colors.white,
         ),
-        child: BlocBuilder<GetJadwalBloc, GetJadwalState>(
-          builder: (context, state) {
-            if (state is GetJadwalError) {
-              return const FailedFetchDataWidget();
-            } else if (state is GetJadwalLoaded) {
-              final jadwal = state.mitraModel;
-              final formattedHariBuka = formatHariBuka(jadwal.hariBuka);
-              String truncateText(String text, int maxLength) {
-                if (text.length <= maxLength) {
-                  return text;
-                } else {
-                  return '${text.substring(0, maxLength)}...';
+        child: BlocListener<UpdateJadwalBloc, UpdateJadwalState>(
+          listener: (context, state) {
+            if (state is UpdateJadwalSuccess) {
+              BlocProvider.of<GetJadwalBloc>(context).add(GetJadwalFetchData());
+            }
+          },
+          child: BlocBuilder<GetJadwalBloc, GetJadwalState>(
+            builder: (context, state) {
+              if (state is GetJadwalError) {
+                return const FailedFetchDataWidget();
+              } else if (state is GetJadwalLoaded) {
+                final jadwal = state.mitraModel;
+                final formattedHariBuka = formatHariBuka(jadwal.hariBuka);
+                String truncateText(String text, int maxLength) {
+                  if (text.length <= maxLength) {
+                    return text;
+                  } else {
+                    return '${text.substring(0, maxLength)}...';
+                  }
                 }
-              }
 
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              truncateText(formattedHariBuka, 14),
-                              style: AppTextStyle.smallBlack.copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  jadwal.jamBuka!.isEmpty &&
-                                          jadwal.jamTutup!.isEmpty
-                                      ? truncateText('Jam Kosong', 11)
-                                      : "${jadwal.jamBuka} - ${jadwal.jamTutup}",
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 6,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Image.asset(
-                          'assets/icons/booking.png',
-                          width: 34,
-                          height: 34,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 64,
-                    child: VerticalDivider(
-                      color: AppColor.dividerColor,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Row(
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Buka',
+                                truncateText(formattedHariBuka, 14),
                                 style: AppTextStyle.smallBlack.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    jadwal.jamBuka!.isEmpty &&
+                                            jadwal.jamTutup!.isEmpty
+                                        ? truncateText('Jam Kosong', 11)
+                                        : "${jadwal.jamBuka} - ${jadwal.jamTutup}",
+                                    style: AppTextStyle.smallBlack.copyWith(
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 6,
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                           const SizedBox(
-                            width: 20,
+                            width: 12,
                           ),
-                          Transform.scale(
-                            scale: 0.7,
-                            child: CupertinoSwitch(
-                              value: isBuka,
+                          Image.asset(
+                            'assets/icons/booking.png',
+                            width: 34,
+                            height: 34,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 64,
+                      child: VerticalDivider(
+                        color: AppColor.dividerColor,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Buka',
+                                  style: AppTextStyle.smallBlack.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Transform.scale(
+                              scale: 0.7,
+                              child: CupertinoSwitch(
+                                value: isBuka,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isBuka = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Full',
+                                  style: AppTextStyle.smallBlack.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Checkbox(
+                              checkColor: AppColor.blackColor,
+                              fillColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.selected)) {
+                                  return Colors.transparent;
+                                }
+                                return Colors.transparent;
+                              }),
+                              side: MaterialStateBorderSide.resolveWith(
+                                (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.selected)) {
+                                    return const BorderSide(
+                                        color: Colors.black, width: 2);
+                                  }
+                                  return const BorderSide(
+                                      color: Colors.black, width: 2);
+                                },
+                              ),
+                              value: isFull,
                               onChanged: (value) {
                                 setState(() {
-                                  isBuka = value;
+                                  isFull = value!;
                                 });
                               },
                             ),
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Full',
-                                style: AppTextStyle.smallBlack.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Checkbox(
-                            checkColor: AppColor.blackColor,
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
-                                return Colors.transparent;
-                              }
-                              return Colors.transparent;
-                            }),
-                            side: MaterialStateBorderSide.resolveWith(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.selected)) {
-                                  return const BorderSide(
-                                      color: Colors.black, width: 2);
-                                }
-                                return const BorderSide(
-                                    color: Colors.black, width: 2);
-                              },
+                            const SizedBox(
+                              width: 12,
                             ),
-                            value: isFull,
-                            onChanged: (value) {
-                              setState(() {
-                                isFull = value!;
-                              });
-                            },
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
-            }
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

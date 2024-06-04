@@ -218,28 +218,41 @@ class DetailProcessPage extends StatelessWidget {
                                     const Divider(
                                       color: AppColor.dividerColor,
                                     ),
-                                    DetailPemesananWidget(
-                                      isPending: false,
-                                      isTakeAway: state.response.takeaway!,
-                                      totalPrice: totalPrice,
-                                      onFinishPressed: () {
-                                        showToastSuccessMessage(
-                                          'Pesanan Selesai',
-                                        );
-                                        final updateEvent =
-                                            UpdateStatusPesananTapped(
-                                          requestUser:
-                                              StatusPesananRequestModel(
-                                            orderstatus: 'ALLDONE',
-                                          ),
-                                          id: pesananDetail.antrian!.id!,
-                                        );
-                                        context
-                                            .read<UpdateStatusPesananBloc>()
-                                            .add(updateEvent);
-                                        Navigator.of(context).pop();
+                                    BlocListener<UpdateStatusPesananBloc,
+                                        UpdateStatusPesananState>(
+                                      listener: (context, state) {
+                                        if (state
+                                            is UpdateStatusPesananSuccess) {
+                                          showToastSuccessMessage(
+                                            'Pesanan Selesai',
+                                          );
+                                          Navigator.of(context).pop();
+                                        } else if (state
+                                            is UpdateStatusPesananError) {
+                                          showToastFailedMessage(
+                                            'Gagal Update Status Pesanan',
+                                          );
+                                        }
                                       },
-                                      isAmbil: false,
+                                      child: DetailPemesananWidget(
+                                        isPending: false,
+                                        isTakeAway: state.response.takeaway!,
+                                        totalPrice: totalPrice,
+                                        onFinishPressed: () {
+                                          final updateEvent =
+                                              UpdateStatusPesananTapped(
+                                            requestUser:
+                                                StatusPesananRequestModel(
+                                              orderstatus: 'ALLDONE',
+                                            ),
+                                            id: pesananDetail.antrian!.id!,
+                                          );
+                                          context
+                                              .read<UpdateStatusPesananBloc>()
+                                              .add(updateEvent);
+                                        },
+                                        isAmbil: false,
+                                      ),
                                     )
                                   ],
                                 ),

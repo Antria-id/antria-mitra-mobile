@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian/antrian_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/dine_in_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/take_away_list_widget.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/pending_list_widget.dart';
@@ -60,90 +61,97 @@ class AntrianPage extends StatelessWidget {
             ),
           ),
           backgroundColor: AppColor.backgroundColor,
-          body: TabBarView(
-            children: [
-              //Pending Tab
-              BlocBuilder<AntrianBloc, AntrianState>(
-                builder: (context, state) {
-                  if (state is AntrianError) {
-                    return const EmptyDataWidget();
-                  } else if (state is AntrianLoaded) {
-                    return WaitingListWidget(
-                      waitingList: state.pesananList,
+          body: BlocListener<UpdateStatusPesananBloc, UpdateStatusPesananState>(
+            listener: (context, state) {
+              if (state is UpdateStatusPesananSuccess) {
+                BlocProvider.of<AntrianBloc>(context).add(AntrianFetchData());
+              }
+            },
+            child: TabBarView(
+              children: [
+                //Pending Tab
+                BlocBuilder<AntrianBloc, AntrianState>(
+                  builder: (context, state) {
+                    if (state is AntrianError) {
+                      return const EmptyDataWidget();
+                    } else if (state is AntrianLoaded) {
+                      return WaitingListWidget(
+                        waitingList: state.pesananList,
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
-              //Antrian Tab
-              BlocBuilder<AntrianBloc, AntrianState>(
-                builder: (context, state) {
-                  if (state is AntrianError) {
-                    return const EmptyDataWidget();
-                  } else if (state is AntrianLoaded) {
-                    return DefaultTabController(
-                      length: 2,
-                      child: Column(
-                        children: [
-                          Material(
-                            color: AppColor.backgroundColor,
-                            child: TabBar(
-                              dividerColor: AppColor.transparent,
-                              labelStyle: AppTextStyle.smallPurple.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
+                  },
+                ),
+                //Antrian Tab
+                BlocBuilder<AntrianBloc, AntrianState>(
+                  builder: (context, state) {
+                    if (state is AntrianError) {
+                      return const EmptyDataWidget();
+                    } else if (state is AntrianLoaded) {
+                      return DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            Material(
+                              color: AppColor.backgroundColor,
+                              child: TabBar(
+                                dividerColor: AppColor.transparent,
+                                labelStyle: AppTextStyle.smallPurple.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                                ),
+                                labelColor: AppColor.primaryColor,
+                                unselectedLabelColor: AppColor.greyColor,
+                                indicatorColor: AppColor.primaryColor,
+                                tabs: const [
+                                  Tab(
+                                    text: 'Dine In',
+                                  ),
+                                  Tab(
+                                    text: 'Take Away',
+                                  ),
+                                ],
                               ),
-                              labelColor: AppColor.primaryColor,
-                              unselectedLabelColor: AppColor.greyColor,
-                              indicatorColor: AppColor.primaryColor,
-                              tabs: const [
-                                Tab(
-                                  text: 'Dine In',
-                                ),
-                                Tab(
-                                  text: 'Take Away',
-                                ),
-                              ],
                             ),
-                          ),
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                DineInListWidget(
-                                    antrianList: state.pesananList),
-                                TakeAwayListWidget(
-                                    antrianList: state.pesananList),
-                              ],
+                            Expanded(
+                              child: TabBarView(
+                                children: [
+                                  DineInListWidget(
+                                      antrianList: state.pesananList),
+                                  TakeAwayListWidget(
+                                      antrianList: state.pesananList),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
+                  },
+                ),
 
-              //Pengambilan Tab
-              BlocBuilder<AntrianBloc, AntrianState>(
-                builder: (context, state) {
-                  if (state is AntrianError) {
-                    return const EmptyDataWidget();
-                  } else if (state is AntrianLoaded) {
-                    return SelesaiListWidget(
-                      pengambilanList: state.pesananList,
+                //Pengambilan Tab
+                BlocBuilder<AntrianBloc, AntrianState>(
+                  builder: (context, state) {
+                    if (state is AntrianError) {
+                      return const EmptyDataWidget();
+                    } else if (state is AntrianLoaded) {
+                      return SelesaiListWidget(
+                        pengambilanList: state.pesananList,
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
-            ],
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

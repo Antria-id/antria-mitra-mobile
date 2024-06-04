@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 
 class SelesaiListWidget extends StatelessWidget {
   final List<PesananResponseModel> pengambilanList;
-  const SelesaiListWidget({super.key, required this.pengambilanList});
+  const SelesaiListWidget({Key? key, required this.pengambilanList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<PesananResponseModel> filteredList = pengambilanList
         .where((antrianList) => antrianList.antrian.orderstatus == 'ALLDONE')
         .toList();
+
+    filteredList.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+
     if (filteredList.isEmpty) {
       return const EmptyAntrianWidget(
         text: 'Belum ada pesanan',

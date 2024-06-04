@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/pesanan_berlangsung_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_income_widget.dart';
@@ -130,24 +131,33 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                BlocBuilder<PesananBerlangsungBloc, PesananBerlangsungState>(
-                  builder: (context, state) {
-                    if (state is PesananBerlangsungError) {
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 60),
-                        child: Center(
-                          child: FailedFetchDataWidget(),
-                        ),
-                      );
-                    } else if (state is PesananBerlangsungLoaded) {
-                      return ListPesananBerlangsungWidget(
-                        pesananList: state.pesananList,
-                      );
+                BlocListener<UpdateStatusPesananBloc, UpdateStatusPesananState>(
+                  listener: (context, state) {
+                    if (state is UpdateStatusPesananSuccess) {
+                      BlocProvider.of<PesananBerlangsungBloc>(context)
+                          .add(PesananBerlangsungFetchData());
                     }
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
                   },
+                  child: BlocBuilder<PesananBerlangsungBloc,
+                      PesananBerlangsungState>(
+                    builder: (context, state) {
+                      if (state is PesananBerlangsungError) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 60),
+                          child: Center(
+                            child: FailedFetchDataWidget(),
+                          ),
+                        );
+                      } else if (state is PesananBerlangsungLoaded) {
+                        return ListPesananBerlangsungWidget(
+                          pesananList: state.pesananList,
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 10,

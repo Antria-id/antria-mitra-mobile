@@ -11,6 +11,7 @@ class AntrianBloc extends Bloc<AntrianEvent, AntrianState> {
   AntrianBloc() : super(AntrianInitial()) {
     on<AntrianEvent>((event, emit) async {
       if (event is AntrianFetchData) {
+        emit(AntrianLoading());
         var result = await serviceLocator<GetPesananUsecase>().getPesanan();
         result.fold(
           (failure) {
