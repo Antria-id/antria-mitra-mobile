@@ -12,9 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AntrianPage extends StatelessWidget {
+class AntrianPage extends StatefulWidget {
   const AntrianPage({super.key});
 
+  @override
+  State<AntrianPage> createState() => _AntrianPageState();
+}
+
+class _AntrianPageState extends State<AntrianPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -75,8 +80,18 @@ class AntrianPage extends StatelessWidget {
                     if (state is AntrianError) {
                       return const EmptyDataWidget();
                     } else if (state is AntrianLoaded) {
-                      return WaitingListWidget(
-                        waitingList: state.pesananList,
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          await Future.delayed(
+                              const Duration(milliseconds: 200));
+                          setState(() {
+                            BlocProvider.of<AntrianBloc>(context)
+                                .add(AntrianFetchData());
+                          });
+                        },
+                        child: WaitingListWidget(
+                          waitingList: state.pesananList,
+                        ),
                       );
                     }
                     return const Center(
@@ -119,9 +134,11 @@ class AntrianPage extends StatelessWidget {
                               child: TabBarView(
                                 children: [
                                   DineInListWidget(
-                                      antrianList: state.pesananList),
+                                    antrianList: state.pesananList,
+                                  ),
                                   TakeAwayListWidget(
-                                      antrianList: state.pesananList),
+                                    antrianList: state.pesananList,
+                                  ),
                                 ],
                               ),
                             ),

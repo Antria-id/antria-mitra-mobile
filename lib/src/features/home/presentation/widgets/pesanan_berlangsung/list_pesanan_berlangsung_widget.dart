@@ -12,7 +12,11 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final filteredList = pesananList
-        .where((pesanan) => pesanan.antrian!.orderstatus != 'ALLDONE')
+        .where(
+          (pesanan) =>
+              pesanan.antrian!.orderstatus != 'ALLDONE' &&
+              pesanan.antrian!.orderstatus != 'CANCELED',
+        )
         .toList();
 
     return Container(

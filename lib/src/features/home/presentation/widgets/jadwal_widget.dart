@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/core/utils/format_hari.dart';
+import 'package:antria_mitra_mobile/src/features/jadwal/data/models/request/mitra_request_model.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
@@ -19,6 +20,7 @@ class JadwalWidget extends StatefulWidget {
 class _JadwalWidgetState extends State<JadwalWidget> {
   bool isBuka = false;
   bool isFull = false;
+  String updateStatusToko = '';
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -58,6 +60,9 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                     return '${text.substring(0, maxLength)}...';
                   }
                 }
+
+                isBuka = state.mitraModel.statusToko == "OPEN";
+                isFull = state.mitraModel.statusToko == "FULL";
 
                 return Row(
                   children: [
@@ -137,15 +142,47 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  Transform.scale(
-                                    scale: 0.7,
-                                    child: CupertinoSwitch(
-                                      value: isBuka,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          isBuka = value;
-                                        });
-                                      },
+                                  Transform.flip(
+                                    flipX: true,
+                                    child: Transform.scale(
+                                      scale: 0.7,
+                                      child: CupertinoSwitch(
+                                        value: isBuka,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            isBuka = value;
+                                            if (isBuka) {
+                                              updateStatusToko = "OPEN";
+                                            } else {
+                                              updateStatusToko = "CLOSE";
+                                            }
+                                            final currentState = context
+                                                .read<GetJadwalBloc>()
+                                                .state;
+                                            if (currentState
+                                                is GetJadwalLoaded) {
+                                              final existingModel =
+                                                  currentState.mitraModel;
+
+                                              final updateEvent =
+                                                  UpdateJadwalTapped(
+                                                requestUser: MitraRequestModel(
+                                                  hariBuka:
+                                                      existingModel.hariBuka,
+                                                  jamBuka:
+                                                      existingModel.jamBuka,
+                                                  jamTutup:
+                                                      existingModel.jamTutup,
+                                                  statusToko: updateStatusToko,
+                                                ),
+                                              );
+                                              context
+                                                  .read<UpdateJadwalBloc>()
+                                                  .add(updateEvent);
+                                            }
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(
@@ -193,7 +230,30 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                                     value: isFull,
                                     onChanged: (value) {
                                       setState(() {
+                                        if (isFull) {
+                                          updateStatusToko = "OPEN";
+                                        } else {
+                                          updateStatusToko = "FULL";
+                                        }
                                         isFull = value!;
+                                        final currentState =
+                                            context.read<GetJadwalBloc>().state;
+                                        if (currentState is GetJadwalLoaded) {
+                                          final existingModel =
+                                              currentState.mitraModel;
+                                          final updateEvent =
+                                              UpdateJadwalTapped(
+                                            requestUser: MitraRequestModel(
+                                              hariBuka: existingModel.hariBuka,
+                                              jamBuka: existingModel.jamBuka,
+                                              jamTutup: existingModel.jamTutup,
+                                              statusToko: updateStatusToko,
+                                            ),
+                                          );
+                                          context
+                                              .read<UpdateJadwalBloc>()
+                                              .add(updateEvent);
+                                        }
                                       });
                                     },
                                   ),
