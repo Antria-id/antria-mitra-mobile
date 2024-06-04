@@ -219,6 +219,9 @@ class _JadwalFormWidgetState extends State<JadwalFormWidget> {
                                                                 closingTime!)
                                                             : existingModel
                                                                 .jamTutup,
+                                                        statusToko:
+                                                            existingModel
+                                                                .statusToko,
                                                       ),
                                                     );
                                                     context
