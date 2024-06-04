@@ -163,8 +163,7 @@ class DetailWaitingPage extends StatelessWidget {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return DialogWidget(
-                                              title:
-                                                  'Konfirmasi Pembatalan Pemesanan',
+                                              title: 'Konfirmasi',
                                               onCancel: () {
                                                 Navigator.pop(context);
                                               },
