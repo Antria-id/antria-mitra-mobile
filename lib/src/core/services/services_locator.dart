@@ -1,3 +1,4 @@
+import 'package:antria_mitra_mobile/src/core/network/network_checker.dart';
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/datasources/pesanan_remote_datasource.dart';
@@ -43,6 +44,7 @@ import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/logout_
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_informasi_usaha_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_karyawan_profile_usecase.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final serviceLocator = GetIt.instance;
@@ -171,7 +173,14 @@ Future<void> setUpServiceLocator() async {
   serviceLocator
       .registerFactory<ProfileRepository>(() => ProfileRepositoryImpl());
 
+  ///***********************************************
+  ///! Core
+  /// sl.registerLazySingleton(() => InputConverter());
+  serviceLocator.registerLazySingleton<NetworkChecker>(
+      () => NetworkCheckerImpl(serviceLocator()));
+
   //external
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocator.registerFactory<SharedPreferences>(() => sharedPreferences);
+  serviceLocator.registerLazySingleton(() => InternetConnectionChecker());
 }
