@@ -1,5 +1,5 @@
 import 'package:antria_mitra_mobile/src/features/auth/data/models/request/register/register_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/password_textfield_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/textfield_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/toast.dart';
@@ -306,7 +306,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                     decoration: const BoxDecoration(
                       color: AppColor.whiteColor,
                     ),
-                    child: BlocConsumer<RegisterBloc, RegisterState>(
+                    child: BlocConsumer<AuthBloc, AuthState>(
                       listener: (context, state) {
                         if (state is RegisterSuccess) {
                           showToastSuccessMessage('Register Berhasil');
@@ -325,7 +325,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                           child: GestureDetector(
                             onTap: () {
                               if (formKey.currentState!.validate()) {
-                                context.read<RegisterBloc>().add(
+                                context.read<AuthBloc>().add(
                                       RegisterButtonTapped(
                                         request: RegisterRequest(
                                           mitraData: MitraData(

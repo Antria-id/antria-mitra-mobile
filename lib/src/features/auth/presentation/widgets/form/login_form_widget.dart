@@ -1,5 +1,5 @@
 import 'package:antria_mitra_mobile/src/features/auth/data/models/request/login/login_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/loading_widget.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/password_textfield_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/bottom_navigation.dart';
@@ -104,7 +104,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                             const SizedBox(
                               height: 20,
                             ),
-                            BlocConsumer<LoginBloc, LoginState>(
+                            BlocConsumer<AuthBloc, AuthState>(
                               listener: (context, state) {
                                 if (state is LoginSuccess) {
                                   showToastSuccessMessage('Login Berhasil');
@@ -150,7 +150,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                                       setState(() {
                                         isLoading = true;
                                       });
-                                      context.read<LoginBloc>().add(
+                                      context.read<AuthBloc>().add(
                                             LoginButtonTapped(
                                               request: LoginRequest(
                                                 username:

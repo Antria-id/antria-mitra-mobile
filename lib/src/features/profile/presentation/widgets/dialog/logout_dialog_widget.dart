@@ -1,4 +1,4 @@
-import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/logout/logout_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/dialog_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/toast.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ class LogoutDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LogoutBloc, LogoutState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
           showToastSuccessMessage('Logout Berhasil');
@@ -33,7 +33,7 @@ class LogoutDialogWidget extends StatelessWidget {
           textCancel: 'Cancel',
           textConfirm: 'Logout',
           onPressed: () {
-            context.read<LogoutBloc>().add(
+            context.read<AuthBloc>().add(
                   LogoutTapped(),
                 );
           },

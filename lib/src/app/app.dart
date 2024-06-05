@@ -1,8 +1,7 @@
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/antrian/antrian_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/invoice_pesanan/invoice_pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/detail_transaksi/detail_transaksi_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/riwayat_transaksi/riwayat_transaksi_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/produk/produk_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karyawan_profile/karyawan_profile_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/logout/logout_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/ulasan/ulasan_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
@@ -30,10 +28,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => LoginBloc(),
-        ),
-        BlocProvider(
-          create: (_) => RegisterBloc(),
+          create: (_) => AuthBloc(),
         ),
         BlocProvider(
           create: (_) => DailyIncomeBloc(),
@@ -49,9 +44,6 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => UpdateProfileBloc(),
-        ),
-        BlocProvider(
-          create: (_) => LogoutBloc(),
         ),
         BlocProvider(
           create: (_) => UlasanBloc(),
