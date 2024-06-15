@@ -41,6 +41,7 @@ class ProductListWidget extends StatelessWidget {
             productPrice: product.harga ?? 0,
             onPressed: onBuyButtonPressed,
             stock: product.kuantitas ?? 0,
+            productId: product.id!,
           );
         },
       ),
