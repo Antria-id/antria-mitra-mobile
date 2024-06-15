@@ -1,3 +1,4 @@
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/produk/produk_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/cart_widget.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/product/product_list_widget.dart';
@@ -16,13 +17,19 @@ class KasirPage extends StatefulWidget {
 
 class _KasirPageState extends State<KasirPage> {
   bool showCart = false;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProdukBloc()
-        ..add(
-          ProdukFetchData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProdukBloc()..add(ProdukFetchData()),
         ),
+        BlocProvider(
+          create: (context) =>
+              OrderListBloc()..add(GetProductsInOrderListEvent()),
+        ),
+      ],
       child: Scaffold(
         appBar: CustomAppBarWidget(
           title: 'Kasir',
@@ -53,6 +60,16 @@ class _KasirPageState extends State<KasirPage> {
                       setState(() {
                         showCart = true;
                       });
+                      final orderListBloc =
+                          BlocProvider.of<OrderListBloc>(context);
+                      if (orderListBloc.state is OrderListLoaded &&
+                          (orderListBloc.state as OrderListLoaded)
+                              .products
+                              .isNotEmpty) {
+                        setState(() {
+                          showCart = true;
+                        });
+                      }
                     },
                   );
                 }
@@ -61,11 +78,21 @@ class _KasirPageState extends State<KasirPage> {
                 );
               },
             ),
-            if (showCart)
-              const Align(
-                alignment: Alignment.bottomCenter,
-                child: CartWidget(),
-              ),
+            BlocListener<OrderListBloc, OrderListState>(
+              listener: (context, state) {
+                if (state is OrderListLoaded) {
+                  setState(() {
+                    showCart = state.products.isNotEmpty;
+                  });
+                }
+              },
+              child: showCart
+                  ? const Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CartWidget(),
+                    )
+                  : Container(),
+            ),
           ],
         ),
       ),
