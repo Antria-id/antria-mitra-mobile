@@ -30,17 +30,19 @@ import 'package:antria_mitra_mobile/src/features/jadwal/data/repositories/jadwal
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/repositories/jadwal_repository.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/usecases/get_jadwal_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/usecases/update_jadwal_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/product_local_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/product_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/repositories/kasir_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/domain/repositories/kasir_repository.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/domain/usecases/get_product_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/domain/usecases/order_list_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/repositories/profile_repository.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_informasi_usaha_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_karyawan_profile_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_ulasan_mitra_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/logout_user_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/logout_user_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_informasi_usaha_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_karyawan_profile_usecase.dart';
 import 'package:get_it/get_it.dart';
@@ -63,6 +65,7 @@ Future<void> setUpServiceLocator() async {
   //usecase
   serviceLocator.registerFactory<LoginUsecase>(() => LoginUsecase());
   serviceLocator.registerFactory<RegisterUsecase>(() => RegisterUsecase());
+  serviceLocator.registerFactory<LogoutUserUsecase>(() => LogoutUserUsecase());
 
   //repository
   serviceLocator.registerFactory<AuthRepository>(() => AuthRepositoryImpl());
@@ -113,7 +116,7 @@ Future<void> setUpServiceLocator() async {
       () => ProfileUserDatasourceImpl());
 
   //usecase
-  serviceLocator.registerFactory<LogoutUserUsecase>(() => LogoutUserUsecase());
+
   serviceLocator.registerFactory<GetKaryawanProfileUsecase>(
       () => GetKaryawanProfileUsecase());
   serviceLocator.registerFactory<UpdateKaryawanProfileUsecase>(
@@ -129,10 +132,13 @@ Future<void> setUpServiceLocator() async {
 
   //usecase
   serviceLocator.registerFactory<GetProductUsecase>(() => GetProductUsecase());
+  serviceLocator.registerFactory<OrderListUsecase>(() => OrderListUsecase());
 
   //datasource
   serviceLocator.registerFactory<ProductRemoteDatasource>(
       () => ProductRemoteDatasourceImpl());
+  serviceLocator.registerFactory<ProductLocalDatasource>(
+      () => ProductLocalDatasourceImpl());
 
   //Repository
   serviceLocator.registerFactory<KasirRepository>(() => KasirRepositoryImpl());
