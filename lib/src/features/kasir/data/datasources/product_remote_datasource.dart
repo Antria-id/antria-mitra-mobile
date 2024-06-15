@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/core/failure/failure.dart';
+import 'package:antria_mitra_mobile/src/core/helper/database_helper.dart';
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
@@ -30,6 +31,10 @@ class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
         if (responseData is List<dynamic>) {
           final List<ProductModel> products =
               responseData.map((json) => ProductModel.fromJson(json)).toList();
+          final DatabaseHelper databaseHelper = DatabaseHelper.instance;
+          for (final product in products) {
+            await databaseHelper.insertProduct(product);
+          }
           return Right(products);
         } else {
           return const Left(ParsingFailure('Invalid response format'));
