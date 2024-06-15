@@ -15,6 +15,7 @@ abstract class AuthRemoteDatasource {
       {required LoginRequest requestUser});
   Future<Either<Failure, RegisterResponse>> registerUser(
       {required RegisterRequest requestUser});
+  Future<Either<Failure, void>> deleteUserFromLocalStorage();
 }
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
@@ -61,6 +62,26 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return const Left(
         Exception('Exception Occured in AuthRemoteDataSourceImpl'),
       );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteUserFromLocalStorage() async {
+    try {
+      final deletionSuccess =
+          await serviceLocator<UserCacheService>().deleteUser();
+      if (deletionSuccess) {
+        return const Right(null);
+      } else {
+        return const Left(
+          LocalDatabaseQueryFailure(
+            'Unable to delete user from the shared prefs',
+          ),
+        );
+      }
+    } catch (e, stackTrace) {
+      return Left(ParsingFailure(
+          'Parsing failure occurred in HomeLocalUserDatasourceImpl: $e\nStack trace: $stackTrace'));
     }
   }
 }

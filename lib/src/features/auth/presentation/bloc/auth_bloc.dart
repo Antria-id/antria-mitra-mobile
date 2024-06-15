@@ -6,7 +6,7 @@ import 'package:antria_mitra_mobile/src/features/auth/data/models/response/regis
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user/user_model.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/login_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/register_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/logout_user_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/logout_user_usecase.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -24,4 +24,9 @@ class AuthRepositoryImpl implements AuthRepository {
       requestUser: requestUser,
     );
   }
+
+  @override
+  Future<Either<Failure, void>> deleteUserFromLocalStorage() {
+    return serviceLocator<AuthRemoteDatasource>().deleteUserFromLocalStorage();
+  }
 }
