@@ -10,7 +10,7 @@ abstract class ProfileRepository {
   Future<Either<Failure, KaryawanModel>> getKaryawan();
   Future<Either<Failure, KaryawanModel>> updateProfileKaryawan(
       {required UpdateKaryawanRequestModel requestModel});
-  Future<Either<Failure, void>> deleteUserFromLocalStorage();
+
   Future<Either<Failure, List<UlasanResponse>>> getUlasan();
   Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha();
   Future<Either<Failure, UsahaResponseModel>> updateInformasiUsaha(

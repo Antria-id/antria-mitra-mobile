@@ -11,11 +11,6 @@ import 'package:dartz/dartz.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
   @override
-  Future<Either<Failure, void>> deleteUserFromLocalStorage() {
-    return serviceLocator<ProfileUserDatasource>().deleteUserFromLocalStorage();
-  }
-
-  @override
   Future<Either<Failure, KaryawanModel>> getKaryawan() {
     return serviceLocator<ProfileUserDatasource>().getKaryawan();
   }

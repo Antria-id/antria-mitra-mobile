@@ -17,7 +17,6 @@ abstract class ProfileUserDatasource {
   Future<Either<Failure, KaryawanModel>> updateProfileKaryawan(
       {required UpdateKaryawanRequestModel requestModel});
   Future<Either<Failure, List<UlasanResponse>>> getUlasan();
-  Future<Either<Failure, void>> deleteUserFromLocalStorage();
   Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha();
   Future<Either<Failure, UsahaResponseModel>> updateInformasiUsaha(
       {required UpdateUsahaRequestModel requestModel});
@@ -25,25 +24,6 @@ abstract class ProfileUserDatasource {
 
 class ProfileUserDatasourceImpl extends ProfileUserDatasource {
   final Request request = serviceLocator<Request>();
-  @override
-  Future<Either<Failure, void>> deleteUserFromLocalStorage() async {
-    try {
-      final deletionSuccess =
-          await serviceLocator<UserCacheService>().deleteUser();
-      if (deletionSuccess) {
-        return const Right(null);
-      } else {
-        return const Left(
-          LocalDatabaseQueryFailure(
-            'Unable to delete user from the shared prefs',
-          ),
-        );
-      }
-    } catch (e, stackTrace) {
-      return Left(ParsingFailure(
-          'Parsing failure occurred in HomeLocalUserDatasourceImpl: $e\nStack trace: $stackTrace'));
-    }
-  }
 
   @override
   Future<Either<Failure, KaryawanModel>> getKaryawan() async {
