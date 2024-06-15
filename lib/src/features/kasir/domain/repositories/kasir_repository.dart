@@ -4,4 +4,11 @@ import 'package:dartz/dartz.dart';
 
 abstract class KasirRepository {
   Future<Either<Failure, List<ProductModel>>> getProducts();
+  Future<Either<Failure, void>> addProductToOrderList(
+      int productId, int quantity);
+  Future<Either<Failure, List<Map<String, dynamic>>>> getProductsInOrderList();
+  Future<Either<Failure, void>> incrementOrderQuantity(
+      int productId, int quantity);
+  Future<Either<Failure, void>> decrementOrderQuantity(
+      int productId, int quantity);
 }
