@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final registerRequest = registerRequestFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 RegisterRequest registerRequestFromJson(String str) =>
     RegisterRequest.fromJson(json.decode(str));
@@ -10,11 +7,11 @@ RegisterRequest registerRequestFromJson(String str) =>
 String registerRequestToJson(RegisterRequest data) =>
     json.encode(data.toJson());
 
-class RegisterRequest {
+class RegisterRequest extends Equatable {
   final MitraData? mitraData;
   final KaryawanData? karyawanData;
 
-  RegisterRequest({
+  const RegisterRequest({
     this.mitraData,
     this.karyawanData,
   });
@@ -33,9 +30,12 @@ class RegisterRequest {
         "mitraData": mitraData?.toJson(),
         "karyawanData": karyawanData?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [mitraData, karyawanData];
 }
 
-class KaryawanData {
+class KaryawanData extends Equatable {
   final String? username;
   final String? password;
   final String? email;
@@ -45,7 +45,7 @@ class KaryawanData {
   final String? alamat;
   final bool? isOwner;
 
-  KaryawanData({
+  const KaryawanData({
     this.username,
     this.password,
     this.email,
@@ -77,9 +77,21 @@ class KaryawanData {
         "alamat": alamat,
         "isOwner": isOwner,
       };
+
+  @override
+  List<Object?> get props => [
+        username,
+        password,
+        email,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        isOwner
+      ];
 }
 
-class MitraData {
+class MitraData extends Equatable {
   final String? namaToko;
   final String? deskripsiToko;
   final String? alamat;
@@ -87,7 +99,7 @@ class MitraData {
   final String? jamBuka;
   final String? jamTutup;
 
-  MitraData({
+  const MitraData({
     this.namaToko,
     this.deskripsiToko,
     this.alamat,
@@ -113,4 +125,8 @@ class MitraData {
         "jam_buka": jamBuka,
         "jam_tutup": jamTutup,
       };
+
+  @override
+  List<Object?> get props =>
+      [namaToko, deskripsiToko, alamat, hariBuka, jamBuka, jamTutup];
 }

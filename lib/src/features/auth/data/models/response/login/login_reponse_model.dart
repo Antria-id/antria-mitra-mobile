@@ -1,18 +1,15 @@
-// To parse this JSON data, do
-//
-//     final loginResponse = loginResponseFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 LoginResponse loginResponseFromJson(String str) =>
     LoginResponse.fromJson(json.decode(str));
 
 String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
-class LoginResponse {
+class LoginResponse extends Equatable {
   final String? accessToken;
 
-  LoginResponse({
+  const LoginResponse({
     this.accessToken,
   });
 
@@ -23,4 +20,7 @@ class LoginResponse {
   Map<String, dynamic> toJson() => {
         "access_token": accessToken,
       };
+
+  @override
+  List<Object?> get props => [accessToken];
 }

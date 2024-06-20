@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final registerResponse = registerResponseFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 RegisterResponse registerResponseFromJson(String str) =>
     RegisterResponse.fromJson(json.decode(str));
@@ -10,11 +7,11 @@ RegisterResponse registerResponseFromJson(String str) =>
 String registerResponseToJson(RegisterResponse data) =>
     json.encode(data.toJson());
 
-class RegisterResponse {
+class RegisterResponse extends Equatable {
   final Mitra? mitra;
   final Karyawan? karyawan;
 
-  RegisterResponse({
+  const RegisterResponse({
     this.mitra,
     this.karyawan,
   });
@@ -31,9 +28,12 @@ class RegisterResponse {
         "mitra": mitra?.toJson(),
         "karyawan": karyawan?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [mitra, karyawan];
 }
 
-class Karyawan {
+class Karyawan extends Equatable {
   final int? id;
   final String? username;
   final String? password;
@@ -47,7 +47,7 @@ class Karyawan {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Karyawan({
+  const Karyawan({
     this.id,
     this.username,
     this.password,
@@ -95,9 +95,25 @@ class Karyawan {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        password,
+        email,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        isOwner,
+        mitraId,
+        createdAt,
+        updatedAt
+      ];
 }
 
-class Mitra {
+class Mitra extends Equatable {
   final int? id;
   final String? namaToko;
   final String? deskripsiToko;
@@ -109,7 +125,7 @@ class Mitra {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Mitra({
+  const Mitra({
     this.id,
     this.namaToko,
     this.deskripsiToko,
@@ -151,4 +167,18 @@ class Mitra {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        namaToko,
+        deskripsiToko,
+        alamat,
+        hariBuka,
+        jamBuka,
+        jamTutup,
+        gambarToko,
+        createdAt,
+        updatedAt
+      ];
 }
