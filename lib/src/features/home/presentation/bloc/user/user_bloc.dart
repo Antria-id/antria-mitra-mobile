@@ -23,7 +23,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             emit(
               UserLoaded(
                 user: result.getOrElse(
-                  () => UserModel(),
+                  () => const UserModel(),
                 ),
               ),
             );
