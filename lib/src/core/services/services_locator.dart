@@ -7,6 +7,7 @@ import 'package:antria_mitra_mobile/src/features/antrian/domain/repositories/pes
 import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_pesanan_invoice_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_pesanan_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/update_status_pesanan_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_repository.dart';
@@ -61,6 +62,8 @@ Future<void> setUpServiceLocator() async {
   //datasource
   serviceLocator
       .registerFactory<AuthRemoteDatasource>(() => AuthRemoteDatasourceImpl());
+  serviceLocator
+      .registerFactory<AuthLocalDatasource>(() => AuthLocalDatasourceImpl());
   //
   //usecase
   serviceLocator.registerFactory<LoginUsecase>(() => LoginUsecase());
