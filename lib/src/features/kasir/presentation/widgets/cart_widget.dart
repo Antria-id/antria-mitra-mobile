@@ -10,7 +10,7 @@ class CartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderListBloc, OrderListState>(
+    return BlocConsumer<OrderListBloc, OrderListState>(
       builder: (context, state) {
         if (state is OrderListLoading) {
           return Container();
@@ -100,12 +100,14 @@ class CartWidget extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is ProductAddedToOrderList) {
-          BlocProvider.of<OrderListBloc>(context)
-              .add(GetProductsInOrderListEvent());
-          return Container();
-        } else {
-          return Container();
+        }
+        return Container();
+      },
+      listener: (BuildContext context, OrderListState state) {
+        if (state is ProductAddedToOrderList) {
+          BlocProvider.of<OrderListBloc>(context).add(
+            GetProductsInOrderListEvent(),
+          );
         }
       },
     );
