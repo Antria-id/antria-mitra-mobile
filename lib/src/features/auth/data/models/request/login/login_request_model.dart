@@ -10,7 +10,7 @@ class LoginRequest extends Equatable {
   final String? username;
   final String? password;
 
-  LoginRequest({
+  const LoginRequest({
     this.username,
     this.password,
   });

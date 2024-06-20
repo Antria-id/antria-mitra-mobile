@@ -12,7 +12,7 @@ class LoginUsecase {
     final response =
         await serviceLocator<AuthRepository>().login(requestUser: requestUser);
     if (response.isRight()) {
-      final remoteUser = response.getOrElse(() => LoginResponse());
+      final remoteUser = response.getOrElse(() => const LoginResponse());
       serviceLocator<Request>().updateAuthorization(
         remoteUser.accessToken!,
       );

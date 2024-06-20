@@ -16,7 +16,7 @@ class UserModel extends Equatable {
   final int? iat;
   final int? exp;
 
-  UserModel({
+  const UserModel({
     this.sub,
     this.username,
     this.role,
