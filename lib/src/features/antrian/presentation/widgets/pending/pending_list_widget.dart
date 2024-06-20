@@ -14,8 +14,10 @@ class WaitingListWidget extends StatelessWidget {
         .where((antrianList) => antrianList.antrian!.orderstatus == 'WAITING')
         .toList();
     if (filteredList.isEmpty) {
-      return const EmptyAntrianWidget(
-        text: 'Belum ada pesanan baru',
+      return const Center(
+        child: EmptyAntrianWidget(
+          text: 'Belum ada pesanan baru',
+        ),
       );
     }
     return Padding(
