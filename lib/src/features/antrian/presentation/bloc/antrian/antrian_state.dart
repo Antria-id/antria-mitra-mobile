@@ -12,7 +12,7 @@ final class AntrianInitial extends AntrianState {}
 final class AntrianLoading extends AntrianState {}
 
 final class AntrianLoaded extends AntrianState {
-  final List<PesananResponseModel> pesananList;
+  final List<PesananInvoiceResponseModel> pesananList;
 
   const AntrianLoaded({required this.pesananList});
 }

@@ -5,13 +5,12 @@ import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/antrian_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/request/status_pesanan_request.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user/user_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class PesananRemoteDatasource {
-  Future<Either<Failure, List<PesananResponseModel>>> getPesanan();
+  Future<Either<Failure, List<PesananInvoiceResponseModel>>> getPesanan();
   Future<Either<Failure, PesananInvoiceResponseModel>> getPesananByInvoice(
       {required String invoice});
   Future<Either<Failure, AntrianResponseModel>> updateStatusPesanan(
@@ -22,7 +21,8 @@ abstract class PesananRemoteDatasource {
 class PesananRemoteDatasourceImpl implements PesananRemoteDatasource {
   final Request request = serviceLocator<Request>();
   @override
-  Future<Either<Failure, List<PesananResponseModel>>> getPesanan() async {
+  Future<Either<Failure, List<PesananInvoiceResponseModel>>>
+      getPesanan() async {
     try {
       final UserCacheService userCacheService =
           serviceLocator<UserCacheService>();
@@ -36,8 +36,8 @@ class PesananRemoteDatasourceImpl implements PesananRemoteDatasource {
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
         if (responseData is List<dynamic>) {
-          final List<PesananResponseModel> pesanan = responseData
-              .map((json) => PesananResponseModel.fromJson(json))
+          final List<PesananInvoiceResponseModel> pesanan = responseData
+              .map((json) => PesananInvoiceResponseModel.fromJson(json))
               .toList();
           return Right(pesanan);
         } else {

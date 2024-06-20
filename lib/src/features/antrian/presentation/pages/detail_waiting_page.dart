@@ -149,7 +149,7 @@ class DetailWaitingPage extends StatelessWidget {
                                         final updateEvent =
                                             UpdateStatusPesananTapped(
                                           requestUser:
-                                              StatusPesananRequestModel(
+                                              const StatusPesananRequestModel(
                                             orderstatus: 'PROCESS',
                                           ),
                                           id: pesananDetail.antrian!.id!,
@@ -175,7 +175,7 @@ class DetailWaitingPage extends StatelessWidget {
                                                 final updateEvent =
                                                     UpdateStatusPesananTapped(
                                                   requestUser:
-                                                      StatusPesananRequestModel(
+                                                      const StatusPesananRequestModel(
                                                     orderstatus: 'CANCELED',
                                                   ),
                                                   id: pesananDetail

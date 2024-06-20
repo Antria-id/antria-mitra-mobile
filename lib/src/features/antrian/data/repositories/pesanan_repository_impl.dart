@@ -3,14 +3,13 @@ import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/datasources/pesanan_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/antrian_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/data/models/request/status_pesanan_request.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/domain/repositories/pesanan_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class PesananRepositoryImpl extends PesananRepository {
   @override
-  Future<Either<Failure, List<PesananResponseModel>>> getPesanan() {
+  Future<Either<Failure, List<PesananInvoiceResponseModel>>> getPesanan() {
     return serviceLocator<PesananRemoteDatasource>().getPesanan();
   }
 

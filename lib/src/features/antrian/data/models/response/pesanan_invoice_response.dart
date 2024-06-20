@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final pesananInvoiceResponseModel = pesananInvoiceResponseModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 PesananInvoiceResponseModel pesananInvoiceResponseModelFromJson(String str) =>
     PesananInvoiceResponseModel.fromJson(json.decode(str));
@@ -10,7 +7,7 @@ PesananInvoiceResponseModel pesananInvoiceResponseModelFromJson(String str) =>
 String pesananInvoiceResponseModelToJson(PesananInvoiceResponseModel data) =>
     json.encode(data.toJson());
 
-class PesananInvoiceResponseModel {
+class PesananInvoiceResponseModel extends Equatable {
   final String? invoice;
   final String? payment;
   final String? pemesanan;
@@ -25,7 +22,7 @@ class PesananInvoiceResponseModel {
   final Antrian? antrian;
   final List<Oderlist>? oderlist;
 
-  PesananInvoiceResponseModel({
+  const PesananInvoiceResponseModel({
     this.invoice,
     this.payment,
     this.pemesanan,
@@ -85,9 +82,26 @@ class PesananInvoiceResponseModel {
             ? []
             : List<dynamic>.from(oderlist!.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object?> get props => [
+        invoice,
+        payment,
+        pemesanan,
+        takeaway,
+        status,
+        pelangganId,
+        mitraId,
+        antrianId,
+        createdAt,
+        updatedAt,
+        pelanggan,
+        antrian,
+        oderlist,
+      ];
 }
 
-class Antrian {
+class Antrian extends Equatable {
   final int? id;
   final int? estimasi;
   final String? orderstatus;
@@ -95,7 +109,7 @@ class Antrian {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Antrian({
+  const Antrian({
     this.id,
     this.estimasi,
     this.orderstatus,
@@ -125,9 +139,19 @@ class Antrian {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        estimasi,
+        orderstatus,
+        pesananId,
+        createdAt,
+        updatedAt,
+      ];
 }
 
-class Oderlist {
+class Oderlist extends Equatable {
   final int? id;
   final int? quantity;
   final String? note;
@@ -135,7 +159,7 @@ class Oderlist {
   final String? pesananId;
   final Produk? produk;
 
-  Oderlist({
+  const Oderlist({
     this.id,
     this.quantity,
     this.note,
@@ -161,9 +185,19 @@ class Oderlist {
         "pesananId": pesananId,
         "produk": produk?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        quantity,
+        note,
+        produkId,
+        pesananId,
+        produk,
+      ];
 }
 
-class Produk {
+class Produk extends Equatable {
   final int? id;
   final String? namaProduk;
   final String? deskripsiProduk;
@@ -174,7 +208,7 @@ class Produk {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Produk({
+  const Produk({
     this.id,
     this.namaProduk,
     this.deskripsiProduk,
@@ -213,9 +247,22 @@ class Produk {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        namaProduk,
+        deskripsiProduk,
+        harga,
+        gambar,
+        kuantitas,
+        mitraId,
+        createdAt,
+        updatedAt,
+      ];
 }
 
-class Pelanggan {
+class Pelanggan extends Equatable {
   final int? id;
   final String? username;
   final String? password;
@@ -229,7 +276,7 @@ class Pelanggan {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Pelanggan({
+  const Pelanggan({
     this.id,
     this.username,
     this.password,
@@ -277,4 +324,20 @@ class Pelanggan {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        password,
+        email,
+        emailVerified,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        wallet,
+        createdAt,
+        updatedAt,
+      ];
 }

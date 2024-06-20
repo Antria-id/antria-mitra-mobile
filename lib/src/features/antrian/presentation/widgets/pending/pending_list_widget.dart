@@ -1,17 +1,17 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/waiting_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
 class WaitingListWidget extends StatelessWidget {
-  final List<PesananResponseModel> waitingList;
+  final List<PesananInvoiceResponseModel> waitingList;
   const WaitingListWidget({super.key, required this.waitingList});
 
   @override
   Widget build(BuildContext context) {
-    List<PesananResponseModel> filteredList = waitingList
-        .where((antrianList) => antrianList.antrian.orderstatus == 'WAITING')
+    List<PesananInvoiceResponseModel> filteredList = waitingList
+        .where((antrianList) => antrianList.antrian!.orderstatus == 'WAITING')
         .toList();
     if (filteredList.isEmpty) {
       return const EmptyAntrianWidget(
@@ -28,9 +28,9 @@ class WaitingListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           final pending = filteredList[index];
           return WaitingCardWidget(
-            nama: pending.pelanggan.username,
+            nama: pending.pelanggan!.username,
             image:
-                '${APIUrl.baseUrl}${APIUrl.imagePath}${pending.pelanggan.profilePicture}',
+                '${APIUrl.baseUrl}${APIUrl.imagePath}${pending.pelanggan!.profilePicture}',
             onTap: () {
               Navigator.pushNamed(
                 context,

@@ -1,4 +1,6 @@
-class AntrianEntity {
+import 'package:equatable/equatable.dart';
+
+class AntrianEntity extends Equatable {
   final int? id;
   final int? estimasi;
   final String? orderstatus;
@@ -6,7 +8,7 @@ class AntrianEntity {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  AntrianEntity({
+  const AntrianEntity({
     this.id,
     this.estimasi,
     this.orderstatus,
@@ -14,4 +16,8 @@ class AntrianEntity {
     this.createdAt,
     this.updatedAt,
   });
+
+  @override
+  List<Object?> get props =>
+      [id, estimasi, orderstatus, pesananId, createdAt, updatedAt];
 }

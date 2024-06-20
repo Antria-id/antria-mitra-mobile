@@ -1,20 +1,20 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_response_model.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/antrian_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
 class DineInListWidget extends StatelessWidget {
-  final List<PesananResponseModel> antrianList;
+  final List<PesananInvoiceResponseModel> antrianList;
 
   const DineInListWidget({super.key, required this.antrianList});
 
   @override
   Widget build(BuildContext context) {
-    List<PesananResponseModel> filteredList = antrianList
+    List<PesananInvoiceResponseModel> filteredList = antrianList
         .where(
           (antrianList) =>
-              antrianList.antrian.orderstatus == 'PROCESS' &&
+              antrianList.antrian!.orderstatus == 'PROCESS' &&
               antrianList.takeaway == false,
         )
         .toList();
@@ -23,8 +23,8 @@ class DineInListWidget extends StatelessWidget {
         text: 'Belum ada antrian',
       );
     }
-    List<PesananResponseModel> modifiableList = List.from(filteredList);
-    modifiableList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    List<PesananInvoiceResponseModel> modifiableList = List.from(filteredList);
+    modifiableList.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: ListView.separated(
@@ -36,9 +36,9 @@ class DineInListWidget extends StatelessWidget {
           final nomor = (index + 1).toString().padLeft(2, '0');
           final antrian = modifiableList[index];
           return AntrianCardWidget(
-            nama: antrian.pelanggan.username,
+            nama: antrian.pelanggan!.username,
             image:
-                '${APIUrl.baseUrl}${APIUrl.imagePath}${antrian.pelanggan.profilePicture}',
+                '${APIUrl.baseUrl}${APIUrl.imagePath}${antrian.pelanggan!.profilePicture}',
             nomor: nomor,
             onTap: () {
               Navigator.pushNamed(

@@ -1,5 +1,10 @@
-class StatusPesananRequestEntity {
+import 'package:equatable/equatable.dart';
+
+class StatusPesananRequestEntity extends Equatable {
   final String? orderstatus;
 
-  StatusPesananRequestEntity({this.orderstatus});
+  const StatusPesananRequestEntity({this.orderstatus});
+
+  @override
+  List<Object?> get props => [orderstatus];
 }

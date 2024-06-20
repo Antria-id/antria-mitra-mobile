@@ -1,4 +1,6 @@
-class PesananInvoiceEntity {
+import 'package:equatable/equatable.dart';
+
+class PesananInvoiceEntity extends Equatable {
   final String? invoice;
   final String? payment;
   final String? pemesanan;
@@ -13,7 +15,7 @@ class PesananInvoiceEntity {
   final AntrianEntity? antrian;
   final List<OderlistEntity>? oderlist;
 
-  PesananInvoiceEntity({
+  const PesananInvoiceEntity({
     this.invoice,
     this.payment,
     this.pemesanan,
@@ -28,9 +30,26 @@ class PesananInvoiceEntity {
     this.antrian,
     this.oderlist,
   });
+
+  @override
+  List<Object?> get props => [
+        invoice,
+        payment,
+        pemesanan,
+        takeaway,
+        status,
+        pelangganId,
+        mitraId,
+        antrianId,
+        createdAt,
+        updatedAt,
+        pelanggan,
+        antrian,
+        oderlist,
+      ];
 }
 
-class AntrianEntity {
+class AntrianEntity extends Equatable {
   final int? id;
   final int? estimasi;
   final String? orderstatus;
@@ -38,7 +57,7 @@ class AntrianEntity {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  AntrianEntity({
+  const AntrianEntity({
     this.id,
     this.estimasi,
     this.orderstatus,
@@ -46,9 +65,19 @@ class AntrianEntity {
     this.createdAt,
     this.updatedAt,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        estimasi,
+        orderstatus,
+        pesananId,
+        createdAt,
+        updatedAt,
+      ];
 }
 
-class OderlistEntity {
+class OderlistEntity extends Equatable {
   final int? id;
   final int? quantity;
   final String? note;
@@ -56,7 +85,7 @@ class OderlistEntity {
   final String? pesananId;
   final ProdukEntity? produk;
 
-  OderlistEntity({
+  const OderlistEntity({
     this.id,
     this.quantity,
     this.note,
@@ -64,9 +93,19 @@ class OderlistEntity {
     this.pesananId,
     this.produk,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        quantity,
+        note,
+        produkId,
+        pesananId,
+        produk,
+      ];
 }
 
-class ProdukEntity {
+class ProdukEntity extends Equatable {
   final int? id;
   final String? namaProduk;
   final String? deskripsiProduk;
@@ -77,7 +116,7 @@ class ProdukEntity {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  ProdukEntity({
+  const ProdukEntity({
     this.id,
     this.namaProduk,
     this.deskripsiProduk,
@@ -88,9 +127,22 @@ class ProdukEntity {
     this.createdAt,
     this.updatedAt,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        namaProduk,
+        deskripsiProduk,
+        harga,
+        gambar,
+        kuantitas,
+        mitraId,
+        createdAt,
+        updatedAt,
+      ];
 }
 
-class PelangganEntity {
+class PelangganEntity extends Equatable {
   final int? id;
   final String? username;
   final String? password;
@@ -104,7 +156,7 @@ class PelangganEntity {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  PelangganEntity({
+  const PelangganEntity({
     this.id,
     this.username,
     this.password,
@@ -118,4 +170,20 @@ class PelangganEntity {
     this.createdAt,
     this.updatedAt,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        password,
+        email,
+        emailVerified,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        wallet,
+        createdAt,
+        updatedAt,
+      ];
 }

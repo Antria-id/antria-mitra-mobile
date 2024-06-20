@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final antrianResponseModel = antrianResponseModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 AntrianResponseModel antrianResponseModelFromJson(String str) =>
     AntrianResponseModel.fromJson(json.decode(str));
@@ -10,15 +7,15 @@ AntrianResponseModel antrianResponseModelFromJson(String str) =>
 String antrianResponseModelToJson(AntrianResponseModel data) =>
     json.encode(data.toJson());
 
-class AntrianResponseModel {
-  int? id;
+class AntrianResponseModel extends Equatable {
+  final int? id;
   final int? estimasi;
   final String? orderstatus;
   final String? pesananId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  AntrianResponseModel({
+  const AntrianResponseModel({
     this.id,
     this.estimasi,
     this.orderstatus,
@@ -49,4 +46,14 @@ class AntrianResponseModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        estimasi,
+        orderstatus,
+        pesananId,
+        createdAt,
+        updatedAt,
+      ];
 }

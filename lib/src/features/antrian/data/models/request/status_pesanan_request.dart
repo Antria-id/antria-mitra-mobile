@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final pesananInvoiceResponseModel = pesananInvoiceResponseModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 StatusPesananRequestModel pesananInvoiceResponseModelFromJson(String str) =>
     StatusPesananRequestModel.fromJson(json.decode(str));
@@ -10,10 +7,10 @@ StatusPesananRequestModel pesananInvoiceResponseModelFromJson(String str) =>
 String pesananInvoiceResponseModelToJson(StatusPesananRequestModel data) =>
     json.encode(data.toJson());
 
-class StatusPesananRequestModel {
+class StatusPesananRequestModel extends Equatable {
   final String? orderstatus;
 
-  StatusPesananRequestModel({
+  const StatusPesananRequestModel({
     this.orderstatus,
   });
 
@@ -25,4 +22,7 @@ class StatusPesananRequestModel {
   Map<String, dynamic> toJson() => {
         "orderstatus": orderstatus,
       };
+
+  @override
+  List<Object?> get props => [orderstatus];
 }

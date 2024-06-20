@@ -242,7 +242,7 @@ class DetailProcessPage extends StatelessWidget {
                                           final updateEvent =
                                               UpdateStatusPesananTapped(
                                             requestUser:
-                                                StatusPesananRequestModel(
+                                                const StatusPesananRequestModel(
                                               orderstatus: 'ALLDONE',
                                             ),
                                             id: pesananDetail.antrian!.id!,
