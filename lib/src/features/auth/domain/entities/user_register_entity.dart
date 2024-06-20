@@ -1,14 +1,19 @@
-class UserRegisterEntity {
+import 'package:equatable/equatable.dart';
+
+class UserRegisterEntity extends Equatable {
   final MitraDataEntity? mitraData;
   final KaryawanDataEntity? karyawanData;
 
-  UserRegisterEntity({
+  const UserRegisterEntity({
     this.mitraData,
     this.karyawanData,
   });
+
+  @override
+  List<Object?> get props => [mitraData, karyawanData];
 }
 
-class KaryawanDataEntity {
+class KaryawanDataEntity extends Equatable {
   final String? username;
   final String? password;
   final String? email;
@@ -18,7 +23,7 @@ class KaryawanDataEntity {
   final String? alamat;
   final bool? isOwner;
 
-  KaryawanDataEntity({
+  const KaryawanDataEntity({
     this.username,
     this.password,
     this.email,
@@ -28,9 +33,21 @@ class KaryawanDataEntity {
     this.alamat,
     this.isOwner,
   });
+
+  @override
+  List<Object?> get props => [
+        username,
+        password,
+        email,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        isOwner
+      ];
 }
 
-class MitraDataEntity {
+class MitraDataEntity extends Equatable {
   final String? namaToko;
   final String? deskripsiToko;
   final String? alamat;
@@ -38,7 +55,7 @@ class MitraDataEntity {
   final String? jamBuka;
   final String? jamTutup;
 
-  MitraDataEntity({
+  const MitraDataEntity({
     this.namaToko,
     this.deskripsiToko,
     this.alamat,
@@ -46,4 +63,14 @@ class MitraDataEntity {
     this.jamBuka,
     this.jamTutup,
   });
+
+  @override
+  List<Object?> get props => [
+        namaToko,
+        deskripsiToko,
+        alamat,
+        hariBuka,
+        jamBuka,
+        jamTutup,
+      ];
 }

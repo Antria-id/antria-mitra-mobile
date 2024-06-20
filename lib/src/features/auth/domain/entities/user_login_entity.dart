@@ -1,4 +1,6 @@
-class UserLoginEntity {
+import 'package:equatable/equatable.dart';
+
+class UserLoginEntity extends Equatable {
   final String username;
   final String password;
 
@@ -6,4 +8,7 @@ class UserLoginEntity {
     this.username,
     this.password,
   );
+
+  @override
+  List<Object?> get props => [username, password];
 }
