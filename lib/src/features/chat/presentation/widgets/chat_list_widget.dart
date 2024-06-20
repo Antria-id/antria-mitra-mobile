@@ -4,14 +4,8 @@ import 'package:flutter/material.dart';
 class ChatListWidget extends StatelessWidget {
   final List<Map<String, dynamic>> chatList = [
     {
-      'nama': 'Customer#1234',
+      'nama': 'Zengzeng',
       'image': 'https://i.postimg.cc/nLq2tk6y/IMG-2585-1.png',
-      'message': 'Halo apakah pesanan saya sudah siap?',
-      'count_chat': '1',
-    },
-    {
-      'nama': 'Customer#1234',
-      'image': '',
       'message': 'Halo apakah pesanan saya sudah siap?',
       'count_chat': '1',
     },

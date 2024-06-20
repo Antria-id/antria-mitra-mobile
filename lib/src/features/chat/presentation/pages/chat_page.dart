@@ -37,8 +37,8 @@ class ChatPage extends StatelessWidget {
             const CircleAvatar(
               radius: 20,
               backgroundColor: AppColor.primaryColor,
-              backgroundImage: AssetImage(
-                'assets/icons/user-empty.png',
+              backgroundImage: NetworkImage(
+                'https://i.postimg.cc/nLq2tk6y/IMG-2585-1.png',
               ),
             ),
             const SizedBox(
@@ -48,7 +48,7 @@ class ChatPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Customer#1234',
+                  'Zengzeng',
                   style: AppTextStyle.largeWhite.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -72,7 +72,7 @@ class ChatPage extends StatelessWidget {
         child: Column(
           children: [
             PelangganChatWidget(
-              name: 'Customer#1234',
+              name: 'Zengzeng',
               text: 'Halo apakah pesanan saya sudah siap?',
               time: '29m',
             ),
@@ -82,7 +82,7 @@ class ChatPage extends StatelessWidget {
               time: '29m',
             ),
             PelangganChatWidget(
-              name: 'Customer#1234',
+              name: 'Zengzeng',
               text: 'Oke kalau begitu',
               time: '29m',
             ),
