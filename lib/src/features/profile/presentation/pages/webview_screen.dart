@@ -14,7 +14,7 @@ class _WebviewPageState extends State<WebviewPage> {
   final controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..loadRequest(
-      Uri.parse('https://dashboard.antria.id'),
+      Uri.parse('https://dashboard.verni.yt'),
     );
 
   @override
