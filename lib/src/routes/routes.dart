@@ -6,8 +6,6 @@ import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/login_p
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/register_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/splash_page.dart';
-import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_list_page.dart';
-import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/detail_history_transaksi_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
@@ -36,12 +34,6 @@ class AppRoutes {
 
       case '/home':
         return _materialRoute(const HomePage());
-
-      case '/chat-list':
-        return _materialRoute(const ChatListPage());
-
-      case '/chat':
-        return _materialRoute(const ChatPage());
 
       case '/riwayat-transaksi':
         return _materialRoute(const HistoryTransaksiPage());
@@ -85,14 +77,10 @@ class AppRoutes {
         return _materialRoute(const AntrianPage());
 
       case '/detail-process':
-        final arguments = settings.arguments as Map<String, dynamic>;
-        final invoice = arguments['invoice'] as String;
-        final nomor = int.tryParse(arguments['nomor'] ?? '');
-
+        final invoice = settings.arguments as String;
         return _materialRoute(
           DetailProcessPage(
             invoice: invoice,
-            nomor: nomor!,
           ),
         );
 
