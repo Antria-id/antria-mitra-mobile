@@ -128,8 +128,7 @@ class _EditInformasiUsahaFormWidgetState
                                                       vertical: 12,
                                                       horizontal: 20),
                                                   decoration: BoxDecoration(
-                                                    color:
-                                                        AppColor.greyColor[300],
+                                                    color: AppColor.greyColor,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
@@ -167,8 +166,7 @@ class _EditInformasiUsahaFormWidgetState
                                                     horizontal: 20,
                                                   ),
                                                   decoration: BoxDecoration(
-                                                    color:
-                                                        AppColor.greyColor[300],
+                                                    color: AppColor.greyColor,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),

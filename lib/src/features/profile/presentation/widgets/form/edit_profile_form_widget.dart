@@ -110,7 +110,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 12, horizontal: 20),
                                           decoration: BoxDecoration(
-                                            color: AppColor.greyColor[300],
+                                            color: AppColor.greyColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),
@@ -144,7 +144,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                                             horizontal: 20,
                                           ),
                                           decoration: BoxDecoration(
-                                            color: AppColor.greyColor[300],
+                                            color: AppColor.greyColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),

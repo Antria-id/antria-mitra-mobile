@@ -25,7 +25,7 @@ class ListUlasanWidget extends StatelessWidget {
             imageUrl: ulasan.reviewer!.profilePicture!,
             username: ulasan.reviewer!.username!,
             comments: ulasan.komentar!,
-            timeUpload: ulasan.createdAt,
+            timeUpload: ulasan.updatedAt,
             rating: ulasan.rating!.toDouble(),
           );
         },
