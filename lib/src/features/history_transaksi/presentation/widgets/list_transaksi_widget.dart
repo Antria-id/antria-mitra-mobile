@@ -25,7 +25,16 @@ class ListTransaksiWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (transaksiList.isEmpty) {
+    List<RiwayatTransaksiResponse> filteredList = transaksiList
+        .where(
+          (transaksiList) =>
+              transaksiList.antrian != null &&
+              transaksiList.antrian!.orderstatus != 'CANCELED',
+        )
+        .toList();
+
+    filteredList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+    if (filteredList.isEmpty) {
       return const Center(
         child: EmptyDataWidget(),
       );
@@ -37,9 +46,9 @@ class ListTransaksiWidget extends StatelessWidget {
           padding: const EdgeInsets.only(
             bottom: 70,
           ),
-          itemCount: transaksiList.length,
+          itemCount: filteredList.length,
           itemBuilder: (context, index) {
-            final transaksi = transaksiList[index];
+            final transaksi = filteredList[index];
             return TransaksiCardWidget(
               invoice: transaksi.invoice!,
               tanggal: formatDate(transaksi.createdAt),
