@@ -3,10 +3,10 @@ import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
-import 'package:antria_mitra_mobile/src/features/auth/data/models/request/login/login_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/auth/data/models/request/register/register_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/auth/data/models/response/login/login_reponse_model.dart';
-import 'package:antria_mitra_mobile/src/features/auth/data/models/response/register/register_reponse_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/request/login_request_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/request/register_request_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/response/login_reponse_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/response/register_reponse_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
 
@@ -30,15 +30,20 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
       if (response.statusCode == 200) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-        await userCacheService.saveAccessToken(loginResponse.accessToken!);
-        return Right(loginResponse);
+        if (loginResponse.accessToken != null) {
+          await userCacheService.saveAccessToken(loginResponse.accessToken!);
+          return Right(loginResponse);
+        } else {
+          return const Left(Exception('Access token is null'));
+        }
+      } else {
+        return Left(ConnectionFailure(response.data['message']));
       }
-      return Left(ConnectionFailure(response.data['message']));
-    } catch (e) {
+    } catch (e, stackTrace) {
       debugPrint('AuthRemoteDataSourceImplError $e');
-      return const Left(
-        Exception('Exception Occured in AuthRemoteDataSourceImpl'),
-      );
+      debugPrint('$stackTrace');
+      return Left(
+          Exception('Exception Occurred in AuthRemoteDataSourceImpl: $e'));
     }
   }
 

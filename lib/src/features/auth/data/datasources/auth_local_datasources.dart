@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/core/failure/failure.dart';
+import 'package:antria_mitra_mobile/src/core/helper/database_helper.dart';
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:dartz/dartz.dart';
@@ -11,9 +12,12 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
   @override
   Future<Either<Failure, void>> deleteUserFromLocalStorage() async {
     try {
+      final DatabaseHelper databaseHelper = DatabaseHelper.instance;
       final deletionSuccess =
           await serviceLocator<UserCacheService>().deleteUser();
       if (deletionSuccess) {
+        await databaseHelper.deleteProduct();
+        await databaseHelper.deleteOrderList();
         return const Right(null);
       } else {
         return const Left(

@@ -1,4 +1,4 @@
-import 'package:antria_mitra_mobile/src/features/auth/data/models/request/login/login_request_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/request/login_request_model.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/loading_widget.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/widgets/password_textfield_widget.dart';
