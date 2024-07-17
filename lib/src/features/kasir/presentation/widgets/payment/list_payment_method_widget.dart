@@ -2,7 +2,8 @@ import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/paym
 import 'package:flutter/material.dart';
 
 class ListPaymentMethodWidget extends StatefulWidget {
-  final ValueChanged<String> onPaymentMethodChanged;
+  final ValueChanged<Map<String, String>> onPaymentMethodChanged;
+
   const ListPaymentMethodWidget(
       {Key? key, required this.onPaymentMethodChanged})
       : super(key: key);
@@ -13,8 +14,16 @@ class ListPaymentMethodWidget extends StatefulWidget {
 
 class ListPaymentMethodWidgetState extends State<ListPaymentMethodWidget> {
   final List<Map<String, dynamic>> paymentList = [
-    {'label': 'CASH', 'icon': 'assets/icons/rupiah.png'},
-    {'label': 'EWALLET', 'icon': 'assets/icons/ewallet.png'},
+    {
+      'label': 'E-Wallet',
+      'value': 'EWALLET',
+      'icon': 'assets/icons/ewallet.png'
+    },
+    {
+      'label': 'Cash',
+      'value': 'CASH',
+      'icon': 'assets/icons/rupiah.png',
+    },
   ];
 
   int selectedIndex = -1;
@@ -29,7 +38,10 @@ class ListPaymentMethodWidgetState extends State<ListPaymentMethodWidget> {
             setState(() {
               selectedIndex = index;
             });
-            widget.onPaymentMethodChanged(payment['label']);
+            widget.onPaymentMethodChanged({
+              'label': payment['label'],
+              'value': payment['value'],
+            });
           },
           child: CardPaymentWidget(
             label: payment['label'],

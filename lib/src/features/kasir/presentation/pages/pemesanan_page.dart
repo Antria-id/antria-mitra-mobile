@@ -22,6 +22,7 @@ class PemesananPage extends StatefulWidget {
 
 class _PemesananPageState extends State<PemesananPage> {
   String paymentMethod = 'Pilih Metode Pembayaran';
+  String paymentLabel = '';
   int biayaLayanan = 1000;
   bool isSelectedDineIn = true;
   bool isSelectedTakeaway = false;
@@ -210,9 +211,13 @@ class _PemesananPageState extends State<PemesananPage> {
                                           Expanded(
                                             child: ListPaymentMethodWidget(
                                               onPaymentMethodChanged:
-                                                  (String value) {
+                                                  (Map<String, String>
+                                                      paymentData) {
                                                 setState(() {
-                                                  paymentMethod = value;
+                                                  paymentMethod =
+                                                      paymentData['value']!;
+                                                  paymentLabel =
+                                                      paymentData['label']!;
                                                 });
                                               },
                                             ),
@@ -278,7 +283,7 @@ class _PemesananPageState extends State<PemesananPage> {
                                       height: 4,
                                     ),
                                     Text(
-                                      paymentMethod,
+                                      paymentLabel,
                                       style: AppTextStyle.smallWhite,
                                     ),
                                   ],
