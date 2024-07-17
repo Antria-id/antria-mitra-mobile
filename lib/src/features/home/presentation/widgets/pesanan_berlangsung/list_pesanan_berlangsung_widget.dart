@@ -1,11 +1,11 @@
-import 'package:antria_mitra_mobile/src/features/home/data/models/pesanan_berlangsung/pesanan_berlangsung_model.dart';
+import 'package:antria_mitra_mobile/src/features/home/data/models/pesanan_model.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesanan_berlangsung/card_pesanan_berlangsung_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
 class ListPesananBerlangsungWidget extends StatelessWidget {
-  final List<PesananBerlangsungModel> pesananList;
+  final List<PesananModel> pesananList;
 
   const ListPesananBerlangsungWidget({super.key, required this.pesananList});
 
@@ -14,10 +14,13 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
     final filteredList = pesananList
         .where(
           (pesanan) =>
+              pesanan.antrian != null &&
               pesanan.antrian!.orderstatus != 'ALLDONE' &&
               pesanan.antrian!.orderstatus != 'CANCELED',
         )
         .toList();
+
+    filteredList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
 
     return Container(
       decoration: const BoxDecoration(
@@ -44,6 +47,21 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
                   return CardPesananBerlangsungWidget(
                     invoice: pesanan.invoice,
                     status: pesanan.antrian!.orderstatus,
+                    onTap: () {
+                      if (pesanan.antrian!.orderstatus == 'PROCESS') {
+                        Navigator.pushNamed(
+                          context,
+                          '/detail-process',
+                          arguments: pesanan.invoice,
+                        );
+                      } else if (pesanan.antrian!.orderstatus == 'WAITING') {
+                        Navigator.pushNamed(
+                          context,
+                          '/detail-waiting',
+                          arguments: pesanan.invoice,
+                        );
+                      }
+                    },
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {

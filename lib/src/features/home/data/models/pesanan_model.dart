@@ -1,32 +1,33 @@
-// To parse this JSON data, do
-//
-//     final pesananBerlangsungModel = pesananBerlangsungModelFromJson(jsonString);
-
 import 'dart:convert';
 
-List<PesananBerlangsungModel> pesananBerlangsungModelFromJson(String str) =>
-    List<PesananBerlangsungModel>.from(
-        json.decode(str).map((x) => PesananBerlangsungModel.fromJson(x)));
+List<PesananModel> pesananBerlangsungModelFromJson(String str) =>
+    List<PesananModel>.from(
+        json.decode(str).map((x) => PesananModel.fromJson(x)));
 
-String pesananBerlangsungModelToJson(List<PesananBerlangsungModel> data) =>
+String pesananBerlangsungModelToJson(List<PesananModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class PesananBerlangsungModel {
+class PesananModel {
   final String? invoice;
+  final int? pelangganId;
+  final int? mitraId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final Antrian? antrian;
 
-  PesananBerlangsungModel({
+  PesananModel({
     this.invoice,
+    required this.pelangganId,
+    required this.mitraId,
     this.createdAt,
     this.updatedAt,
     this.antrian,
   });
 
-  factory PesananBerlangsungModel.fromJson(Map<String, dynamic> json) =>
-      PesananBerlangsungModel(
+  factory PesananModel.fromJson(Map<String, dynamic> json) => PesananModel(
         invoice: json["invoice"],
+        pelangganId: json["pelanggan_id"],
+        mitraId: json["mitra_id"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -39,6 +40,8 @@ class PesananBerlangsungModel {
 
   Map<String, dynamic> toJson() => {
         "invoice": invoice,
+        "pelanggan_id": pelangganId,
+        "mitra_id": mitraId,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "antrian": antrian?.toJson(),

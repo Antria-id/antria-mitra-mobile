@@ -186,7 +186,7 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                                     ),
                                   ),
                                   const SizedBox(
-                                    width: 12,
+                                    width: 9,
                                   ),
                                 ],
                               ),
@@ -258,7 +258,7 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                                     },
                                   ),
                                   const SizedBox(
-                                    width: 12,
+                                    width: 9,
                                   ),
                                 ],
                               ),

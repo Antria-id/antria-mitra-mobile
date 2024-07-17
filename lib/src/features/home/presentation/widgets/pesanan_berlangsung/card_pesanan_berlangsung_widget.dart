@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class CardPesananBerlangsungWidget extends StatelessWidget {
   final String? status;
   final String? invoice;
-  const CardPesananBerlangsungWidget({super.key, this.status, this.invoice});
+  final VoidCallback onTap;
+  const CardPesananBerlangsungWidget(
+      {super.key, this.status, this.invoice, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,46 +19,49 @@ class CardPesananBerlangsungWidget extends StatelessWidget {
     } else if (status == "CANCELED") {
       statusColor = AppColor.redColor;
     }
-    return Column(
-      children: [
-        const SizedBox(
-          height: 4,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/icons/receipt.png',
-                    width: 30,
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    invoice ?? '',
-                    style: AppTextStyle.smallBlack.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                status ?? '',
-                style: TextStyle(
-                  color: statusColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-            ],
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 4,
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/icons/receipt.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      invoice ?? '',
+                      style: AppTextStyle.smallBlack.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  status ?? '',
+                  style: TextStyle(
+                    color: statusColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

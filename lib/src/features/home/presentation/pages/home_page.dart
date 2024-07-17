@@ -1,10 +1,11 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_berlangsung/pesanan_berlangsung_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_mitra/pesanan_mitra_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/daily_income_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/jadwal_widget.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesanan_berlangsung/list_pesanan_berlangsung_widget.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
@@ -28,9 +29,9 @@ class HomePage extends StatelessWidget {
             ),
         ),
         BlocProvider(
-          create: (context) => PesananBerlangsungBloc()
+          create: (context) => PesananMitraBloc()
             ..add(
-              PesananBerlangsungFetchData(),
+              PesananMitraFetchData(),
             ),
         ),
       ],
@@ -131,24 +132,36 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                BlocListener<UpdateStatusPesananBloc, UpdateStatusPesananState>(
-                  listener: (context, state) {
-                    if (state is UpdateStatusPesananSuccess) {
-                      BlocProvider.of<PesananBerlangsungBloc>(context)
-                          .add(PesananBerlangsungFetchData());
-                    }
-                  },
-                  child: BlocBuilder<PesananBerlangsungBloc,
-                      PesananBerlangsungState>(
+                MultiBlocListener(
+                  listeners: [
+                    BlocListener<UpdateStatusPesananBloc,
+                        UpdateStatusPesananState>(
+                      listener: (context, state) {
+                        if (state is UpdateStatusPesananSuccess) {
+                          BlocProvider.of<PesananMitraBloc>(context)
+                              .add(PesananMitraFetchData());
+                        }
+                      },
+                    ),
+                    BlocListener<OrderListBloc, OrderListState>(
+                      listener: (context, state) {
+                        if (state is AddPesanan) {
+                          BlocProvider.of<PesananMitraBloc>(context)
+                              .add(PesananMitraFetchData());
+                        }
+                      },
+                    ),
+                  ],
+                  child: BlocBuilder<PesananMitraBloc, PesananMitraState>(
                     builder: (context, state) {
-                      if (state is PesananBerlangsungError) {
+                      if (state is PesananMitraError) {
                         return const Padding(
                           padding: EdgeInsets.symmetric(vertical: 60),
                           child: Center(
                             child: FailedFetchDataWidget(),
                           ),
                         );
-                      } else if (state is PesananBerlangsungLoaded) {
+                      } else if (state is PesananMitraLoaded) {
                         return ListPesananBerlangsungWidget(
                           pesananList: state.pesananList,
                         );
@@ -203,8 +216,8 @@ class HomePage extends StatelessWidget {
               shape: const CircleBorder(),
               child: Image.asset(
                 'assets/icons/menu.png',
-                width: 20,
-                height: 20,
+                width: 25,
+                height: 25,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, '/kasir');
@@ -216,23 +229,9 @@ class HomePage extends StatelessWidget {
               backgroundColor: AppColor.whiteColor,
               shape: const CircleBorder(),
               child: Image.asset(
-                'assets/icons/queue.png',
-                width: 20,
-                height: 20,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/antrian');
-                fabKey.currentState?.toggle();
-              },
-            ),
-            FloatingActionButton.small(
-              heroTag: null,
-              backgroundColor: AppColor.whiteColor,
-              shape: const CircleBorder(),
-              child: Image.asset(
-                'assets/icons/booking.png',
-                width: 20,
-                height: 20,
+                'assets/icons/edit-jadwal.png',
+                width: 25,
+                height: 25,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, '/jadwal');

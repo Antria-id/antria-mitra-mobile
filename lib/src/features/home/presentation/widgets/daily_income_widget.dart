@@ -1,5 +1,5 @@
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/bloc/update_status_pesanan/update_status_pesanan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/daily_income/daily_income_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_mitra/pesanan_mitra_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
@@ -17,7 +17,7 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DailyIncomeBloc()..add(DailyIncomeFetchData()),
+      create: (context) => PesananMitraBloc()..add(PesananMitraFetchData()),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -33,27 +33,40 @@ class _DailyIncomeWidgetState extends State<DailyIncomeWidget> {
         child: BlocListener<UpdateStatusPesananBloc, UpdateStatusPesananState>(
           listener: (context, state) {
             if (state is UpdateStatusPesananSuccess) {
-              BlocProvider.of<DailyIncomeBloc>(context)
-                  .add(DailyIncomeFetchData());
+              BlocProvider.of<PesananMitraBloc>(context)
+                  .add(PesananMitraFetchData());
             }
           },
-          child: BlocBuilder<DailyIncomeBloc, DailyIncomeState>(
+          child: BlocBuilder<PesananMitraBloc, PesananMitraState>(
             builder: (context, state) {
-              if (state is DailyIncomeError) {
+              if (state is PesananMitraError) {
                 return const FailedFetchDataWidget();
-              } else if (state is DailyIncomeLoaded) {
-                final order = state.dailyIncome;
-                int jumlahOrder = order
-                    .where(
-                      (order) =>
-                          order.antrian.orderstatus == "ALLDONE" ||
-                          order.antrian.orderstatus == "PROCESS",
-                    )
-                    .length;
+              } else if (state is PesananMitraLoaded) {
+                final order = state.pesananList;
+                final now = DateTime.now();
+                final today = DateTime(now.year, now.month, now.day);
+
+                int jumlahOrder = order.where((order) {
+                  final antrian = order.antrian;
+                  if (antrian != null) {
+                    final createdAt = antrian.createdAt;
+                    final isCreatedToday = createdAt != null &&
+                        DateTime(
+                              createdAt.year,
+                              createdAt.month,
+                              createdAt.day,
+                            ) ==
+                            today;
+                    return isCreatedToday && antrian.orderstatus == "ALLDONE";
+                  }
+                  return false;
+                }).length;
 
                 int jumlahAntrian = order
                     .where(
-                      (order) => order.antrian.orderstatus == "PROCESS",
+                      (order) =>
+                          order.antrian != null &&
+                          order.antrian!.orderstatus == "PROCESS",
                     )
                     .length;
                 return Row(
