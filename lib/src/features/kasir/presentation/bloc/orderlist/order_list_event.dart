@@ -43,3 +43,21 @@ class DecrementQuantityEvent extends OrderListEvent {
   @override
   List<Object> get props => [productId, quantity];
 }
+
+class AddPesananEvent extends OrderListEvent {
+  final String invoice;
+  final String payment;
+  final String pemesanan;
+  final bool takeaway;
+  final int mitraId;
+
+  const AddPesananEvent(
+      {required this.invoice,
+      required this.payment,
+      required this.pemesanan,
+      required this.takeaway,
+      required this.mitraId});
+
+  @override
+  List<Object> get props => [invoice, payment, pemesanan, takeaway, mitraId];
+}

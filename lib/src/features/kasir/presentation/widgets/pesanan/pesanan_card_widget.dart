@@ -54,13 +54,13 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
                   widget.image,
-                  width: 90,
-                  height: 90,
+                  width: 80,
+                  height: 70,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
                     'assets/images/empty_image.jpg',
-                    width: 90,
-                    height: 90,
+                    width: 80,
+                    height: 70,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -70,7 +70,7 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 100,
+                    width: 200,
                     child: Text(
                       widget.label,
                       style: const TextStyle(

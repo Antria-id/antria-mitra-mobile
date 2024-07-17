@@ -3,7 +3,7 @@ import 'package:antria_mitra_mobile/src/core/helper/database_helper.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/models/product_model.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class ProductLocalDatasource {
+abstract class KasirLocalDatasource {
   Future<Either<Failure, List<ProductModel>>> getAllProducts();
   Future<Either<Failure, void>> addProductToOrderList(
       int productId, int quantity);
@@ -12,9 +12,11 @@ abstract class ProductLocalDatasource {
       int productId, int quantity);
   Future<Either<Failure, void>> decrementOrderQuantity(
       int productId, int quantity);
+  Future<Either<Failure, void>> insertPesanan(String invoice, String payment,
+      String pemesanan, bool takeaway, int mitraId);
 }
 
-class ProductLocalDatasourceImpl implements ProductLocalDatasource {
+class KasirLocalDatasourceImpl implements KasirLocalDatasource {
   @override
   Future<Either<Failure, List<ProductModel>>> getAllProducts() async {
     try {
@@ -99,6 +101,21 @@ class ProductLocalDatasourceImpl implements ProductLocalDatasource {
     } catch (e) {
       return Left(
           LocalDatabaseQueryFailure('Unable to decrement order quantity: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> insertPesanan(String invoice, String payment,
+      String pemesanan, bool takeaway, int mitraId) async {
+    try {
+      final DatabaseHelper databaseHelper = DatabaseHelper.instance;
+
+      await databaseHelper.insertPesanan(
+          invoice, payment, pemesanan, takeaway, mitraId);
+
+      return const Right(null);
+    } catch (e) {
+      return Left(LocalDatabaseQueryFailure('Unable to insert pesanan: $e'));
     }
   }
 }

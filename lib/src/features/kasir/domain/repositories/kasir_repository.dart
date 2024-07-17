@@ -11,4 +11,6 @@ abstract class KasirRepository {
       int productId, int quantity);
   Future<Either<Failure, void>> decrementOrderQuantity(
       int productId, int quantity);
+  Future<Either<Failure, void>> insertPesanan(String invoice, String payment,
+      String pemesanan, bool takeaway, int mitraId);
 }

@@ -20,9 +20,9 @@ class ListPesananWidget extends StatelessWidget {
             );
           } else if (state is OrderListLoaded) {
             return SizedBox(
-              height: 260,
+              height: 280,
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 itemCount: state.products.length,
                 itemBuilder: (context, index) {
                   final cart = state.products[index];

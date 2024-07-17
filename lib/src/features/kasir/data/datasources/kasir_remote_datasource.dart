@@ -4,15 +4,15 @@ import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
-import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user/user_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user_model.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/models/product_model.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class ProductRemoteDatasource {
+abstract class KasirRemoteDatasource {
   Future<Either<Failure, List<ProductModel>>> getProduct();
 }
 
-class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
+class KasirRemoteDatasourceImpl implements KasirRemoteDatasource {
   @override
   Future<Either<Failure, List<ProductModel>>> getProduct() async {
     try {
