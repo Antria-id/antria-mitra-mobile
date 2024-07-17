@@ -85,16 +85,17 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                             context: context,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(10),
+                                top: Radius.circular(20),
                               ),
                             ),
                             builder: (context) {
                               return FractionallySizedBox(
-                                heightFactor: 0.34,
+                                heightFactor: 0.38,
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Column(
                                     children: [
+                                      const SizedBox(height: 10),
                                       GestureDetector(
                                         onTap: () async {
                                           final path =
@@ -110,7 +111,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 12, horizontal: 20),
                                           decoration: BoxDecoration(
-                                            color: AppColor.greyColor,
+                                            color: AppColor.dividerColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),
@@ -144,7 +145,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                                             horizontal: 20,
                                           ),
                                           decoration: BoxDecoration(
-                                            color: AppColor.greyColor,
+                                            color: AppColor.dividerColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),

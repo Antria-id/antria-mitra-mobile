@@ -63,13 +63,106 @@ class _EditInformasiUsahaFormWidgetState
                   ),
                   (selectedImage == null &&
                           state.responseModel.gambarToko!.isNotEmpty)
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            '${APIUrl.baseUrl}${APIUrl.imagePath}${state.responseModel.gambarToko}',
-                            width: 240,
-                            height: 130,
-                            fit: BoxFit.cover,
+                      ? InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              backgroundColor: AppColor.whiteColor,
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                ),
+                              ),
+                              builder: (context) {
+                                return FractionallySizedBox(
+                                  heightFactor: 0.38,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 10),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final path =
+                                                await selectImageFromGallery();
+                                            if (path != null) {
+                                              setState(() {
+                                                selectedImage = File(path);
+                                                Navigator.pop(context);
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 12, horizontal: 20),
+                                            decoration: BoxDecoration(
+                                              color: AppColor.dividerColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: const Row(
+                                              children: [
+                                                Icon(Icons.photo_library),
+                                                SizedBox(width: 10),
+                                                Text(
+                                                  'Pilih dari Galeri',
+                                                  style:
+                                                      AppTextStyle.mediumBlack,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final path =
+                                                await selectImageFromCamera();
+                                            if (path != null) {
+                                              setState(() {
+                                                selectedImage = File(path);
+                                                Navigator.pop(context);
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 12,
+                                              horizontal: 20,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: AppColor.dividerColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: const Row(
+                                              children: [
+                                                Icon(Icons.camera_alt),
+                                                SizedBox(width: 10),
+                                                Text(
+                                                  'Ambil Foto',
+                                                  style:
+                                                      AppTextStyle.mediumBlack,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              '${APIUrl.baseUrl}${APIUrl.imagePath}${state.responseModel.gambarToko}',
+                              width: 240,
+                              height: 130,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         )
                       : (selectedImage != null)
@@ -100,16 +193,17 @@ class _EditInformasiUsahaFormWidgetState
                                     context: context,
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(10),
+                                        top: Radius.circular(20),
                                       ),
                                     ),
                                     builder: (context) {
                                       return FractionallySizedBox(
-                                        heightFactor: 0.34,
+                                        heightFactor: 0.38,
                                         child: Padding(
                                           padding: const EdgeInsets.all(12.0),
                                           child: Column(
                                             children: [
+                                              const SizedBox(height: 10),
                                               GestureDetector(
                                                 onTap: () async {
                                                   final path =
@@ -128,7 +222,8 @@ class _EditInformasiUsahaFormWidgetState
                                                       vertical: 12,
                                                       horizontal: 20),
                                                   decoration: BoxDecoration(
-                                                    color: AppColor.greyColor,
+                                                    color:
+                                                        AppColor.dividerColor,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
@@ -166,7 +261,8 @@ class _EditInformasiUsahaFormWidgetState
                                                     horizontal: 20,
                                                   ),
                                                   decoration: BoxDecoration(
-                                                    color: AppColor.greyColor,
+                                                    color:
+                                                        AppColor.dividerColor,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
