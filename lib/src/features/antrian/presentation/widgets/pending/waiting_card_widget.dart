@@ -1,3 +1,4 @@
+import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class WaitingCardWidget extends StatelessWidget {
@@ -33,10 +34,13 @@ class WaitingCardWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage(image!),
-                    onBackgroundImageError: (exception, stackTrace) {
-                      const AssetImage('assets/icons/user-empty.png');
-                    },
+                    backgroundImage: image!.isNotEmpty
+                        ? NetworkImage(
+                            '${APIUrl.baseUrl}${APIUrl.imagePath}${image!}',
+                          )
+                        : const AssetImage(
+                            'assets/icons/user-empty.png',
+                          ) as ImageProvider,
                   ),
                   const SizedBox(
                     width: 10,

@@ -10,21 +10,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
-class DetailProcessPage extends StatelessWidget {
+class DetailProcessPage extends StatefulWidget {
   final String invoice;
-  final int nomor;
   const DetailProcessPage({
     super.key,
     required this.invoice,
-    required this.nomor,
   });
 
+  @override
+  State<DetailProcessPage> createState() => _DetailProcessPageState();
+}
+
+class _DetailProcessPageState extends State<DetailProcessPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => InvoicePesananBloc()
         ..add(
-          InvoicePesananFetchData(invoice: invoice),
+          InvoicePesananFetchData(invoice: widget.invoice),
         ),
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
@@ -102,7 +105,11 @@ class DetailProcessPage extends StatelessWidget {
                                         height: 20,
                                       ),
                                       Text(
-                                        pesananDetail.pelanggan!.username!,
+                                        pesananDetail.pelanggan!.username ==
+                                                "anonymous"
+                                            ? pesananDetail.antrian!.pesananId!
+                                            : pesananDetail
+                                                .pelanggan!.username!,
                                         style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -128,7 +135,7 @@ class DetailProcessPage extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        nomor.toString().padLeft(2, '0'),
+                                        pesananDetail.antrian!.id.toString(),
                                         style: const TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,

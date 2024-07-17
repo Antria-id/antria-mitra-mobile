@@ -1,21 +1,22 @@
-import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/antrian_list_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/selesai/pengambilan_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
 class SelesaiListWidget extends StatelessWidget {
-  final List<PesananInvoiceResponseModel> pengambilanList;
+  final List<AntrianListModel> pengambilanList;
   const SelesaiListWidget({Key? key, required this.pengambilanList})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<PesananInvoiceResponseModel> filteredList = pengambilanList
-        .where((antrianList) => antrianList.antrian!.orderstatus == 'ALLDONE')
+    List<AntrianListModel> filteredList = pengambilanList
+        .where((antrianList) =>
+            antrianList.pesanan!.antrian != null &&
+            antrianList.pesanan!.antrian!.orderstatus == 'ALLDONE')
         .toList();
 
-    filteredList.sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
+    filteredList.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
 
     if (filteredList.isEmpty) {
       return const EmptyAntrianWidget(
@@ -32,12 +33,16 @@ class SelesaiListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           final pengambilan = filteredList[index];
           return SelesaiCardWidget(
-            nama: pengambilan.pelanggan!.username,
-            image:
-                '${APIUrl.baseUrl}${APIUrl.imagePath}${pengambilan.pelanggan!.profilePicture}',
+            nama: pengambilan.pesanan!.pelanggan!.nama == 'anonymous'
+                ? pengambilan.pesananId
+                : pengambilan.pesanan!.pelanggan!.nama,
+            image: pengambilan.pesanan!.pelanggan!.profilePicture,
             onTap: () {
-              Navigator.pushNamed(context, '/detail-pesanan-selesai',
-                  arguments: pengambilan.invoice);
+              Navigator.pushNamed(
+                context,
+                '/detail-pesanan-selesai',
+                arguments: pengambilan.pesananId,
+              );
             },
           );
         },

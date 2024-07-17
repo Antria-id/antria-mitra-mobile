@@ -1,18 +1,25 @@
-import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
+import 'dart:core';
+import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/antrian_list_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/pending/waiting_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
 class WaitingListWidget extends StatelessWidget {
-  final List<PesananInvoiceResponseModel> waitingList;
+  final List<AntrianListModel> waitingList;
+
   const WaitingListWidget({super.key, required this.waitingList});
 
   @override
   Widget build(BuildContext context) {
-    List<PesananInvoiceResponseModel> filteredList = waitingList
-        .where((antrianList) => antrianList.antrian!.orderstatus == 'WAITING')
+    waitingList
+        .sort((a, b) => b.pesanan!.createdAt!.compareTo(a.pesanan!.createdAt!));
+
+    List<AntrianListModel> filteredList = waitingList
+        .where((antrianList) =>
+            antrianList.pesanan!.antrian != null &&
+            antrianList.pesanan!.antrian!.orderstatus == 'WAITING')
         .toList();
+
     if (filteredList.isEmpty) {
       return const Center(
         child: EmptyAntrianWidget(
@@ -30,14 +37,15 @@ class WaitingListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           final pending = filteredList[index];
           return WaitingCardWidget(
-            nama: pending.pelanggan!.username,
-            image:
-                '${APIUrl.baseUrl}${APIUrl.imagePath}${pending.pelanggan!.profilePicture}',
+            nama: pending.pesanan!.pelanggan!.nama == 'anonymous'
+                ? pending.pesananId
+                : pending.pesanan!.pelanggan!.nama,
+            image: pending.pesanan!.pelanggan!.profilePicture,
             onTap: () {
               Navigator.pushNamed(
                 context,
                 '/detail-waiting',
-                arguments: pending.invoice,
+                arguments: pending.pesananId,
               );
             },
           );

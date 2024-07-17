@@ -1,3 +1,4 @@
+import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -34,10 +35,13 @@ class SelesaiCardWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage(image!),
-                    onBackgroundImageError: (exception, stackTrace) {
-                      const AssetImage('assets/icons/user-empty.png');
-                    },
+                    backgroundImage: image!.isNotEmpty
+                        ? NetworkImage(
+                            '${APIUrl.baseUrl}${APIUrl.imagePath}${image!}',
+                          )
+                        : const AssetImage(
+                            'assets/icons/user-empty.png',
+                          ) as ImageProvider,
                   ),
                   const SizedBox(
                     width: 10,

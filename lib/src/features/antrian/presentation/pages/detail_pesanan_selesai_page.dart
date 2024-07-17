@@ -92,7 +92,11 @@ class DetailPesananSelesaiPage extends StatelessWidget {
                                         height: 20,
                                       ),
                                       Text(
-                                        pesananDetail.pelanggan!.username!,
+                                        pesananDetail.pelanggan!.username ==
+                                                "anonymous"
+                                            ? pesananDetail.antrian!.pesananId!
+                                            : pesananDetail
+                                                .pelanggan!.username!,
                                         style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,

@@ -1,11 +1,11 @@
+import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AntrianCardWidget extends StatelessWidget {
   final String? image;
   final String? nama;
-  final String nomor;
+  final int nomor;
   final VoidCallback? onTap;
   const AntrianCardWidget(
       {super.key, this.image, this.nama, required this.nomor, this.onTap});
@@ -32,16 +32,19 @@ class AntrianCardWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage(image!),
-                    onBackgroundImageError: (exception, stackTrace) {
-                      const AssetImage('assets/icons/user-empty.png');
-                    },
+                    backgroundImage: image!.isNotEmpty
+                        ? NetworkImage(
+                            '${APIUrl.baseUrl}${APIUrl.imagePath}${image!}',
+                          )
+                        : const AssetImage(
+                            'assets/icons/user-empty.png',
+                          ) as ImageProvider,
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   SizedBox(
-                    width: 120,
+                    width: 160,
                     child: Text(
                       nama ?? 'Anonym',
                       style: const TextStyle(
@@ -52,14 +55,6 @@ class AntrianCardWidget extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/chat');
-              },
-              icon: const Icon(
-                CupertinoIcons.chat_bubble_text_fill,
               ),
             ),
             Container(
@@ -74,7 +69,7 @@ class AntrianCardWidget extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  nomor,
+                  nomor.toString(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

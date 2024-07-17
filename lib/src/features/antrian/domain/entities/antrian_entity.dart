@@ -18,6 +18,12 @@ class AntrianEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [id, estimasi, orderstatus, pesananId, createdAt, updatedAt];
+  List<Object?> get props => [
+        id,
+        estimasi,
+        orderstatus,
+        pesananId,
+        createdAt,
+        updatedAt,
+      ];
 }

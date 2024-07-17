@@ -43,16 +43,6 @@ class _AntrianPageState extends State<AntrianPage> {
                 color: Colors.white,
               ),
             ),
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
                 gradient: AppColor.gradientTopColor,

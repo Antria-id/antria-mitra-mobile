@@ -76,10 +76,9 @@ class OrderCardWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Note: ${note ?? "-"}',
+                            'Note: ${note!.isNotEmpty ? note : "-"}',
                             style: AppTextStyle.smallGrey,
-                            overflow: TextOverflow.clip,
-                          ),
+                          )
                         ],
                       ),
                     ),

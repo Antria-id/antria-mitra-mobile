@@ -8,3 +8,12 @@ sealed class AntrianEvent extends Equatable {
 }
 
 final class AntrianFetchData extends AntrianEvent {}
+
+class AntrianFetchPesanan extends AntrianEvent {
+  final String invoiceId;
+
+  const AntrianFetchPesanan(this.invoiceId);
+
+  @override
+  List<Object> get props => [invoiceId];
+}

@@ -1,30 +1,29 @@
-import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/pesanan_invoice_response.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/models/response/antrian_list_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/process/antrian_card_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_antrian_widget.dart';
 import 'package:flutter/material.dart';
 
 class TakeAwayListWidget extends StatelessWidget {
-  final List<PesananInvoiceResponseModel> antrianList;
+  final List<AntrianListModel> antrianList;
 
   const TakeAwayListWidget({super.key, required this.antrianList});
 
   @override
   Widget build(BuildContext context) {
-    List<PesananInvoiceResponseModel> filteredList = antrianList
-        .where(
-          (antrianList) =>
-              antrianList.antrian!.orderstatus == 'PROCESS' &&
-              antrianList.takeaway == true,
-        )
+    List<AntrianListModel> filteredList = antrianList
+        .where((antrianList) =>
+            antrianList.pesanan!.antrian != null &&
+            antrianList.pesanan!.antrian!.orderstatus == 'PROCESS' &&
+            antrianList.pesanan!.takeaway == true)
         .toList();
+
     if (filteredList.isEmpty) {
       return const EmptyAntrianWidget(
         text: 'Belum ada antrian',
       );
     }
-    List<PesananInvoiceResponseModel> modifiableList = List.from(filteredList);
-    modifiableList.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
+    List<AntrianListModel> modifiableList = List.from(filteredList);
+    modifiableList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: ListView.separated(
@@ -33,18 +32,18 @@ class TakeAwayListWidget extends StatelessWidget {
         ),
         itemCount: modifiableList.length,
         itemBuilder: (context, index) {
-          final nomor = (index + 1).toString().padLeft(2, '0');
           final antrian = modifiableList[index];
           return AntrianCardWidget(
-            nama: antrian.pelanggan!.username,
-            image:
-                '${APIUrl.baseUrl}${APIUrl.imagePath}${antrian.pelanggan!.profilePicture}',
-            nomor: nomor,
+            nama: antrian.pesanan!.pelanggan!.nama == 'anonymous'
+                ? antrian.pesananId
+                : antrian.pesanan!.pelanggan!.nama,
+            image: antrian.pesanan!.pelanggan!.profilePicture,
+            nomor: antrian.id,
             onTap: () {
               Navigator.pushNamed(
                 context,
                 '/detail-process',
-                arguments: {'invoice': antrian.invoice, 'nomor': nomor},
+                arguments: antrian.pesananId,
               );
             },
           );
