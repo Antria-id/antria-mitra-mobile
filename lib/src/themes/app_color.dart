@@ -7,12 +7,12 @@ class AppColor {
   static const redColor = Color(0xffFF0000);
   static const blackColor = Color(0xff000000);
   static const whiteColor = Color(0xffffffff);
-  static const greyColor = Colors.grey;
+  static const greyColor = Color(0xffBABABA);
   static const transparent = Colors.transparent;
   static const priceColor = Color(0xff0D1039);
   static Gradient gradientTopColor = const LinearGradient(
     colors: [
-      Color(0xff9B59B6),
+      Color(0xff953684),
       Color(0xffE74C4C),
     ],
     begin: Alignment.topLeft,
@@ -21,7 +21,7 @@ class AppColor {
 
   static Gradient gradientTopBottomColor = const LinearGradient(
     colors: [
-      Color(0xff9B59B6),
+      Color(0xff953684),
       Color(0xffE74C4C),
     ],
     begin: Alignment.topCenter,
