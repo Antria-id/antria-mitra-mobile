@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
-import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user/user_model.dart';
+import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

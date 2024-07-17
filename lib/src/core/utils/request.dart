@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class Request {
-  final Dio dio = Dio();
+  Dio dio = Dio();
   Request() {
     updateDioInterceptors();
   }
@@ -48,9 +48,8 @@ class Request {
   }
 
   // requests
-  Future<Response> get(String path,
-      {Map<String, dynamic>? queryParameters}) async {
-    return await dio.get(path, queryParameters: queryParameters);
+  Future<Response> get(String path, {Object? data}) async {
+    return await dio.get(path, data: data);
   }
 
   Future<Response> post(String path, {Object? data}) async {

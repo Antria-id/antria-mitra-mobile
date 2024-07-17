@@ -1,11 +1,11 @@
 import 'package:antria_mitra_mobile/src/core/network/network_checker.dart';
 import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/datasources/pesanan_remote_datasource.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/data/repositories/pesanan_repository_impl.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/domain/repositories/pesanan_repository.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/datasources/antrian_remote_datasource.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/data/repositories/antrian_repository_impl.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/domain/repositories/antrian_repository.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_antrian_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_pesanan_invoice_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/get_pesanan_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/domain/usecases/update_status_pesanan_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/datasources/auth_remote_datasource.dart';
@@ -23,16 +23,15 @@ import 'package:antria_mitra_mobile/src/features/home/data/datasources/remote/ho
 import 'package:antria_mitra_mobile/src/features/home/data/repositories/home_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/repositories/home_repository.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/check_user_login_status_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_daily_income_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_pesanan_berlangsung_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_pesanan_mitra_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_local_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/data/datasources/jadwal_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/data/repositories/jadwal_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/repositories/jadwal_repository.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/usecases/get_jadwal_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/usecases/update_jadwal_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/product_local_datasource.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/product_remote_datasource.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/kasir_local_datasource.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/kasir_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/repositories/kasir_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/domain/repositories/kasir_repository.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/domain/usecases/get_product_usecase.dart';
@@ -87,10 +86,8 @@ Future<void> setUpServiceLocator() async {
   //usecase
   serviceLocator
       .registerFactory<GetUserLocalUsecase>(() => GetUserLocalUsecase());
-  serviceLocator.registerFactory<GetPesananBerlangsungUsecase>(
-      () => GetPesananBerlangsungUsecase());
   serviceLocator
-      .registerFactory<GetDailyIncomeUsecase>(() => GetDailyIncomeUsecase());
+      .registerFactory<GetPesananMitraUsecase>(() => GetPesananMitraUsecase());
 
   //repository
   serviceLocator.registerFactory<HomeRepository>(() => HomeRepositoryImpl());
@@ -138,10 +135,10 @@ Future<void> setUpServiceLocator() async {
   serviceLocator.registerFactory<OrderListUsecase>(() => OrderListUsecase());
 
   //datasource
-  serviceLocator.registerFactory<ProductRemoteDatasource>(
-      () => ProductRemoteDatasourceImpl());
-  serviceLocator.registerFactory<ProductLocalDatasource>(
-      () => ProductLocalDatasourceImpl());
+  serviceLocator.registerFactory<KasirRemoteDatasource>(
+      () => KasirRemoteDatasourceImpl());
+  serviceLocator
+      .registerFactory<KasirLocalDatasource>(() => KasirLocalDatasourceImpl());
 
   //Repository
   serviceLocator.registerFactory<KasirRepository>(() => KasirRepositoryImpl());
@@ -164,19 +161,19 @@ Future<void> setUpServiceLocator() async {
   //Antrian
 
   //usecase
-  serviceLocator.registerFactory<GetPesananUsecase>(() => GetPesananUsecase());
+  serviceLocator.registerFactory<GetAntrianUsecase>(() => GetAntrianUsecase());
   serviceLocator.registerFactory<GetPesananInvoiceUsecase>(
       () => GetPesananInvoiceUsecase());
   serviceLocator.registerFactory<UpdateStatusPesananUsecase>(
       () => UpdateStatusPesananUsecase());
 
   //datasource
-  serviceLocator.registerFactory<PesananRemoteDatasource>(
-      () => PesananRemoteDatasourceImpl());
+  serviceLocator.registerFactory<AntrianRemoteDatasource>(
+      () => AntrianRemoteDatasourceImpl());
 
   //Repository
   serviceLocator
-      .registerFactory<PesananRepository>(() => PesananRepositoryImpl());
+      .registerFactory<AntrianRepository>(() => AntrianRepositoryImpl());
 
   //repository
   serviceLocator
