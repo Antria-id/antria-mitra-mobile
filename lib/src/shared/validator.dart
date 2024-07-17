@@ -61,7 +61,7 @@ class ValidatorForm {
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Masukkan Password Anda';
+      return 'Password Tidak Boleh Kosong!';
     }
     return null;
   }

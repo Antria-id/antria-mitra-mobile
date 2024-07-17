@@ -1,9 +1,8 @@
-import 'package:antria_mitra_mobile/src/features/chat/presentation/pages/chat_list_page.dart';
+import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/antrian_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/profile_page.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -17,7 +16,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int selectedIndex = 0;
   final List<Widget> screens = [
     const HomePage(),
-    const ChatListPage(),
+    const AntrianPage(),
     const HistoryTransaksiPage(),
     const ProfilePage(),
   ];
@@ -68,24 +67,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
                           : AppColor.greyColor,
                       onPressed: () => onItemTapped(0),
                     ),
-                    InkWell(
-                      onTap: () => onItemTapped(1),
-                      child: Stack(
-                        alignment: Alignment.topRight,
-                        children: [
-                          Icon(
-                            CupertinoIcons.chat_bubble_text_fill,
-                            size: 30,
-                            color: selectedIndex == 1
-                                ? AppColor.whiteColor
-                                : AppColor.greyColor,
-                          ),
-                          const CircleAvatar(
-                            radius: 5,
-                            backgroundColor: Color(0xffFF0000),
-                          ),
-                        ],
+                    IconButton(
+                      icon: const Icon(
+                        Icons.format_list_bulleted,
+                        size: 30,
                       ),
+                      color: selectedIndex == 1
+                          ? AppColor.whiteColor
+                          : AppColor.greyColor,
+                      onPressed: () => onItemTapped(1),
                     ),
                     IconButton(
                       icon: const Icon(
