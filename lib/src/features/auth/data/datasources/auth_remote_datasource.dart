@@ -32,6 +32,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         if (loginResponse.accessToken != null) {
           await userCacheService.saveAccessToken(loginResponse.accessToken!);
+          await userCacheService.setToken(loginResponse.accessToken!);
           return Right(loginResponse);
         } else {
           return const Left(Exception('Access token is null'));
