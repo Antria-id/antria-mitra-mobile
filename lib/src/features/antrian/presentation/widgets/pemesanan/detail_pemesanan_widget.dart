@@ -26,11 +26,21 @@ class DetailPemesananWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double buttonWidth = (screenWidth - 56) / 2;
+    int biayaLayanan = 1000;
+    int total = totalPrice + biayaLayanan;
+
     String formattedPrice = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp',
       decimalDigits: 0,
-    ).format(totalPrice);
+    ).format(total);
+    String formattedBiayaLayanan = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp',
+      decimalDigits: 0,
+    ).format(biayaLayanan);
     String tipePemesanan = isTakeAway ? 'Take-Away' : 'Dine-In';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,117 +55,145 @@ class DetailPemesananWidget extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Pemesanan',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+          child: Container(
+            width: 400,
+            height: 110,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              color: AppColor.whiteColor,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Pemesanan',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: 70,
-                      height: 22,
-                      decoration: BoxDecoration(
-                        gradient: AppColor.gradientTopBottomColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          tipePemesanan,
-                          style: AppTextStyle.xSmallWhite.copyWith(
-                            fontWeight: FontWeight.bold,
+                      Container(
+                        width: 70,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          gradient: AppColor.gradientTopBottomColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            tipePemesanan,
+                            style: AppTextStyle.xSmallWhite.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Harga Total',
-                      style: AppTextStyle.mediumBlack
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      formattedPrice,
-                      style: AppTextStyle.mediumBlack
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                isPending
-                    ? Row(
-                        children: [
-                          CustomButtonWidget(
-                            circularButton: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            backgroundColor: AppColor.redColor,
-                            size: const Size(160, 50),
-                            onPressed: onCancelPressed!,
-                            child: Text(
-                              'Cancel',
-                              style: AppTextStyle.mediumWhite.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 36,
-                          ),
-                          CustomButtonWidget(
-                            circularButton: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            backgroundColor: Colors.green,
-                            size: const Size(160, 50),
-                            onPressed: onAcceptPressed!,
-                            child: Text(
-                              'Terima',
-                              style: AppTextStyle.mediumWhite.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    : isAmbil
-                        ? const SizedBox.shrink()
-                        : CustomButtonWidget(
-                            circularButton: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            backgroundColor: Colors.green,
-                            size: const Size(360, 50),
-                            onPressed: onFinishPressed!,
-                            child: Text(
-                              'Pesanan Selesai',
-                              style: AppTextStyle.mediumWhite.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Biaya Layanan',
+                        style: AppTextStyle.mediumBlack
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        formattedBiayaLayanan,
+                        style: AppTextStyle.mediumBlack
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Harga Total',
+                        style: AppTextStyle.mediumBlack
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        formattedPrice,
+                        style: AppTextStyle.mediumBlack
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.04,
+        ),
+        isPending
+            ? Row(
+                children: [
+                  CustomButtonWidget(
+                    circularButton: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    backgroundColor: AppColor.redColor,
+                    size: Size(buttonWidth, 50),
+                    onPressed: onCancelPressed!,
+                    child: Text(
+                      'Cancel',
+                      style: AppTextStyle.mediumWhite.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 36,
+                  ),
+                  CustomButtonWidget(
+                    circularButton: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    backgroundColor: Colors.green,
+                    size: Size(buttonWidth, 50),
+                    onPressed: onAcceptPressed!,
+                    child: Text(
+                      'Terima',
+                      style: AppTextStyle.mediumWhite.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : isAmbil
+                ? const SizedBox.shrink()
+                : CustomButtonWidget(
+                    circularButton: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    backgroundColor: Colors.green,
+                    size: Size(370, 50),
+                    onPressed: onFinishPressed!,
+                    child: Text(
+                      'Pesanan Selesai',
+                      style: AppTextStyle.mediumWhite.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
       ],
     );
   }

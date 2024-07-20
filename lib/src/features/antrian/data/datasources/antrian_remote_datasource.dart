@@ -79,7 +79,7 @@ class AntrianRemoteDatasourceImpl implements AntrianRemoteDatasource {
       final response = await request.get(
         APIUrl.getAntrianPath(mitraId),
         data: {
-          "limit": 50,
+          "limit": 40,
         },
       );
 
