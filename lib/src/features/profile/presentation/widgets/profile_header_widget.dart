@@ -54,6 +54,76 @@ class ProfileHeaderWidget extends StatelessWidget {
                                 CircleAvatar(
                                   radius: 50,
                                   backgroundImage:
+                                      profileData.profilePicture!.isNotEmpty
+                                          ? NetworkImage(
+                                              '${APIUrl.baseUrl}${APIUrl.imagePath}${profileData.profilePicture}',
+                                            )
+                                          : const NetworkImage(
+                                              'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
+                                            ),
+                                ),
+                                InkWell(
+                                  onTap: () => Navigator.pushNamed(
+                                    context,
+                                    '/edit-profile',
+                                  ),
+                                  child: const CircleAvatar(
+                                    radius: 15,
+                                    backgroundColor: AppColor.whiteColor,
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: AppColor.blackColor,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              profileData.username!,
+                              style: AppTextStyle.largeWhite.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              profileData.email!,
+                              style: AppTextStyle.largeWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (state is UserLocalLoaded) {
+                  final profileData = state.user;
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 14,
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Profile',
+                              style: AppTextStyle.xlargeWhite.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage:
                                       profileData.picture!.isNotEmpty
                                           ? NetworkImage(
                                               '${APIUrl.baseUrl}${APIUrl.imagePath}${profileData.picture}',
