@@ -4,18 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class PesananCardWidget extends StatefulWidget {
-  final int productId;
+  final int id;
   final String image;
   final String label;
+  final String note;
   final int price;
   final int kuantitas;
+  final VoidCallback? onTap;
   const PesananCardWidget({
     super.key,
     required this.image,
     required this.label,
     required this.price,
     required this.kuantitas,
-    required this.productId,
+    required this.id,
+    required this.onTap,
+    required this.note,
   });
 
   @override
@@ -48,85 +52,141 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                child: Image.network(
-                  widget.image,
-                  width: 80,
-                  height: 70,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/images/empty_image.jpg',
-                    width: 80,
-                    height: 70,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  SizedBox(
-                    width: 200,
-                    child: Text(
-                      widget.label,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    child: Image.network(
+                      widget.image,
+                      width: 80,
+                      height: 70,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                        'assets/images/empty_image.jpg',
+                        width: 80,
+                        height: 70,
+                        fit: BoxFit.cover,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    formattedPrice,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xff0D1039),
-                      fontWeight: FontWeight.w700,
-                    ),
+                  const SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: Text(
+                          widget.label,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        formattedPrice,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff0D1039),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: 200,
+                        child: Visibility(
+                          visible: widget.note.isNotEmpty,
+                          child: Text(
+                            'Catatan: ${widget.note}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xff0D1039),
+                              fontWeight: FontWeight.w700,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-          Column(
-            children: [
-              const SizedBox(height: 10),
-              Container(
-                width: 58,
-                height: 32,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  color: AppColor.dividerColor,
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 4),
-                    Text(
-                      '$quantity',
-                      style: AppTextStyle.largeBlack.copyWith(
-                        fontWeight: FontWeight.bold,
+              InkWell(
+                onTap: widget.onTap,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Container(
+                    width: 80,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.0,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
                       ),
                     ),
-                    const SizedBox(height: 3),
-                    Container(
-                      width: 58,
-                      height: 2,
-                      color: Colors.green,
-                    )
-                  ],
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        const Icon(
+                          Icons.note_add_rounded,
+                          size: 16,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          'Catatan',
+                          style: AppTextStyle.xSmallBlack
+                              .copyWith(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(width: 10),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Container(
+              width: 58,
+              height: 32,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                color: AppColor.dividerColor,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 4),
+                  Text(
+                    '$quantity',
+                    style: AppTextStyle.largeBlack.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Container(
+                    width: 58,
+                    height: 2,
+                    color: Colors.green,
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 10)
         ],
       ),
     );

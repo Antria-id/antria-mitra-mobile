@@ -51,7 +51,9 @@ class _KasirPageState extends State<KasirPage> {
               builder: (context, state) {
                 if (state is ProdukError) {
                   return const Center(
-                    child: EmptyDataWidget(),
+                    child: EmptyDataWidget(
+                      text: 'Data tidak ditemukan',
+                    ),
                   );
                 } else if (state is ProdukLoaded) {
                   return ProductListWidget(

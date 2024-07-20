@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 abstract class KasirRepository {
   Future<Either<Failure, List<ProductModel>>> getProducts();
   Future<Either<Failure, void>> addProductToOrderList(
-      int productId, int quantity);
+      int productId, int quantity, String note);
   Future<Either<Failure, List<Map<String, dynamic>>>> getProductsInOrderList();
   Future<Either<Failure, void>> incrementOrderQuantity(
       int productId, int quantity);
@@ -13,4 +13,5 @@ abstract class KasirRepository {
       int productId, int quantity);
   Future<Either<Failure, void>> insertPesanan(String invoice, String payment,
       String pemesanan, bool takeaway, int mitraId);
+  Future<Either<Failure, void>> updateOrderList(int id, String note);
 }

@@ -14,7 +14,9 @@ class ProductListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (productList.isEmpty) {
       return const Center(
-        child: EmptyDataWidget(),
+        child: EmptyDataWidget(
+          text: 'Data tidak ditemukan',
+        ),
       );
     }
     return SizedBox(

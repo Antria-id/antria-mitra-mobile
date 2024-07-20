@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 abstract class KasirLocalDatasource {
   Future<Either<Failure, List<ProductModel>>> getAllProducts();
   Future<Either<Failure, void>> addProductToOrderList(
-      int productId, int quantity);
+      int productId, int quantity, String note);
   Future<Either<Failure, List<Map<String, dynamic>>>> getProductsInOrderList();
   Future<Either<Failure, void>> incrementOrderQuantity(
       int productId, int quantity);
@@ -14,6 +14,7 @@ abstract class KasirLocalDatasource {
       int productId, int quantity);
   Future<Either<Failure, void>> insertPesanan(String invoice, String payment,
       String pemesanan, bool takeaway, int mitraId);
+  Future<Either<Failure, void>> updateOrderList(int id, String note);
 }
 
 class KasirLocalDatasourceImpl implements KasirLocalDatasource {
@@ -37,7 +38,7 @@ class KasirLocalDatasourceImpl implements KasirLocalDatasource {
 
   @override
   Future<Either<Failure, void>> addProductToOrderList(
-      int productId, int quantity) async {
+      int productId, int quantity, String note) async {
     try {
       final DatabaseHelper databaseHelper = DatabaseHelper.instance;
       final DateTime now = DateTime.now();
@@ -48,6 +49,7 @@ class KasirLocalDatasourceImpl implements KasirLocalDatasource {
         quantity,
         now,
         now,
+        note,
       );
 
       return const Right(null);
@@ -112,6 +114,19 @@ class KasirLocalDatasourceImpl implements KasirLocalDatasource {
 
       await databaseHelper.insertPesanan(
           invoice, payment, pemesanan, takeaway, mitraId);
+
+      return const Right(null);
+    } catch (e) {
+      return Left(LocalDatabaseQueryFailure('Unable to insert pesanan: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateOrderList(int id, String note) async {
+    try {
+      final DatabaseHelper databaseHelper = DatabaseHelper.instance;
+
+      await databaseHelper.updateOrderList(id, note);
 
       return const Right(null);
     } catch (e) {

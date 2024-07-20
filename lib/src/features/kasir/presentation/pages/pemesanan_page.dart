@@ -1,12 +1,10 @@
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/custom_button_order.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/payment/list_payment_method_widget.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/input_payment_dialog.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/list_pemesanan_type_widget.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/pesanan/list_pesanan_widget.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/sucess_payment_dialog.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
-import 'package:antria_mitra_mobile/src/shared/toast.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +19,67 @@ class PemesananPage extends StatefulWidget {
 }
 
 class _PemesananPageState extends State<PemesananPage> {
-  String paymentMethod = 'Pilih Metode Pembayaran';
-  String paymentLabel = '';
   int biayaLayanan = 1000;
   bool isSelectedDineIn = true;
   bool isSelectedTakeaway = false;
+  String pemesananType = 'Dine In';
+
+  void showBottomSheet() {
+    int initialSelectedIndex = isSelectedDineIn ? 0 : 1;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.44,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Container(
+                  width: 30,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: AppColor.dividerColor,
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: Text(
+                  'Pilih Tipe Pemesanan',
+                  style: AppTextStyle.largeBlack.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              ListPemesananTypeWidget(
+                onPemesananType: (selectedType) {
+                  setState(() {
+                    isSelectedDineIn = selectedType['isDineIn']!;
+                    isSelectedTakeaway = selectedType['isTakeAway']!;
+                    pemesananType =
+                        selectedType['isDineIn']! ? 'Dine In' : 'Take Away';
+                  });
+                },
+                initialSelectedIndex: initialSelectedIndex,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,42 +153,6 @@ class _PemesananPageState extends State<PemesananPage> {
                       return Column(
                         children: [
                           Row(
-                            children: [
-                              Flexible(
-                                child: CustomButtonOrder(
-                                  title: 'Dine In',
-                                  isSelected: isSelectedDineIn,
-                                  onTap: () {
-                                    setState(() {
-                                      isSelectedDineIn = true;
-                                      isSelectedTakeaway = false;
-                                    });
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Flexible(
-                                child: CustomButtonOrder(
-                                  title: 'Takeaway',
-                                  isSelected: isSelectedTakeaway,
-                                  onTap: () {
-                                    setState(
-                                      () {
-                                        isSelectedTakeaway = true;
-                                        isSelectedDineIn = false;
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
@@ -195,111 +213,60 @@ class _PemesananPageState extends State<PemesananPage> {
                             ],
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: 30,
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return FractionallySizedBox(
-                                    heightFactor: 0.5,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            child: ListPaymentMethodWidget(
-                                              onPaymentMethodChanged:
-                                                  (Map<String, String>
-                                                      paymentData) {
-                                                setState(() {
-                                                  paymentMethod =
-                                                      paymentData['value']!;
-                                                  paymentLabel =
-                                                      paymentData['label']!;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          CustomButtonWidget(
-                                            backgroundColor:
-                                                AppColor.primaryColor,
-                                            circularButton:
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            size: const Size(368, 50),
-                                            child: const Text(
-                                              'Confirm',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              minimumSize: const Size(337, 67),
-                              backgroundColor: AppColor.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                          Container(
+                            width: double.infinity,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              color: AppColor.whiteColor,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              border: Border.all(
+                                width: 1,
+                                color: AppColor.greyColor,
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                Transform.rotate(
-                                  angle: 90 * (3.141592653589793 / 180),
-                                  child: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: AppColor.whiteColor,
-                                    size: 15,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                              ),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 24,
+                                    child: Image.asset(
+                                      isSelectedDineIn
+                                          ? 'assets/icons/dinein.png'
+                                          : 'assets/icons/takeaway.png',
+                                      width: 30,
+                                      height: 30,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Metode Payment',
-                                      style: AppTextStyle.smallWhite.copyWith(
-                                        fontWeight: FontWeight.bold,
+                                  const SizedBox(
+                                    width: 14,
+                                  ),
+                                  Text(
+                                    pemesananType,
+                                    style: AppTextStyle.largeBlack.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    onTap: showBottomSheet,
+                                    child: Text(
+                                      'Ubah',
+                                      style: AppTextStyle.largeWhite.copyWith(
+                                        color: Colors.blueAccent,
+                                        fontWeight: FontWeight.w900,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      paymentLabel,
-                                      style: AppTextStyle.smallWhite,
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Text(
-                                  formattedTotalBiaya,
-                                  style: AppTextStyle.mediumWhite.copyWith(
-                                    fontWeight: FontWeight.bold,
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 30,
                           ),
                         ],
                       );
@@ -328,7 +295,7 @@ class _PemesananPageState extends State<PemesananPage> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return SuccessPayment(
+                  return InputPaymentDialog(
                     invoice: state.invoice,
                   );
                 },
@@ -360,12 +327,6 @@ class _PemesananPageState extends State<PemesananPage> {
                             ),
                           ),
                           onPressed: () {
-                            if (paymentMethod == 'Pilih Metode Pembayaran') {
-                              showToastFailedMessage(
-                                'Pilih Metode Pembayaran',
-                              );
-                              return;
-                            }
                             String pemesanan = isSelectedDineIn ? 'DI0' : 'TA0';
                             int timestamp =
                                 DateTime.now().millisecondsSinceEpoch ~/ 1000;
@@ -376,7 +337,7 @@ class _PemesananPageState extends State<PemesananPage> {
                             context.read<OrderListBloc>().add(
                                   AddPesananEvent(
                                     invoice: invoice,
-                                    payment: paymentMethod,
+                                    payment: 'CASH',
                                     pemesanan: 'OFFLINE',
                                     takeaway: isSelectedTakeaway,
                                     mitraId: mitraId!,

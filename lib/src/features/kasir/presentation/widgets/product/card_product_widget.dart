@@ -276,6 +276,7 @@ class _CardProductWidgetState extends State<CardProductWidget>
                                   AddProductToOrderListEvent(
                                     productId: widget.productId,
                                     quantity: quantity,
+                                    note: "",
                                   ),
                                 );
                               },

@@ -1,25 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/pesanan/pesanan_card_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
+import 'package:antria_mitra_mobile/src/themes/app_color.dart';
+import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 
-class ListPesananWidget extends StatelessWidget {
-  const ListPesananWidget({
-    super.key,
-  });
+class ListPesananWidget extends StatefulWidget {
+  const ListPesananWidget({super.key});
+
+  @override
+  State<ListPesananWidget> createState() => _ListPesananWidgetState();
+}
+
+class _ListPesananWidgetState extends State<ListPesananWidget> {
+  late TextEditingController notesController;
+
+  @override
+  void initState() {
+    super.initState();
+    notesController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    notesController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onRefresh() async {
+    context.read<OrderListBloc>().add(GetProductsInOrderListEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => OrderListBloc()..add(GetProductsInOrderListEvent()),
-      child: BlocBuilder<OrderListBloc, OrderListState>(
-        builder: (context, state) {
-          if (state is OrderListLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is OrderListLoaded) {
-            return SizedBox(
+    return BlocBuilder<OrderListBloc, OrderListState>(
+      builder: (context, state) {
+        if (state is OrderListLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is OrderListLoaded) {
+          return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: SizedBox(
               height: 280,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -32,22 +55,93 @@ class ListPesananWidget extends StatelessWidget {
                     label: cart['nama_produk'],
                     price: cart['harga'],
                     kuantitas: cart['quantity'],
-                    productId: cart['id'],
+                    id: cart['id'],
+                    note: cart['note'],
+                    onTap: () {
+                      int id = cart['id'];
+                      notesController.text = cart['note'] ?? '';
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: AppColor.whiteColor,
+                            contentPadding: const EdgeInsets.all(20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            content: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 20,
+                                    ),
+                                    child: Text(
+                                      'Tambah Catatan',
+                                      style: AppTextStyle.largeBlack.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    controller: notesController,
+                                    maxLength: 100,
+                                    decoration: const InputDecoration(
+                                      hintText:
+                                          'Contoh: Jangan pakai lalapan ya!',
+                                      hintStyle: AppTextStyle.smallGrey,
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                      ),
+                                    ),
+                                    maxLines: 4,
+                                    style: AppTextStyle.mediumBlack,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: CustomButtonWidget(
+                                      backgroundColor: AppColor.primaryColor,
+                                      circularButton: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      size: const Size(100, 50),
+                                      child: const Text(
+                                        'Simpan',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        context.read<OrderListBloc>().add(
+                                              AddNoteEvent(
+                                                id: id,
+                                                note:
+                                                    notesController.text.trim(),
+                                              ),
+                                            );
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    height: 20,
-                  );
+                  return const SizedBox(height: 20);
                 },
               ),
-            );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
+            ),
           );
-        },
-      ),
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

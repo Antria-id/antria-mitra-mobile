@@ -13,11 +13,10 @@ class OrderListUsecase {
     return serviceLocator<KasirLocalDatasource>().getProductsInOrderList();
   }
 
-  Future<Either<Failure, void>> addProduct(int productId, int quantity) {
-    return serviceLocator<KasirLocalDatasource>().addProductToOrderList(
-      productId,
-      quantity,
-    );
+  Future<Either<Failure, void>> addProduct(
+      int productId, int quantity, String note) {
+    return serviceLocator<KasirLocalDatasource>()
+        .addProductToOrderList(productId, quantity, note);
   }
 
   Future<Either<Failure, void>> incrementOrderQuantity(
@@ -45,5 +44,9 @@ class OrderListUsecase {
       takeaway,
       mitraId,
     );
+  }
+
+  Future<Either<Failure, void>> updateOrderList(int id, String note) async {
+    return serviceLocator<KasirLocalDatasource>().updateOrderList(id, note);
   }
 }
