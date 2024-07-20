@@ -14,7 +14,7 @@ abstract class KasirLocalDatasource {
       int productId, int quantity);
   Future<Either<Failure, void>> insertPesanan(String invoice, String payment,
       String pemesanan, bool takeaway, int mitraId);
-  Future<Either<Failure, void>> updateOrderList(int id, String note);
+  Future<Either<Failure, void>> addNote(int id, String note);
 }
 
 class KasirLocalDatasourceImpl implements KasirLocalDatasource {
@@ -122,11 +122,11 @@ class KasirLocalDatasourceImpl implements KasirLocalDatasource {
   }
 
   @override
-  Future<Either<Failure, void>> updateOrderList(int id, String note) async {
+  Future<Either<Failure, void>> addNote(int id, String note) async {
     try {
       final DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
-      await databaseHelper.updateOrderList(id, note);
+      await databaseHelper.addNote(id, note);
 
       return const Right(null);
     } catch (e) {

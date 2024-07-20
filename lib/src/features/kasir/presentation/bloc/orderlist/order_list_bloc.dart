@@ -100,7 +100,7 @@ class OrderListBloc extends Bloc<OrderListEvent, OrderListState> {
     Emitter<OrderListState> emit,
   ) async {
     emit(OrderListLoading());
-    final result = await serviceLocator<OrderListUsecase>().updateOrderList(
+    final result = await serviceLocator<OrderListUsecase>().addNote(
       event.id,
       event.note,
     );

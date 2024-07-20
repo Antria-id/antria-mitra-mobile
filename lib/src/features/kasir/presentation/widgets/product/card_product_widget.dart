@@ -9,6 +9,7 @@ class CardProductWidget extends StatefulWidget {
   final int productId;
   final String image;
   final String productName;
+  final String productDesc;
   final int productPrice;
   final VoidCallback onPressed;
   final int stock;
@@ -21,6 +22,7 @@ class CardProductWidget extends StatefulWidget {
     required this.onPressed,
     required this.stock,
     required this.productId,
+    required this.productDesc,
   });
 
   @override
@@ -128,7 +130,15 @@ class _CardProductWidgetState extends State<CardProductWidget>
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 4,
+                    ),
+                    Text(
+                      widget.productDesc,
+                      style: AppTextStyle.mediumGrey,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
+                      height: 2,
                     ),
                     Text(
                       formattedPrice,
@@ -137,7 +147,7 @@ class _CardProductWidgetState extends State<CardProductWidget>
                       ),
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 1,
                     ),
                     Center(
                       child: isTambah

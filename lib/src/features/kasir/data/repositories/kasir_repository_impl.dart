@@ -112,10 +112,10 @@ class KasirRepositoryImpl extends KasirRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateOrderList(int id, String note) async {
+  Future<Either<Failure, void>> addNote(int id, String note) async {
     try {
-      final result = await serviceLocator<KasirLocalDatasource>()
-          .updateOrderList(id, note);
+      final result =
+          await serviceLocator<KasirLocalDatasource>().addNote(id, note);
       return result.fold(
         (failure) => Left(failure),
         (_) => const Right(null),

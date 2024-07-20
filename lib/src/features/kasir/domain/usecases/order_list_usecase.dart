@@ -46,7 +46,7 @@ class OrderListUsecase {
     );
   }
 
-  Future<Either<Failure, void>> updateOrderList(int id, String note) async {
-    return serviceLocator<KasirLocalDatasource>().updateOrderList(id, note);
+  Future<Either<Failure, void>> addNote(int id, String note) async {
+    return serviceLocator<KasirLocalDatasource>().addNote(id, note);
   }
 }
