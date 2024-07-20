@@ -12,9 +12,11 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class DetailProcessPage extends StatefulWidget {
   final String invoice;
+  final String nomor;
   const DetailProcessPage({
     super.key,
     required this.invoice,
+    required this.nomor,
   });
 
   @override
@@ -72,6 +74,13 @@ class _DetailProcessPageState extends State<DetailProcessPage> {
                         );
                       } else if (state is InvoicePesananLoaded) {
                         final pesananDetail = state.response;
+                        final createdAt = DateTime.parse(
+                            pesananDetail.antrian!.createdAt!.toString());
+                        final currentTime = DateTime.now();
+                        final elapsedTime =
+                            currentTime.difference(createdAt).inMinutes;
+                        final remainingTime =
+                            pesananDetail.antrian!.estimasi! - elapsedTime;
                         int totalPrice = 0;
                         for (var orderItem in pesananDetail.oderlist!) {
                           totalPrice +=
@@ -135,7 +144,7 @@ class _DetailProcessPageState extends State<DetailProcessPage> {
                                         ),
                                       ),
                                       Text(
-                                        pesananDetail.antrian!.id.toString(),
+                                        widget.nomor,
                                         style: const TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -177,8 +186,7 @@ class _DetailProcessPageState extends State<DetailProcessPage> {
                                                 .minutesOnly,
                                             endTime: DateTime.now().add(
                                               Duration(
-                                                minutes: pesananDetail
-                                                    .antrian!.estimasi!,
+                                                minutes: remainingTime,
                                               ),
                                             ),
                                           ),

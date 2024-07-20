@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AntrianCardWidget extends StatelessWidget {
   final String? image;
   final String? nama;
-  final int nomor;
+  final String nomor;
   final VoidCallback? onTap;
   const AntrianCardWidget(
       {super.key, this.image, this.nama, required this.nomor, this.onTap});

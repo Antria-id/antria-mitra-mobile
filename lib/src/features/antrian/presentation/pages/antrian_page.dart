@@ -68,7 +68,9 @@ class _AntrianPageState extends State<AntrianPage> {
                 BlocBuilder<AntrianBloc, AntrianState>(
                   builder: (context, state) {
                     if (state is AntrianError) {
-                      return const EmptyDataWidget();
+                      return const EmptyDataWidget(
+                        text: 'Data tidak ditemukan',
+                      );
                     } else if (state is AntrianLoaded) {
                       return RefreshIndicator(
                         onRefresh: () async {
@@ -93,7 +95,9 @@ class _AntrianPageState extends State<AntrianPage> {
                 BlocBuilder<AntrianBloc, AntrianState>(
                   builder: (context, state) {
                     if (state is AntrianError) {
-                      return const EmptyDataWidget();
+                      return const EmptyDataWidget(
+                        text: 'Data tidak ditemukan',
+                      );
                     } else if (state is AntrianLoaded) {
                       return DefaultTabController(
                         length: 2,
@@ -146,7 +150,9 @@ class _AntrianPageState extends State<AntrianPage> {
                 BlocBuilder<AntrianBloc, AntrianState>(
                   builder: (context, state) {
                     if (state is AntrianError) {
-                      return const EmptyDataWidget();
+                      return const EmptyDataWidget(
+                        text: 'Data tidak ditemukan',
+                      );
                     } else if (state is AntrianLoaded) {
                       return SelesaiListWidget(
                         pengambilanList: state.pesananList,
