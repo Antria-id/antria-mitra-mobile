@@ -14,4 +14,5 @@ class APIUrl {
   static String getupdateOrderPath(int id) => '/antrian/$id';
   static String get insertPesanan => '/pesanan';
   static String get imagePath => '/image/';
+  static String getUser(int id) => '/karyawan/$id';
 }

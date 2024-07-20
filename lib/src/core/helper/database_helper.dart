@@ -283,7 +283,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> updateOrderList(int productId, String note) async {
+  Future<void> addNote(int productId, String note) async {
     final db = await instance.database;
     await db.update(
       'orderList',

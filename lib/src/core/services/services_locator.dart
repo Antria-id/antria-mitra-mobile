@@ -25,6 +25,7 @@ import 'package:antria_mitra_mobile/src/features/home/domain/repositories/home_r
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/check_user_login_status_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_pesanan_mitra_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_local_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_remote_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/data/datasources/jadwal_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/data/repositories/jadwal_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/jadwal/domain/repositories/jadwal_repository.dart';
@@ -86,6 +87,8 @@ Future<void> setUpServiceLocator() async {
   //usecase
   serviceLocator
       .registerFactory<GetUserLocalUsecase>(() => GetUserLocalUsecase());
+  serviceLocator
+      .registerFactory<GetUserRemoteUsecase>(() => GetUserRemoteUsecase());
   serviceLocator
       .registerFactory<GetPesananMitraUsecase>(() => GetPesananMitraUsecase());
 
