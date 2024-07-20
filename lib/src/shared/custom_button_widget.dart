@@ -6,14 +6,19 @@ class CustomButtonWidget extends StatelessWidget {
   final Color? backgroundColor;
   final OutlinedBorder? circularButton;
   final VoidCallback onPressed;
+  final BorderSide? borderSide;
+  final Color? borderColor;
+
   const CustomButtonWidget({
-    super.key,
+    Key? key,
     this.circularButton,
     this.size,
     required this.child,
     required this.onPressed,
     this.backgroundColor,
-  });
+    this.borderSide,
+    this.borderColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +28,22 @@ class CustomButtonWidget extends StatelessWidget {
         backgroundColor: backgroundColor,
         minimumSize: size,
         padding: EdgeInsets.zero,
-        shape: circularButton,
+        shape: RoundedRectangleBorder(
+          borderRadius: circularButton is RoundedRectangleBorder
+              ? (circularButton as RoundedRectangleBorder).borderRadius
+              : BorderRadius.zero,
+          side: borderSide ?? BorderSide.none,
+        ),
       ),
-      child: child,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(color: borderColor ?? Colors.transparent),
+          borderRadius: circularButton is RoundedRectangleBorder
+              ? (circularButton as RoundedRectangleBorder).borderRadius
+              : BorderRadius.zero,
+        ),
+        child: child,
+      ),
     );
   }
 }
