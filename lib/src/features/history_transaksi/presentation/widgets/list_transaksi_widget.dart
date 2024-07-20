@@ -29,14 +29,16 @@ class ListTransaksiWidget extends StatelessWidget {
         .where(
           (transaksiList) =>
               transaksiList.antrian != null &&
-              transaksiList.antrian!.orderstatus != 'CANCELED',
+              transaksiList.antrian!.orderstatus == 'ALLDONE',
         )
         .toList();
 
     filteredList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     if (filteredList.isEmpty) {
       return const Center(
-        child: EmptyDataWidget(),
+        child: EmptyDataWidget(
+          text: 'Data tidak ditemukan',
+        ),
       );
     }
     return SizedBox(

@@ -22,7 +22,10 @@ class HistoryTransaksiPage extends StatelessWidget {
         body: BlocBuilder<RiwayatTransaksiBloc, RiwayatTransaksiState>(
           builder: (context, state) {
             if (state is RiwayatTransaksiError) {
-              return const Center(child: EmptyDataWidget());
+              return const Center(
+                  child: EmptyDataWidget(
+                text: 'Data tidak ditemukan',
+              ));
             } else if (state is RiwayatTransaksiLoaded) {
               return ListTransaksiWidget(transaksiList: state.transaksiList);
             }

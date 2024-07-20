@@ -50,7 +50,9 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
           child: BlocBuilder<DetailTransaksiBloc, DetailTransaksiState>(
             builder: (context, state) {
               if (state is DetailTransaksiError) {
-                return const EmptyDataWidget();
+                return const EmptyDataWidget(
+                  text: 'Data tidak ditemukan',
+                );
               } else if (state is DetailTransaksiLoaded) {
                 var transaksi = state.response;
                 int totalPrice = 0;
