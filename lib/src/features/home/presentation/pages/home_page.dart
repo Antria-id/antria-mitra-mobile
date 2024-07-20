@@ -87,6 +87,52 @@ class HomePage extends StatelessWidget {
                               ),
                               CircleAvatar(
                                 radius: 22,
+                                backgroundImage:
+                                    profileData.profilePicture!.isNotEmpty
+                                        ? NetworkImage(
+                                            '${APIUrl.baseUrl}${APIUrl.imagePath}${profileData.profilePicture}',
+                                          )
+                                        : const NetworkImage(
+                                            'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
+                                          ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (state is UserLocalLoaded) {
+                    final profileData = state.user;
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 22,
+                            vertical: 18,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Selamat Datang',
+                                    style: AppTextStyle.xlargeWhite.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Text(
+                                    profileData.username!,
+                                    style: AppTextStyle.mediumWhite,
+                                  ),
+                                ],
+                              ),
+                              CircleAvatar(
+                                radius: 22,
                                 backgroundImage: profileData.picture!.isNotEmpty
                                     ? NetworkImage(
                                         '${APIUrl.baseUrl}${APIUrl.imagePath}${profileData.picture}',

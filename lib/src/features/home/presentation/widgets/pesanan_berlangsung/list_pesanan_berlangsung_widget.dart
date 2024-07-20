@@ -17,7 +17,11 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
             pesanan.antrian!.orderstatus == 'PROCESS')
         .toList();
 
-    filteredList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+    filteredList.sort((a, b) {
+      final createdAtA = a.antrian!.createdAt!;
+      final createdAtB = b.antrian!.createdAt!;
+      return createdAtA.compareTo(createdAtB);
+    });
 
     return Container(
       decoration: const BoxDecoration(

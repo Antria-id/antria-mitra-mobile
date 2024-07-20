@@ -5,6 +5,7 @@ import 'package:antria_mitra_mobile/src/features/home/data/datasources/local/hom
 import 'package:antria_mitra_mobile/src/features/home/data/datasources/remote/home_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/home/data/models/pesanan_model.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/repositories/home_repository.dart';
+import 'package:antria_mitra_mobile/src/features/profile/data/models/response/karyawan_model.dart';
 import 'package:dartz/dartz.dart';
 
 class HomeRepositoryImpl extends HomeRepository {
@@ -16,5 +17,10 @@ class HomeRepositoryImpl extends HomeRepository {
   @override
   Future<Either<Failure, List<PesananModel>>> getPesananMitra() {
     return serviceLocator<HomeRemoteDatasource>().getPesananMitra();
+  }
+
+  @override
+  Future<Either<Failure, KaryawanModel>> getUserInfo() {
+    return serviceLocator<HomeRemoteDatasource>().getUserInfo();
   }
 }

@@ -12,9 +12,15 @@ final class UserInitial extends UserState {}
 final class UserLoading extends UserState {}
 
 final class UserLoaded extends UserState {
-  final UserModel user;
+  final KaryawanModel user;
 
   const UserLoaded({required this.user});
+}
+
+final class UserLocalLoaded extends UserState {
+  final UserModel user;
+
+  const UserLocalLoaded({required this.user});
 }
 
 final class UserError extends UserState {
