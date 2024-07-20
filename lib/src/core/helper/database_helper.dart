@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/models/product_model.dart';
 
 class DatabaseHelper {
@@ -21,8 +22,9 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'antria.db');
-    return await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
+    return await openDatabase(path,
+        password: dotenv.get('PASSWORD_DB'),
+        version: 1, onCreate: (Database db, int version) async {
       await db.execute('''
             CREATE TABLE product (
               id INTEGER PRIMARY KEY,
