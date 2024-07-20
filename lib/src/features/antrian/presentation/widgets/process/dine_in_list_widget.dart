@@ -28,17 +28,27 @@ class DineInListWidget extends StatelessWidget {
         text: 'Belum ada antrian',
       );
     }
-    List<AntrianListModel> modifiableList = List.from(filteredList);
-    modifiableList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+    filteredList.sort((a, b) {
+      final createdAtA = a.pesanan!.antrian!.createdAt!;
+      final createdAtB = b.pesanan!.antrian!.createdAt!;
+      return createdAtA.compareTo(createdAtB);
+    });
+
+    nomorList.sort((a, b) {
+      final createdAtA = a.pesanan!.antrian!.createdAt!;
+      final createdAtB = b.pesanan!.antrian!.createdAt!;
+      return createdAtA.compareTo(createdAtB);
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: ListView.separated(
         padding: const EdgeInsets.only(
           bottom: 70,
         ),
-        itemCount: modifiableList.length,
+        itemCount: filteredList.length,
         itemBuilder: (context, index) {
-          final antrian = modifiableList[index];
+          final antrian = filteredList[index];
           String nomor =
               (nomorList.indexOf(antrian) + 1).toString().padLeft(2, '0');
           return AntrianCardWidget(

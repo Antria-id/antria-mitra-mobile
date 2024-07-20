@@ -29,7 +29,7 @@ class DetailWaitingPage extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 88,
+                    height: 100,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: AppColor.gradientTopColor,

@@ -12,7 +12,7 @@ class WaitingListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     waitingList
-        .sort((a, b) => b.pesanan!.createdAt!.compareTo(a.pesanan!.createdAt!));
+        .sort((a, b) => a.pesanan!.createdAt!.compareTo(b.pesanan!.createdAt!));
 
     List<AntrianListModel> filteredList = waitingList
         .where((antrianList) =>

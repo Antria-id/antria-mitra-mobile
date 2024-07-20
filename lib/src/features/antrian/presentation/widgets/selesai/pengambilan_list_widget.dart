@@ -10,12 +10,14 @@ class SelesaiListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final oneDayAgo = now.subtract(Duration(days: 1));
     List<AntrianListModel> filteredList = pengambilanList
         .where((antrianList) =>
-            antrianList.pesanan!.antrian != null &&
-            antrianList.pesanan!.antrian!.orderstatus == 'ALLDONE')
+            antrianList.pesanan?.antrian != null &&
+            antrianList.pesanan!.antrian!.orderstatus == 'ALLDONE' &&
+            antrianList.updatedAt.isAfter(oneDayAgo))
         .toList();
-
     filteredList.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
 
     if (filteredList.isEmpty) {
