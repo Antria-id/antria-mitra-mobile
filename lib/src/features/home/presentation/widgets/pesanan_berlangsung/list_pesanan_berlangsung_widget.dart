@@ -1,7 +1,7 @@
 import 'package:antria_mitra_mobile/src/features/home/data/models/pesanan_model.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesanan_berlangsung/card_pesanan_berlangsung_widget.dart';
-import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
+import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class ListPesananBerlangsungWidget extends StatelessWidget {
@@ -12,12 +12,9 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final filteredList = pesananList
-        .where(
-          (pesanan) =>
-              pesanan.antrian != null &&
-              pesanan.antrian!.orderstatus != 'ALLDONE' &&
-              pesanan.antrian!.orderstatus != 'CANCELED',
-        )
+        .where((pesanan) =>
+            pesanan.antrian != null &&
+            pesanan.antrian!.orderstatus == 'PROCESS')
         .toList();
 
     filteredList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
@@ -30,10 +27,33 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
         color: Colors.white,
       ),
       child: filteredList.isEmpty
-          ? const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Center(
-                child: EmptyDataWidget(),
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.hourglass_full_rounded,
+                      size: 80,
+                      color: AppColor.primaryColor,
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Pesanan Kosong',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Saat ini tidak ada pesanan yang sedang diproses.',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.mediumGrey,
+                    ),
+                  ],
+                ),
               ),
             )
           : SizedBox(
@@ -44,23 +64,21 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
                 itemCount: filteredList.length,
                 itemBuilder: (context, index) {
                   final pesanan = filteredList[index];
+                  String nomor = (filteredList.indexOf(pesanan) + 1)
+                      .toString()
+                      .padLeft(2, '0');
                   return CardPesananBerlangsungWidget(
                     invoice: pesanan.invoice,
                     status: pesanan.antrian!.orderstatus,
                     onTap: () {
-                      if (pesanan.antrian!.orderstatus == 'PROCESS') {
-                        Navigator.pushNamed(
-                          context,
-                          '/detail-process',
-                          arguments: pesanan.invoice,
-                        );
-                      } else if (pesanan.antrian!.orderstatus == 'WAITING') {
-                        Navigator.pushNamed(
-                          context,
-                          '/detail-waiting',
-                          arguments: pesanan.invoice,
-                        );
-                      }
+                      Navigator.pushNamed(
+                        context,
+                        '/detail-process',
+                        arguments: {
+                          'invoice': pesanan.invoice,
+                          'nomor': nomor,
+                        },
+                      );
                     },
                   );
                 },
