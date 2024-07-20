@@ -2,12 +2,15 @@
 
 import 'dart:convert';
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
+import 'package:antria_mitra_mobile/src/core/utils/request.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: non_constant_identifier_names
 String USER_CACHE_KEY = dotenv.get('USERCACHEKEY');
+// ignore: non_constant_identifier_names
+String TOKEN_KEY = dotenv.get('TOKENKEY');
 
 class UserCacheService {
   UserModel? _user;
@@ -51,6 +54,16 @@ class UserCacheService {
     }
   }
 
+  Future<void> setToken(String accessToken) async {
+    final preferances = await SharedPreferences.getInstance();
+    await preferances.setString(TOKEN_KEY, accessToken);
+  }
+
+  Future<String?> getToken() async {
+    final preferances = await SharedPreferences.getInstance();
+    return preferances.getString(TOKEN_KEY);
+  }
+
   Future<bool> saveUser(UserModel user) async {
     try {
       var map = user.toJson();
@@ -81,6 +94,7 @@ class UserCacheService {
 
   Future<bool> deleteUser() async {
     try {
+      Request().clearAuthorization();
       _user = null;
       bool removed = await sharedPrefs.remove(USER_CACHE_KEY);
       return removed;
