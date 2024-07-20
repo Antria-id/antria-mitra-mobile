@@ -52,7 +52,9 @@ class _EditInformasiUsahaFormWidgetState
         builder: (context, state) {
           if (state is InformasiUsahaError) {
             return const Center(
-              child: EmptyDataWidget(),
+              child: EmptyDataWidget(
+                text: 'Data tidak ditemukan',
+              ),
             );
           } else if (state is InformasiUsahaLoaded) {
             return SingleChildScrollView(

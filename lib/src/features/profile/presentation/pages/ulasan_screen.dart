@@ -34,7 +34,9 @@ class UlasanPage extends StatelessWidget {
           builder: (context, state) {
             if (state is UlasanError) {
               return const Center(
-                child: EmptyDataWidget(),
+                child: EmptyDataWidget(
+                  text: 'Data tidak ditemukan',
+                ),
               );
             }
             if (state is UlasanLoaded) {

@@ -1,15 +1,9 @@
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-class DashboardManagementWidget extends StatefulWidget {
+class DashboardManagementWidget extends StatelessWidget {
   const DashboardManagementWidget({super.key});
 
-  @override
-  State<DashboardManagementWidget> createState() =>
-      _DashboardManagementWidgetState();
-}
-
-class _DashboardManagementWidgetState extends State<DashboardManagementWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(

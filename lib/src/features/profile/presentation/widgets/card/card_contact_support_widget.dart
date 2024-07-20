@@ -16,7 +16,7 @@ class CardContactSupportWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
         width: double.infinity,
@@ -25,6 +25,11 @@ class CardContactSupportWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 0.5),
+            ),
+          ],
           color: AppColor.whiteColor,
         ),
         child: Padding(

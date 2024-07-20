@@ -2,6 +2,7 @@ import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/ca
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactSupportPage extends StatelessWidget {
   const ContactSupportPage({super.key});
@@ -28,11 +29,13 @@ class ContactSupportPage extends StatelessWidget {
         child: Column(
           children: [
             CardContactSupportWidget(
-              icon: 'assets/icons/whatsapp.png',
-              label: 'Whatsapp',
-              link: 'https://wa.me/qr/XDO2145111',
-              onTap: () {},
-            ),
+                icon: 'assets/icons/whatsapp.png',
+                label: 'Whatsapp',
+                link: 'https://wa.me/qr/XDO2145111',
+                onTap: () async {
+                  final uri = Uri.parse('https://wa.me/qr/XDO2145111');
+                  await launchUrl(uri);
+                }),
             const SizedBox(
               height: 20,
             ),
@@ -40,7 +43,10 @@ class ContactSupportPage extends StatelessWidget {
               icon: 'assets/icons/gmail.png',
               label: 'Gmail',
               link: 'antria.id@gmail.com',
-              onTap: () {},
+              onTap: () async {
+                final uri = Uri.parse('mailto:antria.id@gmail.com');
+                await launchUrl(uri);
+              },
             )
           ],
         ),

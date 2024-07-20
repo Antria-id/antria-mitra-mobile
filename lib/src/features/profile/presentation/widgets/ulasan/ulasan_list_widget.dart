@@ -13,7 +13,10 @@ class ListUlasanWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (ulasanList.isEmpty) {
-      return const Center(child: EmptyDataWidget());
+      return const Center(
+          child: EmptyDataWidget(
+        text: 'Data tidak ditemukan',
+      ));
     }
     return SizedBox(
       height: double.infinity,

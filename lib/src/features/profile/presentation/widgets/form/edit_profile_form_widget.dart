@@ -52,7 +52,9 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
         builder: (context, state) {
           if (state is KaryawanProfileError) {
             return const Center(
-              child: EmptyDataWidget(),
+              child: EmptyDataWidget(
+                text: 'Data tidak ditemukan',
+              ),
             );
           } else if (state is KaryawanProfileLoaded) {
             return SingleChildScrollView(
