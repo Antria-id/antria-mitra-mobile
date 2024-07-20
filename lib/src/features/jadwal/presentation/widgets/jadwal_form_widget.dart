@@ -51,7 +51,9 @@ class _JadwalFormWidgetState extends State<JadwalFormWidget> {
         builder: (context, state) {
           if (state is GetJadwalError) {
             return const Center(
-              child: EmptyDataWidget(),
+              child: EmptyDataWidget(
+                text: 'Data tidak ditemukan',
+              ),
             );
           } else if (state is GetJadwalLoaded) {
             List<String> openingDays = state.mitraModel.hariBuka!.split(',');
