@@ -1,3 +1,4 @@
+import 'package:antria_mitra_mobile/src/core/services/user_cache_services.dart';
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -9,10 +10,11 @@ class Request {
   }
 
   void updateAuthorization(String accessToken) {
-    dio.options.headers['authorization'] = accessToken;
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
   }
 
-  void updateDioInterceptors() {
+  void updateDioInterceptors() async {
+    final token = await UserCacheService().getToken();
     dio.options = BaseOptions(
       baseUrl: APIUrl.baseUrl,
       receiveDataWhenStatusError: true,
@@ -21,6 +23,7 @@ class Request {
       },
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
       },
     );
     dio
@@ -44,7 +47,7 @@ class Request {
   }
 
   void clearAuthorization() {
-    dio.options.headers.remove('authorization');
+    dio.options.headers.remove('Authorization');
   }
 
   // requests
