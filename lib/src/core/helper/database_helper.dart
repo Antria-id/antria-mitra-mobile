@@ -41,6 +41,7 @@ class DatabaseHelper {
             id INTEGER PRIMARY KEY,
             product_id INTEGER,
             pesanan_id STRING,
+            note STRING,
             quantity INTEGER,
             created_at DATE,
             updated_at DATE
@@ -84,6 +85,7 @@ class DatabaseHelper {
     int quantity,
     DateTime createdAt,
     DateTime updatedAt,
+    String note,
   ) async {
     final db = await instance.database;
 
@@ -110,6 +112,7 @@ class DatabaseHelper {
         {
           'product_id': productId,
           'quantity': quantity,
+          'note': note,
           'created_at': createdAt.toIso8601String(),
           'updated_at': updatedAt.toIso8601String(),
         },
@@ -182,7 +185,7 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getProductsInOrderList() async {
     final Database db = await instance.database;
     final List<Map<String, dynamic>> result = await db.rawQuery('''
-    SELECT product.id, product.nama_produk, product.harga, product.gambar, orderList.quantity
+    SELECT product.id, product.nama_produk, product.harga, product.gambar, orderList.quantity, orderList.note
     FROM orderList
     JOIN product ON orderList.product_id = product.id
   ''');
@@ -204,6 +207,7 @@ class DatabaseHelper {
     List<Map<String, dynamic>> mappedOrderList = orderList.map((order) {
       return {
         'quantity': order['quantity'],
+        'note': order['note'],
         'produkId': order['product_id'],
       };
     }).toList();
@@ -274,6 +278,20 @@ class DatabaseHelper {
       },
       where: 'id = ?',
       whereArgs: [id],
+    );
+  }
+
+  Future<void> updateOrderList(int productId, String note) async {
+    final db = await instance.database;
+    await db.update(
+      'orderList',
+      {
+        'product_id': productId,
+        'note': note,
+        'updated_at': DateTime.now().toIso8601String(),
+      },
+      where: 'product_id = ?',
+      whereArgs: [productId],
     );
   }
 
