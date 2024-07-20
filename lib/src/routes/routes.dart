@@ -77,10 +77,13 @@ class AppRoutes {
         return _materialRoute(const AntrianPage());
 
       case '/detail-process':
-        final invoice = settings.arguments as String;
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final invoice = arguments['invoice'] as String;
+        final nomor = arguments['nomor'] as String;
         return _materialRoute(
           DetailProcessPage(
             invoice: invoice,
+            nomor: nomor,
           ),
         );
 
