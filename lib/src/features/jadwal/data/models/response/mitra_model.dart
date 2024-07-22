@@ -1,15 +1,6 @@
-// To parse this JSON data, do
-//
-//     final mitraModel = mitraModelFromJson(jsonString);
+import 'package:equatable/equatable.dart';
 
-import 'dart:convert';
-
-MitraModel mitraModelFromJson(String str) =>
-    MitraModel.fromJson(json.decode(str));
-
-String mitraModelToJson(MitraModel data) => json.encode(data.toJson());
-
-class MitraModel {
+class MitraModel extends Equatable {
   final int? review;
   final int? id;
   final String? namaToko;
@@ -41,39 +32,6 @@ class MitraModel {
     this.createdAt,
     this.updatedAt,
   });
-
-  MitraModel copyWith({
-    int? review,
-    int? id,
-    String? namaToko,
-    String? deskripsiToko,
-    String? alamat,
-    String? linkGmaps,
-    String? hariBuka,
-    String? jamBuka,
-    String? jamTutup,
-    String? gambarToko,
-    bool? subscription,
-    String? statusToko,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) =>
-      MitraModel(
-        review: review ?? this.review,
-        id: id ?? this.id,
-        namaToko: namaToko ?? this.namaToko,
-        deskripsiToko: deskripsiToko ?? this.deskripsiToko,
-        alamat: alamat ?? this.alamat,
-        linkGmaps: linkGmaps ?? this.linkGmaps,
-        hariBuka: hariBuka ?? this.hariBuka,
-        jamBuka: jamBuka ?? this.jamBuka,
-        jamTutup: jamTutup ?? this.jamTutup,
-        gambarToko: gambarToko ?? this.gambarToko,
-        subscription: subscription ?? this.subscription,
-        statusToko: statusToko ?? this.statusToko,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-      );
 
   factory MitraModel.fromJson(Map<String, dynamic> json) => MitraModel(
         review: json["review"],
@@ -112,4 +70,22 @@ class MitraModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        review,
+        id,
+        namaToko,
+        deskripsiToko,
+        alamat,
+        linkGmaps,
+        hariBuka,
+        jamBuka,
+        jamTutup,
+        gambarToko,
+        subscription,
+        statusToko,
+        createdAt,
+        updatedAt,
+      ];
 }

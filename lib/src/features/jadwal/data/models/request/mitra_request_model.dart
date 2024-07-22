@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final mitraRequestModel = mitraRequestModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 MitraRequestModel mitraRequestModelFromJson(String str) =>
     MitraRequestModel.fromJson(json.decode(str));
@@ -10,11 +7,11 @@ MitraRequestModel mitraRequestModelFromJson(String str) =>
 String mitraRequestModelToJson(MitraRequestModel data) =>
     json.encode(data.toJson());
 
-class MitraRequestModel {
-  String? hariBuka;
-  String? jamBuka;
-  String? jamTutup;
-  String? statusToko;
+class MitraRequestModel extends Equatable {
+  final String? hariBuka;
+  final String? jamBuka;
+  final String? jamTutup;
+  final String? statusToko;
 
   MitraRequestModel({
     this.hariBuka,
@@ -22,19 +19,6 @@ class MitraRequestModel {
     this.jamTutup,
     this.statusToko,
   });
-
-  MitraRequestModel copyWith({
-    String? hariBuka,
-    String? jamBuka,
-    String? jamTutup,
-    String? statusToko,
-  }) =>
-      MitraRequestModel(
-        hariBuka: hariBuka ?? this.hariBuka,
-        jamBuka: jamBuka ?? this.jamBuka,
-        jamTutup: jamTutup ?? this.jamTutup,
-        statusToko: statusToko ?? this.statusToko,
-      );
 
   factory MitraRequestModel.fromJson(Map<String, dynamic> json) =>
       MitraRequestModel(
@@ -50,4 +34,7 @@ class MitraRequestModel {
         "jam_tutup": jamTutup,
         "status_toko": statusToko,
       };
+
+  @override
+  List<Object?> get props => [hariBuka, jamBuka, jamTutup, statusToko];
 }
