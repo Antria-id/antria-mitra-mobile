@@ -340,7 +340,7 @@ class _PemesananPageState extends State<PemesananPage> {
                                     payment: 'CASH',
                                     pemesanan: 'OFFLINE',
                                     takeaway: isSelectedTakeaway,
-                                    mitraId: mitraId!,
+                                    mitraId: mitraId,
                                   ),
                                 );
                           },
