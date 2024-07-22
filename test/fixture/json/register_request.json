@@ -1,0 +1,20 @@
+{
+    "mitraData":{
+        "nama_toko":"Sharp",
+        "deskripsi_toko":"Toko Sharp",
+        "alamat":"Japan",
+        "hari_buka":"senin,selasa,rabu",
+        "jam_buka":"08:00",
+        "jam_tutup":"22:00"
+    },
+    "karyawanData":{
+        "username": "sharp",
+        "password": "sharp11223344",
+        "email": "sharp@verni.yt",
+        "profile_picture": "",
+        "nama": "sharp",
+        "handphone": "123456789",
+        "alamat": "123 Main Street",
+        "isOwner": true
+    }
+}
