@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final detailTransksiModel = detailTransksiModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 DetailTransaksiModel detailTransksiModelFromJson(String str) =>
     DetailTransaksiModel.fromJson(json.decode(str));
@@ -10,7 +7,7 @@ DetailTransaksiModel detailTransksiModelFromJson(String str) =>
 String detailTransksiModelToJson(DetailTransaksiModel data) =>
     json.encode(data.toJson());
 
-class DetailTransaksiModel {
+class DetailTransaksiModel extends Equatable {
   final String? invoice;
   final String? payment;
   final String? status;
@@ -64,9 +61,21 @@ class DetailTransaksiModel {
             ? []
             : List<dynamic>.from(oderlist!.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object?> get props => [
+        invoice,
+        payment,
+        status,
+        pelangganId,
+        createdAt,
+        updatedAt,
+        pelanggan,
+        oderlist,
+      ];
 }
 
-class Oderlist {
+class Oderlist extends Equatable {
   final int? id;
   final int? quantity;
   final int? produkId;
@@ -96,9 +105,18 @@ class Oderlist {
         "pesananId": pesananId,
         "produk": produk?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        quantity,
+        produkId,
+        pesananId,
+        produk,
+      ];
 }
 
-class Produk {
+class Produk extends Equatable {
   final int? id;
   final String? namaProduk;
   final int? harga;
@@ -132,9 +150,18 @@ class Produk {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        namaProduk,
+        harga,
+        createdAt,
+        updatedAt,
+      ];
 }
 
-class Pelanggan {
+class Pelanggan extends Equatable {
   final int? id;
   final String? username;
   final DateTime? createdAt;
@@ -164,4 +191,12 @@ class Pelanggan {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        createdAt,
+        updatedAt,
+      ];
 }
