@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final updateKaryawanRequestModel = updateKaryawanRequestModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 UpdateKaryawanRequestModel updateKaryawanRequestModelFromJson(String str) =>
     UpdateKaryawanRequestModel.fromJson(json.decode(str));
@@ -10,7 +7,7 @@ UpdateKaryawanRequestModel updateKaryawanRequestModelFromJson(String str) =>
 String updateKaryawanRequestModelToJson(UpdateKaryawanRequestModel data) =>
     json.encode(data.toJson());
 
-class UpdateKaryawanRequestModel {
+class UpdateKaryawanRequestModel extends Equatable {
   final String? username;
   final String? profilePicture;
   final String? email;
@@ -45,4 +42,14 @@ class UpdateKaryawanRequestModel {
         "handphone": handphone,
         "alamat": alamat,
       };
+
+  @override
+  List<Object?> get props => [
+        username,
+        profilePicture,
+        email,
+        nama,
+        handphone,
+        alamat,
+      ];
 }

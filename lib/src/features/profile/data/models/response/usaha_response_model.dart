@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final usahaResponseModel = usahaResponseModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 UsahaResponseModel usahaResponseModelFromJson(String str) =>
     UsahaResponseModel.fromJson(json.decode(str));
@@ -10,7 +7,7 @@ UsahaResponseModel usahaResponseModelFromJson(String str) =>
 String usahaResponseModelToJson(UsahaResponseModel data) =>
     json.encode(data.toJson());
 
-class UsahaResponseModel {
+class UsahaResponseModel extends Equatable {
   final String? namaToko;
   final String? deskripsiToko;
   final String? alamat;
@@ -56,4 +53,13 @@ class UsahaResponseModel {
         "linkGmaps": linkGmaps,
         "gambar_toko": gambarToko,
       };
+
+  @override
+  List<Object?> get props => [
+        namaToko,
+        deskripsiToko,
+        alamat,
+        linkGmaps,
+        gambarToko,
+      ];
 }

@@ -54,7 +54,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                                 CircleAvatar(
                                   radius: 50,
                                   backgroundImage:
-                                      profileData.profilePicture!.isNotEmpty
+                                      profileData.profilePicture.isNotEmpty
                                           ? NetworkImage(
                                               '${APIUrl.baseUrl}${APIUrl.imagePath}${profileData.profilePicture}',
                                             )
@@ -83,7 +83,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                               height: 12,
                             ),
                             Text(
-                              profileData.username!,
+                              profileData.username,
                               style: AppTextStyle.largeWhite.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -92,7 +92,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                               height: 12,
                             ),
                             Text(
-                              profileData.email!,
+                              profileData.email,
                               style: AppTextStyle.largeWhite,
                             ),
                           ],

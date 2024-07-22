@@ -1,7 +1,4 @@
-// To parse this JSON data, do
-//
-//     final ulasanResponse = ulasanResponseFromJson(jsonString);
-
+import 'package:equatable/equatable.dart';
 import 'dart:convert';
 
 List<UlasanResponse> ulasanResponseFromJson(String str) =>
@@ -11,7 +8,7 @@ List<UlasanResponse> ulasanResponseFromJson(String str) =>
 String ulasanResponseToJson(List<UlasanResponse> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class UlasanResponse {
+class UlasanResponse extends Equatable {
   final String? komentar;
   final int? rating;
   final int? mitraId;
@@ -55,9 +52,20 @@ class UlasanResponse {
         "updated_at": updatedAt?.toIso8601String(),
         "reviewer": reviewer?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [
+        komentar,
+        rating,
+        mitraId,
+        pelangganId,
+        createdAt,
+        updatedAt,
+        reviewer,
+      ];
 }
 
-class Reviewer {
+class Reviewer extends Equatable {
   final int? id;
   final String? username;
   final String? password;
@@ -119,4 +127,20 @@ class Reviewer {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        password,
+        email,
+        emailVerified,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        wallet,
+        createdAt,
+        updatedAt,
+      ];
 }

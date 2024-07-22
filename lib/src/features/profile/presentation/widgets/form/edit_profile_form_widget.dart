@@ -70,7 +70,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                         radius: 50,
                         backgroundColor: AppColor.primaryColor,
                         backgroundImage: (selectedImage == null &&
-                                state.karyawanModel.profilePicture!.isNotEmpty)
+                                state.karyawanModel.profilePicture.isNotEmpty)
                             ? NetworkImage(
                                 '${APIUrl.baseUrl}${APIUrl.imagePath}${state.karyawanModel.profilePicture}',
                               )

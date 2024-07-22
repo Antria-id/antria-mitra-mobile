@@ -1,41 +1,38 @@
-// To parse this JSON data, do
-//
-//     final karyawanModel = karyawanModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 KaryawanModel karyawanModelFromJson(String str) =>
     KaryawanModel.fromJson(json.decode(str));
 
 String karyawanModelToJson(KaryawanModel data) => json.encode(data.toJson());
 
-class KaryawanModel {
-  final int? id;
-  final String? username;
-  final String? password;
-  final String? email;
-  final String? profilePicture;
-  final String? nama;
-  final String? handphone;
-  final String? alamat;
-  final bool? isOwner;
-  final int? mitraId;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+class KaryawanModel extends Equatable {
+  final int id;
+  final String username;
+  final String password;
+  final String email;
+  final String profilePicture;
+  final String nama;
+  final String handphone;
+  final String alamat;
+  final bool isOwner;
+  final int mitraId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   KaryawanModel({
-    this.id,
-    this.username,
-    this.password,
-    this.email,
-    this.profilePicture,
-    this.nama,
-    this.handphone,
-    this.alamat,
-    this.isOwner,
-    this.mitraId,
-    this.createdAt,
-    this.updatedAt,
+    required this.id,
+    required this.username,
+    required this.password,
+    required this.email,
+    required this.profilePicture,
+    required this.nama,
+    required this.handphone,
+    required this.alamat,
+    required this.isOwner,
+    required this.mitraId,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory KaryawanModel.fromJson(Map<String, dynamic> json) => KaryawanModel(
@@ -49,12 +46,8 @@ class KaryawanModel {
         alamat: json["alamat"],
         isOwner: json["isOwner"],
         mitraId: json["mitraId"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,7 +61,23 @@ class KaryawanModel {
         "alamat": alamat,
         "isOwner": isOwner,
         "mitraId": mitraId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        password,
+        email,
+        profilePicture,
+        nama,
+        handphone,
+        alamat,
+        isOwner,
+        mitraId,
+        createdAt,
+        updatedAt,
+      ];
 }

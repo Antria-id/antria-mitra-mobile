@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final updateUsahaRequestModel = updateUsahaRequestModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 UpdateUsahaRequestModel updateUsahaRequestModelFromJson(String str) =>
     UpdateUsahaRequestModel.fromJson(json.decode(str));
@@ -10,7 +7,7 @@ UpdateUsahaRequestModel updateUsahaRequestModelFromJson(String str) =>
 String updateUsahaRequestModelToJson(UpdateUsahaRequestModel data) =>
     json.encode(data.toJson());
 
-class UpdateUsahaRequestModel {
+class UpdateUsahaRequestModel extends Equatable {
   final String? namaToko;
   final String? deskripsiToko;
   final String? alamat;
@@ -46,7 +43,7 @@ class UpdateUsahaRequestModel {
         deskripsiToko: json["deskripsi_toko"],
         alamat: json["alamat"],
         linkGmaps: json["linkGmaps"],
-        gambarToko: json["gambar_toko"],
+        gambarToko: json['gambar_toko'] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,4 +53,13 @@ class UpdateUsahaRequestModel {
         "linkGmaps": linkGmaps,
         "gambar_toko": gambarToko,
       };
+
+  @override
+  List<Object?> get props => [
+        namaToko,
+        deskripsiToko,
+        alamat,
+        linkGmaps,
+        gambarToko,
+      ];
 }
