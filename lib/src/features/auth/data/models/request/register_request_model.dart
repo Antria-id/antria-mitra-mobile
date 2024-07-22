@@ -1,11 +1,4 @@
-import 'dart:convert';
 import 'package:equatable/equatable.dart';
-
-RegisterRequest registerRequestFromJson(String str) =>
-    RegisterRequest.fromJson(json.decode(str));
-
-String registerRequestToJson(RegisterRequest data) =>
-    json.encode(data.toJson());
 
 class RegisterRequest extends Equatable {
   final MitraData? mitraData;

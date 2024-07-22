@@ -1,9 +1,4 @@
-import 'dart:convert';
 import 'package:equatable/equatable.dart';
-
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
-
-String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel extends Equatable {
   final int? sub;

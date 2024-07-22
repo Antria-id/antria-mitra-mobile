@@ -8,7 +8,6 @@ import 'package:antria_mitra_mobile/src/features/auth/data/models/request/regist
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/login_reponse_model.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/register_reponse_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/rendering.dart';
 
 abstract class AuthRemoteDatasource {
   Future<Either<Failure, LoginResponse>> loginUser(
@@ -40,9 +39,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       } else {
         return Left(ConnectionFailure(response.data['message']));
       }
-    } catch (e, stackTrace) {
-      debugPrint('AuthRemoteDataSourceImplError $e');
-      debugPrint('$stackTrace');
+    } catch (e) {
       return Left(
           Exception('Exception Occurred in AuthRemoteDataSourceImpl: $e'));
     }
@@ -63,7 +60,6 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       }
       return Left(ConnectionFailure(response.data['message']));
     } catch (e) {
-      debugPrint('AuthRemoteDataSourceImplError $e');
       return const Left(
         Exception('Exception Occured in AuthRemoteDataSourceImpl'),
       );

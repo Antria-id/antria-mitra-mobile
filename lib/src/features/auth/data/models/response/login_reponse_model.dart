@@ -1,10 +1,4 @@
-import 'dart:convert';
 import 'package:equatable/equatable.dart';
-
-LoginResponse loginResponseFromJson(String str) =>
-    LoginResponse.fromJson(json.decode(str));
-
-String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 class LoginResponse extends Equatable {
   final String? accessToken;

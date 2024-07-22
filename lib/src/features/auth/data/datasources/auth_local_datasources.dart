@@ -16,8 +16,7 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       final deletionSuccess =
           await serviceLocator<UserCacheService>().deleteUser();
       if (deletionSuccess) {
-        await databaseHelper.deleteProduct();
-        await databaseHelper.deleteOrderList();
+        await databaseHelper.deleteTable();
         return const Right(null);
       } else {
         return const Left(

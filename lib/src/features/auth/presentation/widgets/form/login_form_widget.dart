@@ -65,6 +65,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         child: Column(
                           children: [
                             TextFieldWidget(
+                              key: Key('username'),
                               onChanged: (value) {
                                 username = value.trim();
                               },
@@ -76,6 +77,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                               height: 20,
                             ),
                             PasswordFieldWidget(
+                              key: Key('password'),
                               onChanged: (value) {
                                 password = value.trim();
                               },
@@ -124,6 +126,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                               },
                               builder: (context, state) {
                                 return CustomButtonWidget(
+                                  key: Key('LoginButton'),
                                   circularButton: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
