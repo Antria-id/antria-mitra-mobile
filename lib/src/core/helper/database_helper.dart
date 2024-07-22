@@ -297,13 +297,9 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteProduct() async {
+  Future<void> deleteTable() async {
     final db = await instance.database;
     await db.delete('product');
-  }
-
-  Future<void> deleteOrderList() async {
-    final db = await instance.database;
     await db.delete('orderList');
   }
 }
