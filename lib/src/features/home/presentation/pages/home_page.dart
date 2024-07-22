@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                                     height: 6,
                                   ),
                                   Text(
-                                    profileData.username!,
+                                    profileData.username,
                                     style: AppTextStyle.mediumWhite,
                                   ),
                                 ],
@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                               CircleAvatar(
                                 radius: 22,
                                 backgroundImage:
-                                    profileData.profilePicture!.isNotEmpty
+                                    profileData.profilePicture.isNotEmpty
                                         ? NetworkImage(
                                             '${APIUrl.baseUrl}${APIUrl.imagePath}${profileData.profilePicture}',
                                           )

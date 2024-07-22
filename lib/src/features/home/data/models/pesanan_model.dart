@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 List<PesananModel> pesananBerlangsungModelFromJson(String str) =>
     List<PesananModel>.from(
@@ -7,7 +8,7 @@ List<PesananModel> pesananBerlangsungModelFromJson(String str) =>
 String pesananBerlangsungModelToJson(List<PesananModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class PesananModel {
+class PesananModel extends Equatable {
   final String? invoice;
   final int? pelangganId;
   final int? mitraId;
@@ -17,8 +18,8 @@ class PesananModel {
 
   PesananModel({
     this.invoice,
-    required this.pelangganId,
-    required this.mitraId,
+    this.pelangganId,
+    this.mitraId,
     this.createdAt,
     this.updatedAt,
     this.antrian,
@@ -46,9 +47,19 @@ class PesananModel {
         "updated_at": updatedAt?.toIso8601String(),
         "antrian": antrian?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [
+        invoice,
+        pelangganId,
+        mitraId,
+        createdAt,
+        updatedAt,
+        antrian,
+      ];
 }
 
-class Antrian {
+class Antrian extends Equatable {
   final int? id;
   final String? orderstatus;
   final String? pesananId;
@@ -82,4 +93,13 @@ class Antrian {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        orderstatus,
+        pesananId,
+        createdAt,
+        updatedAt,
+      ];
 }
