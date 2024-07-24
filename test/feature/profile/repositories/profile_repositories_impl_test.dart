@@ -4,7 +4,6 @@ import 'package:antria_mitra_mobile/src/core/failure/failure.dart';
 import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_karyawan_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_usaha_request.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/karyawan_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/ulasan_response.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/usaha_response_model.dart';
@@ -47,10 +46,6 @@ void main() {
   final UpdateKaryawanRequestModel updateKaryawanRequestModel =
       UpdateKaryawanRequestModel.fromJson(
           jsonDecode(fixture('edit_profile.json')));
-
-  final UpdateUsahaRequestModel updateUsahaRequestModel =
-      UpdateUsahaRequestModel.fromJson(
-          jsonDecode(fixture('update_usaha.json')));
 
   group('ProfileRepositoryImpl', () {
     test('should return KaryawanModel when getKaryawan is successful',
@@ -141,41 +136,6 @@ void main() {
       // Assert
       expect(result, Left(failure));
       verify(() => mockProfileUserDatasource.getUlasan()).called(1);
-    });
-
-    test(
-        'should return UsahaResponseModel when updateInformasiUsaha is successful',
-        () async {
-      // Arrange
-      when(() => mockProfileUserDatasource.updateInformasiUsaha(
-              requestModel: updateUsahaRequestModel))
-          .thenAnswer((_) async => Right(usahaResponseModel));
-
-      // Act
-      final result = await profileRepositoryImpl.updateInformasiUsaha(
-          requestModel: updateUsahaRequestModel);
-
-      // Assert
-      expect(result, Right(usahaResponseModel));
-      verify(() => mockProfileUserDatasource.updateInformasiUsaha(
-          requestModel: updateUsahaRequestModel)).called(1);
-    });
-
-    test('should return Failure when updateInformasiUsaha fails', () async {
-      // Arrange
-      final failure = ParsingFailure('Error');
-      when(() => mockProfileUserDatasource.updateInformasiUsaha(
-              requestModel: updateUsahaRequestModel))
-          .thenAnswer((_) async => Left(failure));
-
-      // Act
-      final result = await profileRepositoryImpl.updateInformasiUsaha(
-          requestModel: updateUsahaRequestModel);
-
-      // Assert
-      expect(result, Left(failure));
-      verify(() => mockProfileUserDatasource.updateInformasiUsaha(
-          requestModel: updateUsahaRequestModel)).called(1);
     });
 
     test(
