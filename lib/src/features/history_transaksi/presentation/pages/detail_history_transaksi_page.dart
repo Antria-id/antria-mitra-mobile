@@ -1,6 +1,6 @@
 import 'package:antria_mitra_mobile/src/features/history_transaksi/data/models/detail_transaksi_model.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/detail_transaksi/detail_transaksi_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/widgets/dashed_divider.dart';
+import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/widgets/list_card_order.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_appbar_widget.dart';
 import 'package:antria_mitra_mobile/src/shared/empty_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
@@ -15,18 +15,19 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
 
   String formatDate(DateTime? date) {
     if (date == null) return '';
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
     return formatter.format(date);
   }
 
-  String formatOrderList(List<Oderlist> orderList) {
+  List<String> formatOrderList(List<Oderlist> orderList) {
     return orderList
-        .map((order) => '${order.produk!.namaProduk} ${order.quantity}x')
-        .join(', ');
+        .map((order) => '${order.produk!.namaProduk} x${order.quantity}')
+        .toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    int biayaLayanan = 1000;
     return BlocProvider(
       create: (context) => DetailTransaksiBloc()
         ..add(
@@ -46,7 +47,7 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
           ),
         ),
         backgroundColor: AppColor.backgroundColor,
-        body: Center(
+        body: SingleChildScrollView(
           child: BlocBuilder<DetailTransaksiBloc, DetailTransaksiState>(
             builder: (context, state) {
               if (state is DetailTransaksiError) {
@@ -60,169 +61,214 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
                   totalPrice +=
                       (orderItem.quantity! * orderItem.produk!.harga!);
                 }
-                String orderList = formatOrderList(transaksi.oderlist!);
+
+                int totalPayment = totalPrice + biayaLayanan;
+
+                var takeaway =
+                    transaksi.takeaway == true ? 'Take away' : 'Dine In';
+
+                var pemesanan =
+                    transaksi.pemesanan == 'OFFLINE' ? 'Offline' : 'Online';
+
                 String formattedPrice = NumberFormat.currency(
                   locale: 'id_ID',
                   symbol: 'Rp ',
                   decimalDigits: 0,
                 ).format(totalPrice);
 
-                return Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Image.asset(
-                      'assets/icons/receipt.png',
-                      width: 60,
-                      height: 60,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      transaksi.invoice!,
-                      style: AppTextStyle.xxlargeBlack.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: 340,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 18,
-                        ),
+                String formattedTotal = NumberFormat.currency(
+                  locale: 'id_ID',
+                  symbol: 'Rp ',
+                  decimalDigits: 0,
+                ).format(totalPayment);
+
+                String formattedBiaya = NumberFormat.currency(
+                  locale: 'id_ID',
+                  symbol: 'Rp ',
+                  decimalDigits: 0,
+                ).format(biayaLayanan);
+
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
                         child: Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Waktu Order',
-                                  style: AppTextStyle.smallBlack,
-                                ),
-                                Text(
-                                  formatDate(transaksi.createdAt),
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 10,
                             ),
-                            const SizedBox(
-                              height: 26,
+                            Text(
+                              invoice,
+                              style: AppTextStyle.xxlargeBlack.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Payment Method',
-                                  style: AppTextStyle.smallBlack,
-                                ),
-                                Text(
-                                  transaksi.payment!,
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 10,
                             ),
-                            const SizedBox(
-                              height: 26,
+                            Text(
+                              '$pemesanan Order',
+                              style: AppTextStyle.mediumBlack.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Order',
-                                  style: AppTextStyle.smallBlack,
-                                ),
-                                const SizedBox(width: 10),
-                                Flexible(
-                                  child: Text(
-                                    orderList,
-                                    style: AppTextStyle.smallBlack.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Sender',
-                                  style: AppTextStyle.smallBlack,
-                                ),
-                                Text(
-                                  transaksi.pelanggan!.username!,
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                            const DashedDivider(),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Amount',
-                                  style: AppTextStyle.smallBlack,
-                                ),
-                                Text(
-                                  formattedPrice,
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Admin Fee',
-                                  style: AppTextStyle.smallBlack,
-                                ),
-                                Text(
-                                  'Rp 1.000',
-                                  style: AppTextStyle.smallBlack.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 16,
                             ),
                           ],
                         ),
                       ),
-                    )
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Detail Pesanan',
+                                style: AppTextStyle.mediumBlack.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                formatDate(transaksi.createdAt),
+                                style: AppTextStyle.mediumBlack.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                takeaway,
+                                style: AppTextStyle.mediumBlack.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      ListCardOrder(orderList: transaksi.oderlist!),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Detail Pembayaran',
+                        style: AppTextStyle.mediumBlack.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Pemesan',
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            transaksi.pelanggan!.username!,
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total Harga',
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            formattedPrice,
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Biaya Layanan',
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            formattedBiaya,
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total Pembayaran',
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            formattedTotal,
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Metode Pembayaran',
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            transaksi.payment!,
+                            style: AppTextStyle.mediumBlack.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               }
               return const Center(

@@ -8,8 +8,10 @@ String detailTransksiModelToJson(DetailTransaksiModel data) =>
     json.encode(data.toJson());
 
 class DetailTransaksiModel extends Equatable {
+  final String? pemesanan;
   final String? invoice;
   final String? payment;
+  final bool? takeaway;
   final String? status;
   final int? pelangganId;
   final DateTime? createdAt;
@@ -18,6 +20,8 @@ class DetailTransaksiModel extends Equatable {
   final List<Oderlist>? oderlist;
 
   DetailTransaksiModel({
+    this.pemesanan,
+    this.takeaway,
     this.invoice,
     this.payment,
     this.status,
@@ -30,9 +34,11 @@ class DetailTransaksiModel extends Equatable {
 
   factory DetailTransaksiModel.fromJson(Map<String, dynamic> json) =>
       DetailTransaksiModel(
+        pemesanan: json["pemesanan"],
         invoice: json["invoice"],
         payment: json["payment"],
         status: json["status"],
+        takeaway: json["takeaway"],
         pelangganId: json["pelangganId"],
         createdAt: json["created_at"] == null
             ? null
@@ -119,12 +125,14 @@ class Oderlist extends Equatable {
 class Produk extends Equatable {
   final int? id;
   final String? namaProduk;
+  final String? deskripsiProduk;
   final int? harga;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
   Produk({
     this.id,
+    this.deskripsiProduk,
     this.namaProduk,
     this.harga,
     this.createdAt,
@@ -135,6 +143,7 @@ class Produk extends Equatable {
         id: json["id"],
         namaProduk: json["nama_produk"],
         harga: json["harga"],
+        deskripsiProduk: json["deskripsi_produk"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),

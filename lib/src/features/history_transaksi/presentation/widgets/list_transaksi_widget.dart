@@ -25,11 +25,18 @@ class ListTransaksiWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
     List<RiwayatTransaksiResponse> filteredList = transaksiList
         .where(
-          (transaksiList) =>
-              transaksiList.antrian != null &&
-              transaksiList.antrian!.orderstatus == 'ALLDONE',
+          (transaksi) =>
+              transaksi.antrian != null &&
+              transaksi.antrian!.orderstatus == 'ALLDONE' &&
+              transaksi.createdAt != null &&
+              DateTime(transaksi.createdAt!.year, transaksi.createdAt!.month,
+                      transaksi.createdAt!.day)
+                  .isAtSameMomentAs(today),
         )
         .toList();
 
