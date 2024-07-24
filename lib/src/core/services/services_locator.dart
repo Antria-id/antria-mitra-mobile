@@ -44,7 +44,6 @@ import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_inf
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_karyawan_profile_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_ulasan_mitra_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/logout_user_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_informasi_usaha_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/update_karyawan_profile_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -126,8 +125,6 @@ Future<void> setUpServiceLocator() async {
       () => UpdateKaryawanProfileUsecase());
   serviceLocator
       .registerFactory<GetUlasanMitraUsecase>(() => GetUlasanMitraUsecase());
-  serviceLocator.registerFactory<UpdateInformasiUsahaUsecase>(
-      () => UpdateInformasiUsahaUsecase());
   serviceLocator.registerFactory<GetInformasiUsahaUsecase>(
       () => GetInformasiUsahaUsecase());
 
