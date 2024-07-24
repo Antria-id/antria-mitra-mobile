@@ -9,6 +9,7 @@ class CheckUserLoginStatusImpl extends CheckUserLoginStatus {
   @override
   Future<bool> checkIfUserLoggedIn() async {
     final user = await serviceLocator<UserCacheService>().getUser();
-    return user != null;
+    final authToken = await serviceLocator<UserCacheService>().getToken();
+    return user != null && authToken != null && authToken.isNotEmpty;
   }
 }

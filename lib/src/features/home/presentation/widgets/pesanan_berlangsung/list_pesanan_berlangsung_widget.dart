@@ -3,6 +3,7 @@ import 'package:antria_mitra_mobile/src/features/home/presentation/widgets/pesan
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ListPesananBerlangsungWidget extends StatelessWidget {
   final List<PesananModel> pesananList;
@@ -22,6 +23,12 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
       final createdAtB = b.antrian!.createdAt!;
       return createdAtA.compareTo(createdAtB);
     });
+
+    String formatDate(DateTime? date) {
+      if (date == null) return '';
+      final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+      return formatter.format(date);
+    }
 
     return Container(
       decoration: const BoxDecoration(
@@ -74,6 +81,7 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
                   return CardPesananBerlangsungWidget(
                     invoice: pesanan.invoice,
                     status: pesanan.antrian!.orderstatus,
+                    tanggal: formatDate(pesanan.antrian!.createdAt),
                     onTap: () {
                       Navigator.pushNamed(
                         context,

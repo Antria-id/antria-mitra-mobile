@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 class CardPesananBerlangsungWidget extends StatelessWidget {
   final String? status;
   final String? invoice;
+  final String? tanggal;
   final VoidCallback onTap;
   const CardPesananBerlangsungWidget(
-      {super.key, this.status, this.invoice, required this.onTap});
+      {super.key,
+      this.status,
+      this.invoice,
+      required this.onTap,
+      this.tanggal});
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +54,29 @@ class CardPesananBerlangsungWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(
-                  status ?? '',
-                  style: TextStyle(
-                    color: statusColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      status ?? '',
+                      style: TextStyle(
+                        color: statusColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      tanggal ?? '',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
