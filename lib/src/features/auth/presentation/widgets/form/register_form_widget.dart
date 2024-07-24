@@ -78,36 +78,12 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: AppColor.gradientTopColor,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(26),
-                bottomRight: Radius.circular(26),
-              ),
             ),
           ),
           title: Text(
             'Pendaftaran Mitra',
             style: AppTextStyle.xlargeWhite.copyWith(
               fontWeight: FontWeight.bold,
-            ),
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Daftarkan usaha serta kepemilikan usaha anda dengan mengisi data dibawah ini untuk pendaftaran Antria Mitra.',
-                    style: AppTextStyle.xSmallWhite.copyWith(
-                      height: 2,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                ],
-              ),
             ),
           ),
         ),
@@ -205,7 +181,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Data Kepemilikan',
+                              'Data Pemilik',
                               style: AppTextStyle.largeBlack.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -219,7 +195,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     email = value.trim();
                                   },
-                                  hintText: 'Masukan Email',
+                                  hintText: 'Masukan email',
                                   validator: validatorForm.validateEmail,
                                   controller: emailController,
                                 ),
@@ -230,7 +206,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     username = value.trim();
                                   },
-                                  hintText: 'Masukan Username',
+                                  hintText: 'Masukan username',
                                   validator: validatorForm.validateUsername,
                                   controller: usernameController,
                                 ),
@@ -241,7 +217,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     name = value.trim();
                                   },
-                                  hintText: 'Masukan Nama',
+                                  hintText: 'Masukan nama',
                                   validator: validatorForm.validateName,
                                   controller: nameController,
                                 ),
@@ -252,7 +228,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     nomorHp = value.trim();
                                   },
-                                  hintText: 'Masukan Nomor Handphone',
+                                  hintText: 'Masukan Nomor handphone',
                                   type: TextInputType.phone,
                                   validator: validatorForm.validatePhone,
                                   controller: nomorHpController,
@@ -264,7 +240,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     alamat = value.trim();
                                   },
-                                  hintText: 'Masukan Alamat',
+                                  hintText: 'Masukan alamat',
                                   validator: validatorForm.validateAlamat,
                                   controller: alamatController,
                                 ),
@@ -275,7 +251,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     password = value.trim();
                                   },
-                                  hintText: 'Masukkan Password',
+                                  hintText: 'Masukkan password',
                                   validator:
                                       validatorForm.validatePasswordRegister,
                                   controller: passwordController,

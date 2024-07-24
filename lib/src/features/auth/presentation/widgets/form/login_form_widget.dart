@@ -182,11 +182,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                                   onPressed: () {
                                     Navigator.pushNamed(
                                       context,
-                                      '/sign-up',
+                                      '/onboard-register',
                                     );
                                   },
                                   child: const Text(
-                                    'Daftar Sekarang',
+                                    'Daftar Mitra',
                                     style: AppTextStyle.mediumPurple,
                                   ),
                                 ),
