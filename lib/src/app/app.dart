@@ -13,7 +13,6 @@ import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/produk/
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/karyawan_profile/karyawan_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/ulasan/ulasan_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_informasi_usaha/update_informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/routes/routes.dart';
 import 'package:antria_mitra_mobile/src/themes/app_theme.dart';
@@ -71,9 +70,6 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => InformasiUsahaBloc(),
-        ),
-        BlocProvider(
-          create: (_) => UpdateInformasiUsahaBloc(),
         ),
         BlocProvider(
           create: (_) => OrderListBloc(),
