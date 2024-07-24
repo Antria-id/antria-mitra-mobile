@@ -9,6 +9,7 @@ import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:intl/intl.dart';
 
 class DetailProcessPage extends StatefulWidget {
   final String invoice;
@@ -24,6 +25,12 @@ class DetailProcessPage extends StatefulWidget {
 }
 
 class _DetailProcessPageState extends State<DetailProcessPage> {
+  String formatDate(DateTime? date) {
+    if (date == null) return '';
+    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+    return formatter.format(date);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -267,6 +274,8 @@ class _DetailProcessPageState extends State<DetailProcessPage> {
                                               .add(updateEvent);
                                         },
                                         isAmbil: false,
+                                        tanggal:
+                                            formatDate(pesananDetail.createdAt),
                                       ),
                                     )
                                   ],

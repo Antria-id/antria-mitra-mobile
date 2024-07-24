@@ -5,10 +5,17 @@ import 'package:antria_mitra_mobile/src/features/antrian/presentation/widgets/or
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class DetailPesananSelesaiPage extends StatelessWidget {
   final String invoice;
   const DetailPesananSelesaiPage({super.key, required this.invoice});
+
+  String formatDate(DateTime? date) {
+    if (date == null) return '';
+    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+    return formatter.format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +138,6 @@ class DetailPesananSelesaiPage extends StatelessWidget {
                                       OrderListWidget(
                                         orderList: [state.response],
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
                                       const Divider(
                                         color: AppColor.dividerColor,
                                       ),
@@ -142,6 +146,8 @@ class DetailPesananSelesaiPage extends StatelessWidget {
                                         isTakeAway: state.response.takeaway!,
                                         totalPrice: totalPrice,
                                         isAmbil: true,
+                                        tanggal:
+                                            formatDate(pesananDetail.createdAt),
                                       )
                                     ],
                                   ),

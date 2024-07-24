@@ -11,9 +11,9 @@ class OrderListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final allOrders = orderList.expand((invoice) => invoice.oderlist!).toList();
     return SizedBox(
-      height: 210,
+      height: 240,
       child: ListView.separated(
-        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.only(top: 10),
         itemCount: allOrders.length,
         itemBuilder: (context, index) {
           final order = allOrders[index];
@@ -31,7 +31,7 @@ class OrderListWidget extends StatelessWidget {
         },
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
-            width: 16,
+            height: 16,
           );
         },
       ),

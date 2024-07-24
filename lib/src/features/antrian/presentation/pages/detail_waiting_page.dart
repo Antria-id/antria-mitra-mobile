@@ -9,10 +9,17 @@ import 'package:antria_mitra_mobile/src/shared/toast.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class DetailWaitingPage extends StatelessWidget {
   final String invoice;
   const DetailWaitingPage({super.key, required this.invoice});
+
+  String formatDate(DateTime? date) {
+    if (date == null) return '';
+    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+    return formatter.format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +127,7 @@ class DetailWaitingPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     const Text(
                                       'Order List',
@@ -136,7 +143,7 @@ class DetailWaitingPage extends StatelessWidget {
                                       orderList: [state.response],
                                     ),
                                     const SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     const Divider(
                                       color: AppColor.dividerColor,
@@ -200,6 +207,8 @@ class DetailWaitingPage extends StatelessWidget {
                                         );
                                       },
                                       isAmbil: false,
+                                      tanggal:
+                                          formatDate(pesananDetail.createdAt),
                                     )
                                   ],
                                 ),

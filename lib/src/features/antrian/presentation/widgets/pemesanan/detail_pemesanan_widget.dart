@@ -9,6 +9,7 @@ class DetailPemesananWidget extends StatelessWidget {
   final int totalPrice;
   final bool isAmbil;
   final bool isPending;
+  final String tanggal;
   final VoidCallback? onCancelPressed;
   final VoidCallback? onAcceptPressed;
   final VoidCallback? onFinishPressed;
@@ -22,41 +23,38 @@ class DetailPemesananWidget extends StatelessWidget {
     this.onCancelPressed,
     this.onAcceptPressed,
     this.onFinishPressed,
+    required this.tanggal,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double buttonWidth = (screenWidth - 56) / 2;
+    final double buttonWidth = (screenWidth - 60) / 2;
     int biayaLayanan = 1000;
     int total = totalPrice + biayaLayanan;
 
     String formattedPrice = NumberFormat.currency(
       locale: 'id_ID',
-      symbol: 'Rp',
+      symbol: 'Rp ',
       decimalDigits: 0,
     ).format(total);
-    String formattedBiayaLayanan = NumberFormat.currency(
-      locale: 'id_ID',
-      symbol: 'Rp',
-      decimalDigits: 0,
-    ).format(biayaLayanan);
+
     String tipePemesanan = isTakeAway ? 'Take-Away' : 'Dine-In';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         const Text(
           'Detail Pemesanan',
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 10),
         Center(
           child: Container(
-            width: 400,
+            width: MediaQuery.of(context).size.width * 1,
             height: 110,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -68,6 +66,26 @@ class DetailPemesananWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
               child: Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Waktu Pemesanan',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        tanggal,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -89,7 +107,7 @@ class DetailPemesananWidget extends StatelessWidget {
                           child: Text(
                             tipePemesanan,
                             style: AppTextStyle.xSmallWhite.copyWith(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -101,30 +119,16 @@ class DetailPemesananWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Biaya Layanan',
-                        style: AppTextStyle.mediumBlack
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        formattedBiayaLayanan,
-                        style: AppTextStyle.mediumBlack
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
                         'Harga Total',
-                        style: AppTextStyle.mediumBlack
-                            .copyWith(fontWeight: FontWeight.bold),
+                        style: AppTextStyle.mediumBlack.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       Text(
                         formattedPrice,
-                        style: AppTextStyle.mediumBlack
-                            .copyWith(fontWeight: FontWeight.bold),
+                        style: AppTextStyle.mediumBlack.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
@@ -185,7 +189,7 @@ class DetailPemesananWidget extends StatelessWidget {
                       ),
                     ),
                     backgroundColor: Colors.green,
-                    size: Size(370, 50),
+                    size: Size(MediaQuery.of(context).size.width * 1, 50),
                     onPressed: onFinishPressed!,
                     child: Text(
                       'Pesanan Selesai',
