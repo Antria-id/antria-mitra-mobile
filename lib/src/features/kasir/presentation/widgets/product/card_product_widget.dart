@@ -1,4 +1,5 @@
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
+import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -142,7 +143,7 @@ class _CardProductWidgetState extends State<CardProductWidget>
                     ),
                     Text(
                       formattedPrice,
-                      style: AppTextStyle.mediumPrice.copyWith(
+                      style: AppTextStyle.mediumBlack.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -274,7 +275,19 @@ class _CardProductWidgetState extends State<CardProductWidget>
                                 ),
                               ],
                             )
-                          : ElevatedButton(
+                          : CustomButtonWidget(
+                              circularButton: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              size: Size(double.infinity, 30),
+                              child: Text(
+                                'Tambah',
+                                style: AppTextStyle.mediumBlack.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               onPressed: () {
                                 widget.onPressed();
                                 setState(() {
@@ -290,18 +303,6 @@ class _CardProductWidgetState extends State<CardProductWidget>
                                   ),
                                 );
                               },
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(140, 32),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: Text(
-                                'Tambah',
-                                style: AppTextStyle.mediumBlack.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                             ),
                     ),
                   ],

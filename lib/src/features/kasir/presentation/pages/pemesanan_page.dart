@@ -1,8 +1,8 @@
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/input_payment_dialog.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/list_pemesanan_type_widget.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/pesanan/list_pesanan_widget.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/presentation/widgets/sucess_payment_dialog.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/custom_button_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
@@ -295,7 +295,7 @@ class _PemesananPageState extends State<PemesananPage> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return InputPaymentDialog(
+                  return SuccessPayment(
                     invoice: state.invoice,
                   );
                 },

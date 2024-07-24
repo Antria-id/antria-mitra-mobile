@@ -8,12 +8,10 @@ import 'package:intl/intl.dart';
 
 class SuccessPayment extends StatelessWidget {
   final String invoice;
-  final int totalPayment;
 
   const SuccessPayment({
     super.key,
     required this.invoice,
-    required this.totalPayment,
   });
 
   String formatDate(DateTime? date) {
@@ -43,25 +41,11 @@ class SuccessPayment extends StatelessWidget {
                   biayaLayanan;
             }
 
-            int returnAmount = totalPayment - totalPrice;
-
             String formattedPrice = NumberFormat.currency(
               locale: 'id_ID',
               symbol: 'Rp ',
               decimalDigits: 0,
             ).format(totalPrice);
-
-            String formattedTotal = NumberFormat.currency(
-              locale: 'id_ID',
-              symbol: 'Rp ',
-              decimalDigits: 0,
-            ).format(totalPayment);
-
-            String formattedReturn = NumberFormat.currency(
-              locale: 'id_ID',
-              symbol: 'Rp ',
-              decimalDigits: 0,
-            ).format(returnAmount);
 
             return AlertDialog(
               backgroundColor: AppColor.whiteColor,
@@ -119,46 +103,6 @@ class SuccessPayment extends StatelessWidget {
                       ),
                       TextFormField(
                         initialValue: formattedPrice,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          fillColor: AppColor.transparent,
-                          border: UnderlineInputBorder(),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.blackColor),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.blackColor),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'TOTAL PAYMENT',
-                        style: AppTextStyle.mediumGrey,
-                      ),
-                      TextFormField(
-                        initialValue: formattedTotal,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          fillColor: AppColor.transparent,
-                          border: UnderlineInputBorder(),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.blackColor),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.blackColor),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'RETURN',
-                        style: AppTextStyle.mediumGrey,
-                      ),
-                      TextFormField(
-                        initialValue: formattedReturn,
                         readOnly: true,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.zero,

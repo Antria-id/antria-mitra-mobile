@@ -61,8 +61,8 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     child: Image.network(
                       widget.image,
-                      width: 80,
-                      height: 70,
+                      width: 92,
+                      height: 92,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Image.asset(
                         'assets/images/empty_image.jpg',
@@ -90,10 +90,8 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                       const SizedBox(height: 10),
                       Text(
                         formattedPrice,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff0D1039),
-                          fontWeight: FontWeight.w700,
+                        style: AppTextStyle.mediumBlack.copyWith(
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -103,9 +101,7 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                           visible: widget.note.isNotEmpty,
                           child: Text(
                             'Catatan: ${widget.note}',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Color(0xff0D1039),
+                            style: AppTextStyle.mediumBlack.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -121,7 +117,7 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Container(
-                    width: 80,
+                    width: 94,
                     height: 20,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -134,14 +130,14 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                     child: Row(
                       children: [
                         const SizedBox(
-                          width: 4,
+                          width: 8,
                         ),
                         const Icon(
                           Icons.note_add_rounded,
                           size: 16,
                         ),
                         const SizedBox(
-                          width: 4,
+                          width: 8,
                         ),
                         Text(
                           'Catatan',
@@ -156,7 +152,7 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 30),
+            padding: const EdgeInsets.only(bottom: 60),
             child: Container(
               width: 58,
               height: 32,
@@ -186,7 +182,6 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
               ),
             ),
           ),
-          const SizedBox(width: 10)
         ],
       ),
     );

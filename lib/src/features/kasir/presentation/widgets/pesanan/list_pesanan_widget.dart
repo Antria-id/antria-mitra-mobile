@@ -60,71 +60,77 @@ class _ListPesananWidgetState extends State<ListPesananWidget> {
                     onTap: () {
                       int id = cart['id'];
                       notesController.text = cart['note'] ?? '';
-                      showDialog(
+                      showModalBottomSheet(
+                        backgroundColor: AppColor.whiteColor,
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
                         builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: AppColor.whiteColor,
-                            contentPadding: const EdgeInsets.all(20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            content: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 20,
-                                    ),
-                                    child: Text(
-                                      'Tambah Catatan',
-                                      style: AppTextStyle.largeBlack.copyWith(
-                                        fontWeight: FontWeight.bold,
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 20,
+                                      ),
+                                      child: Text(
+                                        'Tambah Catatan',
+                                        style: AppTextStyle.largeBlack.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  TextFormField(
-                                    controller: notesController,
-                                    maxLength: 100,
-                                    decoration: const InputDecoration(
-                                      hintText:
-                                          'Contoh: Jangan pakai lalapan ya!',
-                                      hintStyle: AppTextStyle.smallGrey,
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
+                                    TextFormField(
+                                      controller: notesController,
+                                      maxLength: 100,
+                                      decoration: const InputDecoration(
+                                        hintText:
+                                            'Contoh: Jangan pakai lalapan ya!',
+                                        hintStyle: AppTextStyle.smallGrey,
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                        ),
+                                      ),
+                                      maxLines: 4,
+                                      style: AppTextStyle.mediumBlack,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Center(
+                                      child: CustomButtonWidget(
+                                        backgroundColor: AppColor.primaryColor,
+                                        circularButton: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        size: const Size(370, 50),
+                                        child: const Text(
+                                          'Simpan',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        onPressed: () {
+                                          context.read<OrderListBloc>().add(
+                                                AddNoteEvent(
+                                                  id: id,
+                                                  note: notesController.text
+                                                      .trim(),
+                                                ),
+                                              );
+                                          Navigator.pop(context);
+                                        },
                                       ),
                                     ),
-                                    maxLines: 4,
-                                    style: AppTextStyle.mediumBlack,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Center(
-                                    child: CustomButtonWidget(
-                                      backgroundColor: AppColor.primaryColor,
-                                      circularButton: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      size: const Size(100, 50),
-                                      child: const Text(
-                                        'Simpan',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      onPressed: () {
-                                        context.read<OrderListBloc>().add(
-                                              AddNoteEvent(
-                                                id: id,
-                                                note:
-                                                    notesController.text.trim(),
-                                              ),
-                                            );
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                ],
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
                               ),
                             ),
                           );
