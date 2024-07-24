@@ -3,6 +3,7 @@ import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/deta
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_waiting_page.dart';
 import 'package:antria_mitra_mobile/src/features/antrian/presentation/pages/detail_pesanan_selesai_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/login_page.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/onboard_register_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/register_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/splash_page.dart';
@@ -14,7 +15,6 @@ import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/kasir_
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/pemesanan_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/contact_support_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/edit_profile_page.dart';
-import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/informasi_usaha_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/profile_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/ulasan_screen.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/webview_screen.dart';
@@ -28,6 +28,9 @@ class AppRoutes {
 
       case '/sign-up':
         return _materialRoute(const RegisterPage());
+
+      case '/onboard-register':
+        return _materialRoute(const OnboardRegister());
 
       case '/reset-password':
         return _materialRoute(const ResetPasswordPage());
@@ -57,9 +60,6 @@ class AppRoutes {
 
       case '/edit-profile':
         return _materialRoute(const EditProfilePage());
-
-      case '/edit-informasi-usaha':
-        return _materialRoute(const InformasiUsahaPage());
 
       case '/webview-dashboard':
         return _materialRoute(const WebviewPage());
