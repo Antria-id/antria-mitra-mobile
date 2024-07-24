@@ -1,6 +1,5 @@
 import 'package:antria_mitra_mobile/src/core/failure/failure.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_karyawan_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_usaha_request.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/karyawan_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/ulasan_response.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/usaha_response_model.dart';
@@ -13,6 +12,4 @@ abstract class ProfileRepository {
 
   Future<Either<Failure, List<UlasanResponse>>> getUlasan();
   Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha();
-  Future<Either<Failure, UsahaResponseModel>> updateInformasiUsaha(
-      {required UpdateUsahaRequestModel requestModel});
 }

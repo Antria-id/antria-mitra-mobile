@@ -1,5 +1,6 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/button/dashboard_management_button_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
@@ -178,7 +179,28 @@ class ProfileHeaderWidget extends StatelessWidget {
             ),
           ),
         ),
-        const DashboardManagementWidget(),
+        BlocListener<UpdateProfileBloc, UpdateProfileState>(
+          listener: (context, state) {
+            if (state is UpdateProfileSuccess) {
+              context.read<UserBloc>().add(
+                    UserFetchData(),
+                  );
+            }
+          },
+          child: BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state is UserLoaded) {
+                final owner = state.user.isOwner;
+                if (owner == false) {
+                  return Container();
+                } else if (owner == true) {
+                  return const DashboardManagementWidget();
+                }
+              }
+              return const SizedBox();
+            },
+          ),
+        ),
       ],
     );
   }
