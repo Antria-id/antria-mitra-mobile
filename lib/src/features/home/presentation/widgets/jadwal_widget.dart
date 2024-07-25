@@ -65,64 +65,58 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                 isFull = state.mitraModel.statusToko == "FULL";
 
                 return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 17),
-                            child: Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              truncateText(formattedHariBuka, 14),
+                              style: AppTextStyle.smallBlack.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      truncateText(formattedHariBuka, 14),
-                                      style: AppTextStyle.smallBlack.copyWith(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          jadwal.jamBuka!.isEmpty &&
-                                                  jadwal.jamTutup!.isEmpty
-                                              ? truncateText('Jam Kosong', 11)
-                                              : "${jadwal.jamBuka} - ${jadwal.jamTutup}",
-                                          style:
-                                              AppTextStyle.smallBlack.copyWith(
-                                            fontWeight: FontWeight.w900,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 36,
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                Text(
+                                  jadwal.jamBuka!.isEmpty &&
+                                          jadwal.jamTutup!.isEmpty
+                                      ? truncateText('Jam Kosong', 11)
+                                      : "${jadwal.jamBuka} - ${jadwal.jamTutup}",
+                                  style: AppTextStyle.smallBlack.copyWith(
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 ),
-                                Image.asset(
-                                  'assets/icons/booking.png',
-                                  width: 34,
-                                  height: 34,
+                                const SizedBox(
+                                  width: 26,
                                 ),
                               ],
-                            ),
-                          ),
+                            )
+                          ],
                         ),
-                        const SizedBox(
-                          height: 64,
-                          child: VerticalDivider(
-                            color: AppColor.dividerColor,
-                          ),
+                        Image.asset(
+                          'assets/icons/booking.png',
+                          width: 34,
+                          height: 34,
                         ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 64,
+                      child: VerticalDivider(
+                        color: AppColor.dividerColor,
+                      ),
+                    ),
+                    Row(
+                      children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 22),
+                          padding: const EdgeInsets.only(
+                              left: 10, bottom: 10, top: 10),
                           child: Column(
                             children: [
                               Row(
@@ -266,7 +260,7 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                           ),
                         )
                       ],
-                    ),
+                    )
                   ],
                 );
               }
