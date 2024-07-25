@@ -32,7 +32,7 @@ class DetailPesananSelesaiPage extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 100,
+                    height: 110,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: AppColor.gradientTopColor,
@@ -74,86 +74,83 @@ class DetailPesananSelesaiPage extends StatelessWidget {
                         }
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
-                          child: SafeArea(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 55,
-                                        backgroundImage: pesananDetail
-                                                .pelanggan!
-                                                .profilePicture!
-                                                .isNotEmpty
-                                            ? NetworkImage(
-                                                '${APIUrl.baseUrl}${APIUrl.imagePath}${pesananDetail.pelanggan!.profilePicture}',
-                                              )
-                                            : const AssetImage(
-                                                'assets/icons/user-empty.png',
-                                              ) as ImageProvider,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    CircleAvatar(
+                                      radius: 55,
+                                      backgroundImage: pesananDetail.pelanggan!
+                                              .profilePicture!.isNotEmpty
+                                          ? NetworkImage(
+                                              '${APIUrl.baseUrl}${APIUrl.imagePath}${pesananDetail.pelanggan!.profilePicture}',
+                                            )
+                                          : const AssetImage(
+                                              'assets/icons/user-empty.png',
+                                            ) as ImageProvider,
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      pesananDetail.pelanggan!.username ==
+                                              "anonymous"
+                                          ? pesananDetail.antrian!.pesananId!
+                                          : pesananDetail.pelanggan!.username!,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Text(
-                                        pesananDetail.pelanggan!.username ==
-                                                "anonymous"
-                                            ? pesananDetail.antrian!.pesananId!
-                                            : pesananDetail
-                                                .pelanggan!.username!,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(
-                                        height: 20,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    const Text(
+                                      'Order List',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      const Text(
-                                        'Order List',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      OrderListWidget(
-                                        orderList: [state.response],
-                                      ),
-                                      const Divider(
-                                        color: AppColor.dividerColor,
-                                      ),
-                                      DetailPemesananWidget(
-                                        isPending: false,
-                                        isTakeAway: state.response.takeaway!,
-                                        totalPrice: totalPrice,
-                                        isAmbil: true,
-                                        tanggal:
-                                            formatDate(pesananDetail.createdAt),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    OrderListWidget(
+                                      orderList: [state.response],
+                                    ),
+                                    const Divider(
+                                      color: AppColor.dividerColor,
+                                    ),
+                                    DetailPemesananWidget(
+                                      isPending: false,
+                                      isTakeAway: state.response.takeaway!,
+                                      totalPrice: totalPrice,
+                                      isAmbil: true,
+                                      tanggal:
+                                          formatDate(pesananDetail.createdAt),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         );
                       }

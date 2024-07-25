@@ -36,7 +36,7 @@ class DetailWaitingPage extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 100,
+                    height: 110,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: AppColor.gradientTopColor,
@@ -83,41 +83,39 @@ class DetailWaitingPage extends StatelessWidget {
                             children: [
                               Align(
                                 alignment: Alignment.center,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 55,
-                                        backgroundImage: pesananDetail
-                                                .pelanggan!
-                                                .profilePicture!
-                                                .isNotEmpty
-                                            ? NetworkImage(
-                                                '${APIUrl.baseUrl}${APIUrl.imagePath}${pesananDetail.pelanggan!.profilePicture}',
-                                              )
-                                            : const AssetImage(
-                                                'assets/icons/user-empty.png',
-                                              ) as ImageProvider,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    CircleAvatar(
+                                      radius: 55,
+                                      backgroundImage: pesananDetail.pelanggan!
+                                              .profilePicture!.isNotEmpty
+                                          ? NetworkImage(
+                                              '${APIUrl.baseUrl}${APIUrl.imagePath}${pesananDetail.pelanggan!.profilePicture}',
+                                            )
+                                          : const AssetImage(
+                                              'assets/icons/user-empty.png',
+                                            ) as ImageProvider,
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      pesananDetail.pelanggan!.username ==
+                                              "anonymous"
+                                          ? pesananDetail.antrian!.pesananId!
+                                          : pesananDetail.pelanggan!.username!,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Text(
-                                        pesananDetail.pelanggan!.username ==
-                                                "anonymous"
-                                            ? pesananDetail.antrian!.pesananId!
-                                            : pesananDetail
-                                                .pelanggan!.username!,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                  ],
                                 ),
                               ),
                               Padding(
