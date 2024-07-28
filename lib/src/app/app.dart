@@ -6,8 +6,8 @@ import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/bloc/riwayat_transaksi/riwayat_transaksi_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/pesanan_mitra/pesanan_mitra_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/get_jadwal/get_status_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/update_jadwal/update_status_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/orderlist/order_list_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/bloc/produk/produk_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/informasi_usaha/informasi_usaha_bloc.dart';
@@ -48,10 +48,10 @@ class App extends StatelessWidget {
           create: (_) => ProdukBloc(),
         ),
         BlocProvider(
-          create: (_) => GetJadwalBloc(),
+          create: (_) => GetStatusUsahaBloc(),
         ),
         BlocProvider(
-          create: (_) => UpdateJadwalBloc(),
+          create: (_) => UpdateStatusUsahaBloc(),
         ),
         BlocProvider(
           create: (_) => UpdateStatusPesananBloc(),

@@ -84,7 +84,7 @@ void main() {
         .thenAnswer((_) async => Right(tRegisterResponse));
 
     // Act
-    final result = await registerUsecase.registerUser(tRegisterRequest);
+    final result = await registerUsecase.call(tRegisterRequest);
 
     // Assert
     expect(result, Right(tRegisterResponse));
@@ -100,7 +100,7 @@ void main() {
         .thenAnswer((_) async => Left(tFailure));
 
     // Act
-    final result = await registerUsecase.registerUser(tRegisterRequest);
+    final result = await registerUsecase.call(tRegisterRequest);
 
     // Assert
     expect(result, Left(tFailure));

@@ -5,7 +5,7 @@ import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_r
 import 'package:dartz/dartz.dart';
 
 class LogoutUserUsecase {
-  Future<Either<Failure, void>> deleteUserFromLocalStorage() async {
+  Future<Either<Failure, void>> call() async {
     final response =
         await serviceLocator<AuthRepository>().deleteUserFromLocalStorage();
     if (response.isRight()) {

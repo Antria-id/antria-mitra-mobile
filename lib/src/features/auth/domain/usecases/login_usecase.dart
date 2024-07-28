@@ -7,8 +7,7 @@ import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_r
 import 'package:dartz/dartz.dart';
 
 class LoginUsecase {
-  Future<Either<Failure, LoginResponse>> loginUser(
-      LoginRequest requestUser) async {
+  Future<Either<Failure, LoginResponse>> call(LoginRequest requestUser) async {
     final response =
         await serviceLocator<AuthRepository>().login(requestUser: requestUser);
     if (response.isRight()) {

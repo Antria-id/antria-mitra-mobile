@@ -10,7 +10,6 @@ import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_r
 import 'package:dartz/dartz.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  @override
   Future<Either<Failure, LoginResponse>> login(
       {required LoginRequest requestUser}) {
     return serviceLocator<AuthRemoteDatasource>().loginUser(

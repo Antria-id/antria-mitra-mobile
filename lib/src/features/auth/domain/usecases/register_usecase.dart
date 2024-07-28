@@ -6,7 +6,7 @@ import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_r
 import 'package:dartz/dartz.dart';
 
 class RegisterUsecase {
-  Future<Either<Failure, RegisterResponse>> registerUser(
+  Future<Either<Failure, RegisterResponse>> call(
       RegisterRequest requestUser) async {
     final response = await serviceLocator<AuthRepository>()
         .register(requestUser: requestUser);

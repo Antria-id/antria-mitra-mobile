@@ -77,6 +77,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                           : AppColor.greyColor,
                       onPressed: () => onItemTapped(1),
                     ),
+                    SizedBox(width: 60), // Space for FAB
                     IconButton(
                       icon: const Icon(
                         Icons.history_rounded,
@@ -104,6 +105,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
         ],
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 26),
+        child: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          backgroundColor: AppColor.whiteColor,
+          onPressed: () {
+            Navigator.pushNamed(context, '/kasir');
+          },
+          child: Image.asset(
+            'assets/icons/menu.png',
+            width: 30,
+            height: 30,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

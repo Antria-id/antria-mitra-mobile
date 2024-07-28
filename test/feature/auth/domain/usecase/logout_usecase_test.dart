@@ -38,7 +38,7 @@ void main() {
         .thenAnswer((_) async => const Right(null));
 
     // Act
-    final result = await logoutUserUsecase.deleteUserFromLocalStorage();
+    final result = await logoutUserUsecase.call();
 
     // Assert
     expect(result, const Right(null));
@@ -54,7 +54,7 @@ void main() {
         .thenAnswer((_) async => Left(tFailure));
 
     // Act
-    final result = await logoutUserUsecase.deleteUserFromLocalStorage();
+    final result = await logoutUserUsecase.call();
 
     // Assert
     expect(result, Left(tFailure));

@@ -56,6 +56,7 @@ class DetailHistoryTransaksiPage extends StatelessWidget {
                 );
               } else if (state is DetailTransaksiLoaded) {
                 var transaksi = state.response;
+
                 int totalPrice = 0;
                 for (var orderItem in transaksi.oderlist!) {
                   totalPrice +=

@@ -133,7 +133,7 @@ class _PesananCardWidgetState extends State<PesananCardWidget>
                           width: 8,
                         ),
                         const Icon(
-                          Icons.note_add_rounded,
+                          Icons.edit,
                           size: 16,
                         ),
                         const SizedBox(

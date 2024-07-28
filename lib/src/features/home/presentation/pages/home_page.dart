@@ -11,15 +11,12 @@ import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ExpandableFabState> fabKey =
-        GlobalKey<ExpandableFabState>();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -53,7 +50,7 @@ class HomePage extends StatelessWidget {
                 builder: (context, state) {
                   if (state is UserError) {
                     return Center(
-                      child: Text('Error: ${state.message}'),
+                      child: Text('Failed Fetch Data'),
                     );
                   } else if (state is UserLoaded) {
                     final profileData = state.user;
@@ -224,67 +221,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        floatingActionButtonLocation: ExpandableFab.location,
-        floatingActionButton: ExpandableFab(
-          key: fabKey,
-          type: ExpandableFabType.up,
-          pos: ExpandableFabPos.right,
-          distance: 60,
-          openButtonBuilder: RotateFloatingActionButtonBuilder(
-            backgroundColor: AppColor.primaryColor,
-            foregroundColor: AppColor.whiteColor,
-            child: const Icon(
-              Icons.menu_rounded,
-              size: 30,
-            ),
-            fabSize: ExpandableFabSize.regular,
-            shape: const CircleBorder(),
-            angle: 3.14 * 2,
-          ),
-          closeButtonBuilder: FloatingActionButtonBuilder(
-            size: 56,
-            builder: (BuildContext context, void Function()? onPressed,
-                Animation<double> progress) {
-              return IconButton(
-                onPressed: onPressed,
-                icon: const Icon(
-                  Icons.close,
-                  size: 40,
-                ),
-              );
-            },
-          ),
-          children: [
-            FloatingActionButton.small(
-              heroTag: null,
-              backgroundColor: AppColor.whiteColor,
-              shape: const CircleBorder(),
-              child: Image.asset(
-                'assets/icons/menu.png',
-                width: 25,
-                height: 25,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/kasir');
-                fabKey.currentState?.toggle();
-              },
-            ),
-            FloatingActionButton.small(
-              heroTag: null,
-              backgroundColor: AppColor.whiteColor,
-              shape: const CircleBorder(),
-              child: Image.asset(
-                'assets/icons/edit-jadwal.png',
-                width: 25,
-                height: 25,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/jadwal');
-                fabKey.currentState?.toggle();
-              },
-            ),
-          ],
         ),
       ),
     );

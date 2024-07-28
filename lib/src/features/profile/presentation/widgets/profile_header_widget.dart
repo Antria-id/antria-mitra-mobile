@@ -1,7 +1,7 @@
 import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/user/user_bloc.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/bloc/update_profile/update_profile_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/button/dashboard_management_button_widget.dart';
+import 'package:antria_mitra_mobile/src/features/profile/presentation/widgets/button/web_management_button_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class ProfileHeaderWidget extends StatelessWidget {
               builder: (context, state) {
                 if (state is UserError) {
                   return Center(
-                    child: Text('Error: ${state.message}'),
+                    child: Text('Failed Fetch Data'),
                   );
                 } else if (state is UserLoaded) {
                   final profileData = state.user;

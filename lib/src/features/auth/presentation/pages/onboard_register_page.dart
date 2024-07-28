@@ -21,6 +21,7 @@ class OnboardRegister extends StatelessWidget {
           ],
         ),
       ),
+      backgroundColor: AppColor.whiteColor,
       body: Column(
         children: [
           SizedBox(

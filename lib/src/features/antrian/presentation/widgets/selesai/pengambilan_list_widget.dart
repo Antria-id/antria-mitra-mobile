@@ -35,9 +35,9 @@ class SelesaiListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           final pengambilan = filteredList[index];
           return SelesaiCardWidget(
-            nama: pengambilan.pesanan!.pelanggan!.nama == 'anonymous'
+            nama: pengambilan.pesanan!.pelanggan!.username == 'anonymous'
                 ? pengambilan.pesananId
-                : pengambilan.pesanan!.pelanggan!.nama,
+                : pengambilan.pesanan!.pelanggan!.username,
             image: pengambilan.pesanan!.pelanggan!.profilePicture,
             onTap: () {
               Navigator.pushNamed(

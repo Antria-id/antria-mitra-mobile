@@ -26,7 +26,7 @@ class _WebviewPageState extends State<WebviewPage> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
-          'Dashboard Management',
+          'Web Management',
           style: AppTextStyle.largeWhite.copyWith(
             fontWeight: FontWeight.bold,
           ),

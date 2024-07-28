@@ -18,9 +18,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<AuthEvent>((event, emit) async {
       if (event is LoginButtonTapped) {
-        final response = event.request;
+        final request = event.request;
         emit(LoginLoading());
-        var result = await serviceLocator<LoginUsecase>().loginUser(response);
+        var result = await serviceLocator<LoginUsecase>().call(request);
         result.fold(
           (failure) {
             emit(LoginFailed(message: failure.message));
@@ -34,10 +34,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       if (event is RegisterButtonTapped) {
-        final response = event.request;
+        final request = event.request;
         emit(RegisterLoading());
-        var result =
-            await serviceLocator<RegisterUsecase>().registerUser(response);
+        var result = await serviceLocator<RegisterUsecase>().call(request);
         result.fold(
           (failure) {
             emit(RegisterFailed(message: failure.message));
@@ -52,8 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       if (event is LogoutTapped) {
         emit(LogoutLoading());
-        var result = await serviceLocator<LogoutUserUsecase>()
-            .deleteUserFromLocalStorage();
+        var result = await serviceLocator<LogoutUserUsecase>().call();
         result.fold(
           (failure) {
             emit(LogoutFailed(message: failure.message));

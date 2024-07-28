@@ -31,13 +31,13 @@ class DashboardManagementWidget extends StatelessWidget {
                 width: 40,
                 height: 40,
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              Text(
-                'Dashboard Management',
-                style: AppTextStyle.mediumBlack.copyWith(
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48),
+                child: Text(
+                  'Web Management',
+                  style: AppTextStyle.mediumBlack.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

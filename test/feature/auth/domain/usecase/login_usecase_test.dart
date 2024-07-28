@@ -42,7 +42,7 @@ void main() {
         .thenAnswer((_) async => const Right(tLoginResponse));
 
     // Act
-    final result = await loginUsecase.loginUser(tLoginRequest);
+    final result = await loginUsecase.call(tLoginRequest);
 
     // Assert
     expect(result, const Right(tLoginResponse));
@@ -58,7 +58,7 @@ void main() {
         .thenAnswer((_) async => const Left(tFailure));
 
     // Act
-    final result = await loginUsecase.loginUser(tLoginRequest);
+    final result = await loginUsecase.call(tLoginRequest);
 
     // Assert
     expect(result, const Left(tFailure));

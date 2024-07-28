@@ -53,9 +53,9 @@ class TakeAwayListWidget extends StatelessWidget {
           String nomor =
               (nomorList.indexOf(antrian) + 1).toString().padLeft(2, '0');
           return AntrianCardWidget(
-            nama: antrian.pesanan!.pelanggan!.nama == 'anonymous'
+            nama: antrian.pesanan!.pelanggan!.username == 'anonymous'
                 ? antrian.pesananId
-                : antrian.pesanan!.pelanggan!.nama,
+                : antrian.pesanan!.pelanggan!.username,
             image: antrian.pesanan!.pelanggan!.profilePicture,
             nomor: nomor,
             onTap: () {

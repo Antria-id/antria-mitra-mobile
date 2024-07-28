@@ -1,7 +1,7 @@
 import 'package:antria_mitra_mobile/src/core/utils/format_hari.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/data/models/request/mitra_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/get_jadwal/get_jadwal_bloc.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/presentation/bloc/update_jadwal/update_jadwal_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/data/models/stataus_usaha_request_model.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/get_jadwal/get_status_usaha_bloc.dart';
+import 'package:antria_mitra_mobile/src/features/home/presentation/bloc/update_jadwal/update_status_usaha_bloc.dart';
 import 'package:antria_mitra_mobile/src/shared/failed_fetch_data_widget.dart';
 import 'package:antria_mitra_mobile/src/themes/app_color.dart';
 import 'package:antria_mitra_mobile/src/themes/app_text_style.dart';
@@ -24,9 +24,9 @@ class _JadwalWidgetState extends State<JadwalWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GetJadwalBloc()
+      create: (context) => GetStatusUsahaBloc()
         ..add(
-          GetJadwalFetchData(),
+          GetStatusFetchData(),
         ),
       child: Container(
         width: double.infinity,
@@ -40,18 +40,19 @@ class _JadwalWidgetState extends State<JadwalWidget> {
           ),
           color: Colors.white,
         ),
-        child: BlocListener<UpdateJadwalBloc, UpdateJadwalState>(
+        child: BlocListener<UpdateStatusUsahaBloc, UpdateStatusUsahaState>(
           listener: (context, state) {
-            if (state is UpdateJadwalSuccess) {
-              BlocProvider.of<GetJadwalBloc>(context).add(GetJadwalFetchData());
+            if (state is UpdateStatusSuccess) {
+              BlocProvider.of<GetStatusUsahaBloc>(context)
+                  .add(GetStatusFetchData());
             }
           },
-          child: BlocBuilder<GetJadwalBloc, GetJadwalState>(
+          child: BlocBuilder<GetStatusUsahaBloc, GetStatusUsahaState>(
             builder: (context, state) {
-              if (state is GetJadwalError) {
+              if (state is GetStatusError) {
                 return const FailedFetchDataWidget();
-              } else if (state is GetJadwalLoaded) {
-                final jadwal = state.mitraModel;
+              } else if (state is GetStatusLoaded) {
+                final jadwal = state.statusUsahaModel;
                 final formattedHariBuka = formatHariBuka(jadwal.hariBuka);
                 String truncateText(String text, int maxLength) {
                   if (text.length <= maxLength) {
@@ -61,8 +62,8 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                   }
                 }
 
-                isBuka = state.mitraModel.statusToko == "OPEN";
-                isFull = state.mitraModel.statusToko == "FULL";
+                isBuka = state.statusUsahaModel.statusToko == "OPEN";
+                isFull = state.statusUsahaModel.statusToko == "FULL";
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,7 +117,10 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 10, bottom: 10, top: 10),
+                            left: 14,
+                            bottom: 10,
+                            top: 10,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -150,30 +154,16 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                                             } else {
                                               updateStatusToko = "CLOSE";
                                             }
-                                            final currentState = context
-                                                .read<GetJadwalBloc>()
-                                                .state;
-                                            if (currentState
-                                                is GetJadwalLoaded) {
-                                              final existingModel =
-                                                  currentState.mitraModel;
 
-                                              final updateEvent =
-                                                  UpdateJadwalTapped(
-                                                requestUser: MitraRequestModel(
-                                                  hariBuka:
-                                                      existingModel.hariBuka,
-                                                  jamBuka:
-                                                      existingModel.jamBuka,
-                                                  jamTutup:
-                                                      existingModel.jamTutup,
-                                                  statusToko: updateStatusToko,
-                                                ),
-                                              );
-                                              context
-                                                  .read<UpdateJadwalBloc>()
-                                                  .add(updateEvent);
-                                            }
+                                            final updateEvent =
+                                                UpdateStatusTapped(
+                                              requestUser: StatusUsahaRequest(
+                                                statusToko: updateStatusToko,
+                                              ),
+                                            );
+                                            context
+                                                .read<UpdateStatusUsahaBloc>()
+                                                .add(updateEvent);
                                           });
                                         },
                                       ),
@@ -230,24 +220,14 @@ class _JadwalWidgetState extends State<JadwalWidget> {
                                           updateStatusToko = "FULL";
                                         }
                                         isFull = value!;
-                                        final currentState =
-                                            context.read<GetJadwalBloc>().state;
-                                        if (currentState is GetJadwalLoaded) {
-                                          final existingModel =
-                                              currentState.mitraModel;
-                                          final updateEvent =
-                                              UpdateJadwalTapped(
-                                            requestUser: MitraRequestModel(
-                                              hariBuka: existingModel.hariBuka,
-                                              jamBuka: existingModel.jamBuka,
-                                              jamTutup: existingModel.jamTutup,
-                                              statusToko: updateStatusToko,
-                                            ),
-                                          );
-                                          context
-                                              .read<UpdateJadwalBloc>()
-                                              .add(updateEvent);
-                                        }
+                                        final updateEvent = UpdateStatusTapped(
+                                          requestUser: StatusUsahaRequest(
+                                            statusToko: updateStatusToko,
+                                          ),
+                                        );
+                                        context
+                                            .read<UpdateStatusUsahaBloc>()
+                                            .add(updateEvent);
                                       });
                                     },
                                   ),

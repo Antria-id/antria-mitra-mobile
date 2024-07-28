@@ -37,9 +37,9 @@ class WaitingListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           final pending = filteredList[index];
           return WaitingCardWidget(
-            nama: pending.pesanan!.pelanggan!.nama == 'anonymous'
+            nama: pending.pesanan!.pelanggan!.username == 'anonymous'
                 ? pending.pesananId
-                : pending.pesanan!.pelanggan!.nama,
+                : pending.pesanan!.pelanggan!.username,
             image: pending.pesanan!.pelanggan!.profilePicture,
             onTap: () {
               Navigator.pushNamed(

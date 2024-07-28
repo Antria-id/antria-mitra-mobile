@@ -10,7 +10,6 @@ import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/splash_
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/detail_history_transaksi_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/presentation/pages/jadwal_page.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/kasir_page.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/presentation/pages/pemesanan_page.dart';
 import 'package:antria_mitra_mobile/src/features/profile/presentation/pages/contact_support_page.dart';
@@ -69,9 +68,6 @@ class AppRoutes {
 
       case '/pemesanan':
         return _materialRoute(const PemesananPage());
-
-      case '/jadwal':
-        return _materialRoute(const JadwalPage());
 
       case '/antrian':
         return _materialRoute(const AntrianPage());

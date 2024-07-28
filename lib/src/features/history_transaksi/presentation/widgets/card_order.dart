@@ -45,9 +45,13 @@ class CardOrder extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  deskripsi,
-                  style: AppTextStyle.mediumGrey,
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    deskripsi,
+                    style: AppTextStyle.mediumGrey,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -59,10 +63,13 @@ class CardOrder extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              formattedPrice,
-              style: AppTextStyle.mediumBlack.copyWith(
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Text(
+                formattedPrice,
+                style: AppTextStyle.mediumBlack.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

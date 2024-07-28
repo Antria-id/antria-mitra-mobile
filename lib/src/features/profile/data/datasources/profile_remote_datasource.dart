@@ -5,7 +5,6 @@ import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_karyawan_request_model.dart';
-import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_usaha_request.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/karyawan_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/ulasan_response.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/usaha_response_model.dart';
@@ -18,8 +17,6 @@ abstract class ProfileUserDatasource {
       {required UpdateKaryawanRequestModel requestModel});
   Future<Either<Failure, List<UlasanResponse>>> getUlasan();
   Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha();
-  Future<Either<Failure, UsahaResponseModel>> updateInformasiUsaha(
-      {required UpdateUsahaRequestModel requestModel});
 }
 
 class ProfileUserDatasourceImpl extends ProfileUserDatasource {
@@ -130,53 +127,6 @@ class ProfileUserDatasourceImpl extends ProfileUserDatasource {
       }
     } catch (e) {
       return Left(ParsingFailure('Unable to parse the response: $e'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, UsahaResponseModel>> updateInformasiUsaha(
-      {required UpdateUsahaRequestModel requestModel}) async {
-    try {
-      final UserCacheService userCacheService =
-          serviceLocator<UserCacheService>();
-      final UserModel? user = await userCacheService.getUser();
-      if (user == null) {
-        return const Left(
-          ParsingFailure('User not found'),
-        );
-      }
-      final int mitraId = user.mitraId!;
-
-      MultipartFile? gambarToko;
-      if (requestModel.gambarToko != null) {
-        gambarToko = await MultipartFile.fromFile(
-          requestModel.gambarToko!,
-        );
-      }
-
-      final formData = FormData.fromMap({
-        'nama_toko': requestModel.namaToko,
-        'deskripsi_toko': requestModel.deskripsiToko,
-        'alamat': requestModel.alamat,
-        'linkGmaps': requestModel.linkGmaps,
-        if (gambarToko != null) 'gambar_toko': gambarToko,
-      });
-
-      final response = await request.put(
-        APIUrl.getMitraPath(mitraId),
-        data: formData,
-      );
-
-      if (response.statusCode == 200) {
-        final UsahaResponseModel usahaResponse =
-            UsahaResponseModel.fromJson(response.data);
-        return Right(usahaResponse);
-      }
-      return Left(ConnectionFailure(response.data['message']));
-    } catch (e) {
-      return const Left(
-        ParsingFailure('Unable to parse the response'),
-      );
     }
   }
 

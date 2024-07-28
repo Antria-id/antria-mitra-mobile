@@ -26,11 +26,8 @@ import 'package:antria_mitra_mobile/src/features/home/domain/usecases/check_user
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_pesanan_mitra_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_local_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_user_remote_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/data/datasources/jadwal_remote_datasource.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/data/repositories/jadwal_repository_impl.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/domain/repositories/jadwal_repository.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/domain/usecases/get_jadwal_usecase.dart';
-import 'package:antria_mitra_mobile/src/features/jadwal/domain/usecases/update_jadwal_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/home/domain/usecases/get_status_usaha_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/home/domain/usecases/update_jadwal_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/kasir_local_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/kasir_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/repositories/kasir_repository_impl.dart';
@@ -90,6 +87,10 @@ Future<void> setUpServiceLocator() async {
       .registerFactory<GetUserRemoteUsecase>(() => GetUserRemoteUsecase());
   serviceLocator
       .registerFactory<GetPesananMitraUsecase>(() => GetPesananMitraUsecase());
+  serviceLocator
+      .registerFactory<GetStatusUsahaUsecase>(() => GetStatusUsahaUsecase());
+  serviceLocator.registerFactory<UpdateStatusUsahaUsecase>(
+      () => UpdateStatusUsahaUsecase());
 
   //repository
   serviceLocator.registerFactory<HomeRepository>(() => HomeRepositoryImpl());
@@ -142,21 +143,6 @@ Future<void> setUpServiceLocator() async {
 
   //Repository
   serviceLocator.registerFactory<KasirRepository>(() => KasirRepositoryImpl());
-
-  //Jadwal
-
-  //usecase
-  serviceLocator.registerFactory<GetJadwalUsecase>(() => GetJadwalUsecase());
-  serviceLocator
-      .registerFactory<UpdateJadwalUsecase>(() => UpdateJadwalUsecase());
-
-  //datasource
-  serviceLocator.registerFactory<JadwalRemoteDatasource>(
-      () => JadwalRemoteDatasourceImpl());
-
-  //Repository
-  serviceLocator
-      .registerFactory<JadwalRepository>(() => JadwalRepositoryImpl());
 
   //Antrian
 
