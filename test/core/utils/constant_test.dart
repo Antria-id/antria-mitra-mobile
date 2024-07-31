@@ -59,8 +59,4 @@ void main() {
   test('imagePath returns correct path', () {
     expect(APIUrl.imagePath, '/image/');
   });
-
-  test('getUser returns correct path for id', () {
-    expect(APIUrl.getUser(456), '/karyawan/456');
-  });
 }

@@ -59,7 +59,7 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
         return const Left(ParsingFailure('User not found'));
       }
       final int id = user.sub!;
-      final response = await request.get(APIUrl.getUser(id));
+      final response = await request.get(APIUrl.getKaryawanPath(id));
 
       if (response.statusCode == 200) {
         final KaryawanModel karyawanModel =
