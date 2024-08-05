@@ -6,13 +6,16 @@ import 'package:antria_mitra_mobile/src/core/utils/constant.dart';
 import 'package:antria_mitra_mobile/src/core/utils/request.dart';
 import 'package:antria_mitra_mobile/src/features/auth/data/models/response/user_model.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/models/product_model.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/models/usaha_response_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class KasirRemoteDatasource {
   Future<Either<Failure, List<ProductModel>>> getProduct();
+  Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha();
 }
 
 class KasirRemoteDatasourceImpl implements KasirRemoteDatasource {
+  final Request request = serviceLocator<Request>();
   @override
   Future<Either<Failure, List<ProductModel>>> getProduct() async {
     try {
@@ -44,6 +47,34 @@ class KasirRemoteDatasourceImpl implements KasirRemoteDatasource {
       }
     } catch (e) {
       return Left(ParsingFailure('Unable to parse the response: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha() async {
+    try {
+      final UserCacheService userCacheService =
+          serviceLocator<UserCacheService>();
+      final UserModel? user = await userCacheService.getUser();
+      if (user == null) {
+        return const Left(
+          ParsingFailure('User not found'),
+        );
+      }
+      final int mitraId = user.mitraId!;
+      final response = await request.get(APIUrl.getMitraPath(mitraId));
+      if (response.statusCode == 200) {
+        final UsahaResponseModel mitraModel =
+            UsahaResponseModel.fromJson(response.data);
+        return Right(mitraModel);
+      }
+      return Left(
+        ConnectionFailure(response.data['message']),
+      );
+    } catch (e) {
+      return const Left(
+        ParsingFailure('Unable to parse the response'),
+      );
     }
   }
 }

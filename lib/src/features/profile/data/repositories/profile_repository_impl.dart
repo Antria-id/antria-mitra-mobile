@@ -4,7 +4,6 @@ import 'package:antria_mitra_mobile/src/features/profile/data/datasources/profil
 import 'package:antria_mitra_mobile/src/features/profile/data/models/request/update_karyawan_request_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/karyawan_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/models/response/ulasan_response.dart';
-import 'package:antria_mitra_mobile/src/features/profile/data/models/response/usaha_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/repositories/profile_repository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -25,10 +24,5 @@ class ProfileRepositoryImpl extends ProfileRepository {
   @override
   Future<Either<Failure, List<UlasanResponse>>> getUlasan() {
     return serviceLocator<ProfileUserDatasource>().getUlasan();
-  }
-
-  @override
-  Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha() {
-    return serviceLocator<ProfileUserDatasource>().getInformasiUsaha();
   }
 }

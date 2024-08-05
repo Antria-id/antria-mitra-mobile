@@ -12,6 +12,10 @@ class APIUrl {
   static String getPesananByInvoicePath(String invoice) => '/pesanan/$invoice';
   static String getUlasanPath(int mitraId) => '/reviews/mitra/$mitraId';
   static String getupdateOrderPath(int id) => '/antrian/$id';
+  static String getForgotPassPath(String email) =>
+      '/auth/forgot/karyawan/$email';
+  static String getOTPPath(String email, int otp) =>
+      '/auth/verify-otp/karyawan/$email/$otp';
   static String get insertPesanan => '/pesanan';
   static String get imagePath => '/image/';
 }

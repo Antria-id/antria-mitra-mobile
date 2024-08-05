@@ -18,9 +18,11 @@ class ListUlasanWidget extends StatelessWidget {
         text: 'Data tidak ditemukan',
       ));
     }
+    ulasanList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     return SizedBox(
       height: double.infinity,
       child: ListView.separated(
+        padding: EdgeInsets.only(bottom: 30),
         itemCount: ulasanList.length,
         itemBuilder: (context, index) {
           final ulasan = ulasanList[index];
@@ -34,7 +36,7 @@ class ListUlasanWidget extends StatelessWidget {
         },
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
-            height: 20,
+            height: 16,
           );
         },
       ),

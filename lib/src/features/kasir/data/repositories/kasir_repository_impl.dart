@@ -3,6 +3,7 @@ import 'package:antria_mitra_mobile/src/core/services/services_locator.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/kasir_local_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/datasources/kasir_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/data/models/product_model.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/data/models/usaha_response_model.dart';
 import 'package:antria_mitra_mobile/src/features/kasir/domain/repositories/kasir_repository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -124,5 +125,10 @@ class KasirRepositoryImpl extends KasirRepository {
       return Left(
           LocalDatabaseQueryFailure('Unable to increment order quantity: $e'));
     }
+  }
+
+  @override
+  Future<Either<Failure, UsahaResponseModel>> getInformasiUsaha() {
+    return serviceLocator<KasirRemoteDatasource>().getInformasiUsaha();
   }
 }

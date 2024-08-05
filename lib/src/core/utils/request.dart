@@ -59,7 +59,14 @@ class Request {
     return await dio.post(path, data: data);
   }
 
-  Future<Response> put(String path, {Object? data}) async {
-    return await dio.put(path, data: data);
+  Future<Response> put(String path,
+      {Object? data, Map<String, dynamic>? headers}) async {
+    return await dio.put(
+      path,
+      data: data,
+      options: Options(
+        headers: headers,
+      ),
+    );
   }
 }

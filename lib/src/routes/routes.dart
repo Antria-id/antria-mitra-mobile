@@ -7,6 +7,7 @@ import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/onboard
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/register_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/splash_page.dart';
+import 'package:antria_mitra_mobile/src/features/auth/presentation/pages/verify_otp_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/detail_history_transaksi_page.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/presentation/pages/history_transaksi.dart';
 import 'package:antria_mitra_mobile/src/features/home/presentation/pages/home_page.dart';
@@ -33,6 +34,12 @@ class AppRoutes {
 
       case '/reset-password':
         return _materialRoute(const ResetPasswordPage());
+
+      case '/verify-otp':
+        final email = settings.arguments as String;
+        return _materialRoute(VerifyOTPPage(
+          email: email,
+        ));
 
       case '/home':
         return _materialRoute(const HomePage());

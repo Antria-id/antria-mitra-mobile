@@ -11,7 +11,8 @@ class ListTransaksiWidget extends StatelessWidget {
   String formatDate(DateTime? date) {
     if (date == null) return '';
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
-    return formatter.format(date);
+    final DateTime localDate = date.toLocal();
+    return formatter.format(localDate);
   }
 
   int income(List<Oderlist> orders) {
@@ -25,19 +26,17 @@ class ListTransaksiWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
+    final DateTime now = DateTime.now();
+    final int currentMonth = now.month;
+    final int currentYear = now.year;
 
     List<RiwayatTransaksiResponse> filteredList = transaksiList
-        .where(
-          (transaksi) =>
-              transaksi.antrian != null &&
-              transaksi.antrian!.orderstatus == 'ALLDONE' &&
-              transaksi.createdAt != null &&
-              DateTime(transaksi.createdAt!.year, transaksi.createdAt!.month,
-                      transaksi.createdAt!.day)
-                  .isAtSameMomentAs(today),
-        )
+        .where((transaksi) =>
+            transaksi.antrian != null &&
+            transaksi.antrian!.orderstatus == 'ALLDONE' &&
+            transaksi.createdAt != null &&
+            transaksi.createdAt!.month == currentMonth &&
+            transaksi.createdAt!.year == currentYear)
         .toList();
 
     filteredList.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));

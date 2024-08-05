@@ -228,7 +228,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   onChanged: (value) {
                                     nomorHp = value.trim();
                                   },
-                                  hintText: 'Masukan Nomor handphone',
+                                  hintText: 'Masukan nomor handphone',
                                   type: TextInputType.phone,
                                   validator: validatorForm.validatePhone,
                                   controller: nomorHpController,

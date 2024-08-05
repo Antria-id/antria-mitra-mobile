@@ -27,7 +27,8 @@ class ListPesananBerlangsungWidget extends StatelessWidget {
     String formatDate(DateTime? date) {
       if (date == null) return '';
       final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
-      return formatter.format(date);
+      final DateTime localDate = date.toLocal();
+      return formatter.format(localDate);
     }
 
     return Container(

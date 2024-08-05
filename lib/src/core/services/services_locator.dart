@@ -12,7 +12,9 @@ import 'package:antria_mitra_mobile/src/features/auth/data/datasources/auth_remo
 import 'package:antria_mitra_mobile/src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/login_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/otp_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/register_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/data/datasources/riwayat_transaksi_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/data/repositories/riwayat_transaksi_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/history_transaksi/domain/repositories/riwayat_transaksi_repository.dart';
@@ -37,7 +39,7 @@ import 'package:antria_mitra_mobile/src/features/kasir/domain/usecases/order_lis
 import 'package:antria_mitra_mobile/src/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:antria_mitra_mobile/src/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/repositories/profile_repository.dart';
-import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_informasi_usaha_usecase.dart';
+import 'package:antria_mitra_mobile/src/features/kasir/domain/usecases/get_informasi_usaha_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_karyawan_profile_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/profile/domain/usecases/get_ulasan_mitra_usecase.dart';
 import 'package:antria_mitra_mobile/src/features/auth/domain/usecases/logout_user_usecase.dart';
@@ -65,6 +67,9 @@ Future<void> setUpServiceLocator() async {
   serviceLocator.registerFactory<LoginUsecase>(() => LoginUsecase());
   serviceLocator.registerFactory<RegisterUsecase>(() => RegisterUsecase());
   serviceLocator.registerFactory<LogoutUserUsecase>(() => LogoutUserUsecase());
+  serviceLocator.registerFactory<OTPUsecase>(() => OTPUsecase());
+  serviceLocator
+      .registerFactory<ResetPasswordUsecase>(() => ResetPasswordUsecase());
 
   //repository
   serviceLocator.registerFactory<AuthRepository>(() => AuthRepositoryImpl());
@@ -126,14 +131,14 @@ Future<void> setUpServiceLocator() async {
       () => UpdateKaryawanProfileUsecase());
   serviceLocator
       .registerFactory<GetUlasanMitraUsecase>(() => GetUlasanMitraUsecase());
-  serviceLocator.registerFactory<GetInformasiUsahaUsecase>(
-      () => GetInformasiUsahaUsecase());
 
   //Kasir
 
   //usecase
   serviceLocator.registerFactory<GetProductUsecase>(() => GetProductUsecase());
   serviceLocator.registerFactory<OrderListUsecase>(() => OrderListUsecase());
+  serviceLocator.registerFactory<GetInformasiUsahaUsecase>(
+      () => GetInformasiUsahaUsecase());
 
   //datasource
   serviceLocator.registerFactory<KasirRemoteDatasource>(
