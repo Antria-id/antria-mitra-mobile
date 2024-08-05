@@ -44,7 +44,7 @@ class ContactSupportPage extends StatelessWidget {
               label: 'Gmail',
               link: 'halo@antria.id',
               onTap: () async {
-                final uri = Uri.parse('mailto:antria.id@gmail.com');
+                final uri = Uri.parse('mailto:halo@antria.id');
                 await launchUrl(uri);
               },
             )

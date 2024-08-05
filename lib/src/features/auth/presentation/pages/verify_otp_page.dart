@@ -42,6 +42,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
           child: AbsorbPointer(
             absorbing: isLoading,
             child: Scaffold(
+              backgroundColor: AppColor.whiteColor,
               body: Center(
                 child: Form(
                   key: formKey,
