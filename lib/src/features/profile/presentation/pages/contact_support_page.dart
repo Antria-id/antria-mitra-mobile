@@ -31,9 +31,9 @@ class ContactSupportPage extends StatelessWidget {
             CardContactSupportWidget(
                 icon: 'assets/icons/whatsapp.png',
                 label: 'Whatsapp',
-                link: 'https://wa.me/qr/XDO2145111',
+                link: 'https://wa.me/+6281328724655',
                 onTap: () async {
-                  final uri = Uri.parse('https://wa.me/qr/XDO2145111');
+                  final uri = Uri.parse('https://wa.me/+6281328724655');
                   await launchUrl(uri);
                 }),
             const SizedBox(
@@ -42,7 +42,7 @@ class ContactSupportPage extends StatelessWidget {
             CardContactSupportWidget(
               icon: 'assets/icons/gmail.png',
               label: 'Gmail',
-              link: 'antria.id@gmail.com',
+              link: 'halo@antria.id',
               onTap: () async {
                 final uri = Uri.parse('mailto:antria.id@gmail.com');
                 await launchUrl(uri);
