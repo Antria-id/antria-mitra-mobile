@@ -52,27 +52,19 @@ class UlasanPage extends StatelessWidget {
                 sumRatings += rating;
                 if (rating == 5) {
                   counterFiveStars++;
-                } else if (rating == 4.5) {
-                  counterFourStars++;
                 } else if (rating == 4) {
                   counterFourStars++;
-                } else if (rating == 3.5) {
-                  counterThreeStars++;
                 } else if (rating == 3) {
                   counterThreeStars++;
-                } else if (rating == 2.5) {
-                  counterTwoStars++;
                 } else if (rating == 2) {
                   counterTwoStars++;
-                } else if (rating == 1.5) {
-                  counterOneStars++;
                 } else if (rating == 1) {
                   counterOneStars++;
                 }
               }
 
               double averageRating =
-                  totalRatings > 0 ? sumRatings / totalRatings + 0.1 : 0;
+                  totalRatings > 0 ? sumRatings / totalRatings : 0;
 
               return Padding(
                 padding:
